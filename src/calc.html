@@ -18,6 +18,8 @@
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/custom.css">
 </head>
 
@@ -65,16 +67,15 @@
         <hr>
         <div class="row" id="stats-container">
             <div class="four columns">
+                Stats
+            </div>
+            <div class="four columns">
                 <label for="astatatktk">ATK</label>
                 <input id="statatk" type="number" v-model="statatk">
             </div>
             <div class="four columns">
                 <label for="statcdmg">CDMG</label>
                 <input id="statcdmg" type="number" v-model="statcdmg">
-            </div>
-            <div class="four columns">
-                <label for="statpen">PEN</label>
-                <input id="statpen" type="number" v-model="statpen">
             </div>
         </div>
         <hr>
