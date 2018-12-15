@@ -1,0 +1,486 @@
+{
+    "1": {
+        "s3": {
+            "description": "Deals {0} P.DMG to nearby enemies and inflicts Stun for 3 sec. Additionally, for {1} sec, ATK is increased by {2} and Dodge Rate is increased by {3} , while gaining immunity to CC. This status cannot be dispelled.",
+            "light": "Mana cost is reduced by 1.",
+            "dark": "ATK boost is increased by 40%.",
+            "ut": [
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 100 for the duration of skill.",
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 120 for the duration of skill.",
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 140 for the duration of skill.",
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 170 for the duration of skill.",
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 210 for the duration of skill.",
+                "[Proxy of God] Additionally, Dodge Rate is increased by 250, and ATK Spd is increased by 250 for the duration of skill."
+            ]
+        }
+    },
+    "4": {
+        "s2": {
+            "description": "For {0} sec, ATK is increased by {1} and Dodges all P.DMG attacks.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Auto attack DMG is boosted by 100% for the duration.",
+            "ut": [
+                "[Curtain of Darkness] Increases ATK Boost by 20% and gains CC resist by 400 for the skill's duration.",
+                "[Curtain of Darkness] Increases ATK Boost by 24% and gains CC resist by 400 for the skill's duration.",
+                "[Curtain of Darkness] Increases ATK Boost by 29% and gains CC resist by 400 for the skill's duration.",
+                "[Curtain of Darkness] Increases ATK Boost by 35% and gains CC resist by 400 for the skill's duration.",
+                "[Curtain of Darkness] Increases ATK Boost by 42% and gains CC resist by 400 for the skill's duration.",
+                "[Curtain of Darkness] Increases ATK Boost by 50% and gains CC resist by 400 for the skill's duration."
+            ]
+        }
+    },
+    "5": {
+        "uw": [
+            "Per every 1% of HP lost, ATK is increased by 0.8% and ATK Spd is increased by 8.",
+            "Per every 1% of HP lost, ATK is increased by 1% and ATK Spd is increased by 10.",
+            "Per every 1% of HP lost, ATK is increased by 1.2% and ATK Spd is increased by 12.",
+            "Per every 1% of HP lost, ATK is increased by 1.4% and ATK Spd is increased by 14.",
+            "Per every 1% of HP lost, ATK is increased by 1.7% and ATK Spd is increased by 17.",
+            "Per every 1% of HP lost, ATK is increased by 2% and ATK Spd is increased by 20."
+        ],
+        "s2": {
+            "description": "All allies' ATK is increased by {1} for {0} sec. Upon activation, dispels all negative effects from allies.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "ATK Spd boost of 200 is added to the effect.",
+            "ut": [
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 20%.",
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 24%.",
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 29%.",
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 35%.",
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 42%.",
+                "[Battle Roar] Reduces Mana Cost by 1 and increases ATK Boost by 50%."
+            ]
+        },
+        "s4": {
+            "description": "Upon attacking, ATK is increased by {1} for {0} sec. Can be stacked up to 10 times max.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Takes 5% more DMG per each stack, but gains a boost of 50 Crit Chance and Lifesteal per each stack as well."
+        }
+    },
+    "8": {
+        "s3": {
+            "description": "For {0} sec, all allies' ATK is increased by {1} , and ATK Spd is increased by {2}.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Cooldown is reduced by 3 sec.",
+            "ut": [
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 20% boost effect is added.",
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 24% boost effect is added.",
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 29% boost effect is added.",
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 35% boost effect is added.",
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 42% boost effect is added.",
+                "[Swift Wind] Mana cost is reduced by 1, and Crit DMG 50% boost effect is added."
+            ]
+        }
+    },
+    "9": {
+        "s1": {
+            "description": "Deals {0} M.DMG that ignores enemy DEF, and heals {1}% of DMG as HP.",
+            "light": "If there is 1 enemy, DMG is increased by 100%.",
+            "dark": "Ignores enemy Block.",
+            "ut": [
+                "[Absorbing Blow] Increases DMG by 20%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times.",
+                "[Absorbing Blow] Increases DMG by 24%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times.",
+                "[Absorbing Blow] Increases DMG by 29%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times.",
+                "[Absorbing Blow] Increases DMG by 35%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times.",
+                "[Absorbing Blow] Increases DMG by 42%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times.",
+                "[Absorbing Blow] Increases DMG by 50%, and upon killing an enemy, ATK is increased by 20% for 10 sec. ATK increase effect can be stacked up to max 3 times."
+            ]
+        },
+        "s4": {
+            "description": "When an enemy is killed by this hero, ATK is increased by {1} for {0} sec, and all skill cooldown is reduced by 30%.",
+            "light": "Each stack increases Mana recovery per sec by 50%.",
+            "dark": "While stack number is higher than 5, Mana is always at 100% and cooldowns are decreased by an additional 1 sec per each sec."
+        }
+    },
+    "12": {
+        "s1": {
+            "description": "Deals {0} P.DMG to all enemies and pushes them back.",
+            "light": "Increase P.DMG that the target takes by 25% for 10 sec.",
+            "dark": "Upon activation, ATK is increased by 35% for 10 sec.",
+            "ut": [
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 200 for 10 sec.",
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 240 for 10 sec.",
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 290 for 10 sec.",
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 350 for 10 sec.",
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 420 for 10 sec.",
+                "[Baaaam!] Gains Immunity to CC for the skill's duration, and reduces the target's P.Crit Resistance by 500 for 10 sec."
+            ]
+        }
+    },
+    "15": {
+        "uw": [
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 200 and ATK is increased by 100% of P.DEF. Gains CC immunity.",
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 240 and ATK is increased by 120% of P.DEF. Gains CC immunity.",
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 280 and ATK is increased by 144% of P.DEF. Gains CC immunity.",
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 340 and ATK is increased by 173% of P.DEF. Gains CC immunity.",
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 410 and ATK is increased by 207% of P.DEF. Gains CC immunity.",
+            "When HP falls below 35%, all allies' P.DMG Reduction is increased by 500 and ATK is increased by 250% of P.DEF. Gains CC immunity."
+        ]
+    },
+    "18": {
+        "s4": {
+            "description": "Upon a Crit Hit, ATK is increased by {1} for {0} sec. Can be stacked up to 8 times max.",
+            "light": "Per each stack, DMG is increased by 4% to enemies other than heroes.",
+            "dark": "When there are 5 or more stacks, takes 20% reduced P.DMG and M.DMG."
+        }
+    },
+    "21": {
+        "s2": {
+            "description": "All allies' P.Dodge Chance is increased by {1} for {0} sec, and ATK is increased by {2}.",
+            "light": "Mana cost is reduced by 1.",
+            "dark": "Increases Naila's DMG dealt on non-Hero enemies by 30% for the duration of skill.",
+            "ut": [
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 100.",
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 120.",
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 140.",
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 170.",
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 210.",
+                "[Wind Reading] Increases ATK Boost by 50% and M.Dodge by 250."
+            ]
+        },
+        "t5": {
+            "light": "ATK, DEF, HP+15% / P.Dodge +100",
+            "dark": "Upon dodging, all skill cooldowns are reduced by 2%. Also, ATK is boosted by 3%, and Atk Spd is boosted by 30. The ATK and Atk Spd Boosts can stack up to 10 times."
+        }
+    },
+    "22": {
+        "s2": {
+            "description": "Target receives {0}% increased damage from this hero. In addition, own ATK is increased by {1}.",
+            "light": "ATK Spd is boosted by 250 for the duration.",
+            "dark": "Mana cost is reduced by 1.",
+            "ut": [
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 20% for 10 sec.",
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 24% for 10 sec.",
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 29% for 10 sec.",
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 35% for 10 sec.",
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 42% for 10 sec.",
+                "[Target Aim] Changes the target to a random enemy when Rodina's target dies, increasing ATK by 50% for 10 sec."
+            ]
+        }
+    },
+    "24": {
+        "s3": {
+            "description": "Grants Invincibility to all allies for {0} sec and heals {1} HP for the duration of skill.",
+            "light": "Mana cost is reduced by 1.",
+            "dark": "In exchange for 2 additional Mana Cost and a 3 sec reduction of Invincibility duration, all allies gain 50% ATK.",
+            "ut": [
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 120 Mana per sec.",
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 140 Mana per sec.",
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 170 Mana per sec.",
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 200 Mana per sec.",
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 250 Mana per sec.",
+                "[Holy Sanctuary] ATK is increased by 25% for the duration of skill, and recovers 300 Mana per sec."
+            ]
+        }
+    },
+    "31": {
+        "s3": {
+            "description": "Deals {0} M.DMG to enemies in range, and enemies with Judgement Sigil takes 50% more M.DMG for 5 sec, while being inflicted with Silence. All allies become immune to M.DMG for 5 sec.",
+            "light": "Inflicts a sigil upon damaged enemies.",
+            "dark": "M.DMG increase and Silence effect occur to enemies with no Sigil as well.",
+            "ut": [
+                "[Arbiter] DMG is increased by 20% and all allies' ATK is increased by 30% for the duration of M.Shield.",
+                "[Arbiter] DMG is increased by 24% and all allies' ATK is increased by 30% for the duration of M.Shield.",
+                "[Arbiter] DMG is increased by 29% and all allies' ATK is increased by 30% for the duration of M.Shield.",
+                "[Arbiter] DMG is increased by 35% and all allies' ATK is increased by 30% for the duration of M.Shield.",
+                "[Arbiter] DMG is increased by 42% and all allies' ATK is increased by 30% for the duration of M.Shield.",
+                "[Arbiter] DMG is increased by 50% and all allies' ATK is increased by 30% for the duration of M.Shi"
+            ]
+        }
+    },
+    "32": {
+        "uw": [
+            "If HP is over 50%, ATK is increased by 20%. If HP is under 50%, takes 10% reduced DMG.",
+            "If HP is over 50%, ATK is increased by 24%. If HP is under 50%, takes 12% reduced DMG.",
+            "If HP is over 50%, ATK is increased by 29%. If HP is under 50%, takes 14% reduced DMG.",
+            "If HP is over 50%, ATK is increased by 35%. If HP is under 50%, takes 17% reduced DMG.",
+            "If HP is over 50%, ATK is increased by 42%. If HP is under 50%, takes 21% reduced DMG.",
+            "If HP is over 50%, ATK is increased by 50%. If HP is under 50%, takes 25% reduced DMG."
+        ],
+        "s4": {
+            "description": "When HP is 50% or above, ATK is increased by {0} and DEF Pen. is increased by 250. Upon attack, inflicts target with Blood Curse, dealing a total of {1} M.DMG over time for 20 sec, and recovering 10% of DMG dealt from Blood Curse as HP. Blood Curse can be stacked max 100 times, and cannot be dispelled.",
+            "light": "Max stack of Blood Curse is changed to 200 stacks.",
+            "dark": "All allies' heal rate is increased by 20% and all enemies' heal rate is reduced by 20%."
+        }
+    },
+    "33": {
+        "t5": {
+            "light": "ATK, DEF, HP+15% / Crit DMG +20%",
+            "dark": "When auto attacking, there is a 10% chance of stacking 1 stack of Blade. Nyx's ATK is boosted by 10% per each Blade Stack he holds."
+        }
+    },
+    "34": {
+        "s4": {
+            "description": "Gains 1 stack of Charge every 0.5 sec, and gains 10 stacks of Charge per every orb of mana used. Upon the 100th Charge stacked, enters Overcharge state. When in Overcharge, ATK is increased by {0} for 15 sec and each auto attack reduces skill cooldown by 10%. All effects cannot be dispelled, and Charge will not stack during Overcharge state.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Overcharge duration is increased by 3 sec."
+        }
+    },
+    "35": {
+        "s2": {
+            "description": "For 20 sec, ATK is increased by {0} , and ACC is increased by {1}. Each auto attack has a 15% chance of activating 'Bang! Bang!!'.",
+            "light": "Takes 20% more DMG from all sources in exchange for an extra 100% in ATK increase.",
+            "dark": "Bang! Bang! chance is increased by 10%.",
+            "ut": [
+                "[Time to Die!] Increases Crit DMG by 20% for the skill's duration. HP cannot be reduced below 10% for 3 sec.",
+                "[Time to Die!] Increases Crit DMG by 24% for the skill's duration. HP cannot be reduced below 10% for 3 sec.",
+                "[Time to Die!] Increases Crit DMG by 29% for the skill's duration. HP cannot be reduced below 10% for 3 sec.",
+                "[Time to Die!] Increases Crit DMG by 35% for the skill's duration. HP cannot be reduced below 10% for 3 sec.",
+                "[Time to Die!] Increases Crit DMG by 42% for the skill's duration. HP cannot be reduced below 10% for 3 sec.",
+                "[Time to Die!] Increases Crit DMG by 50% for the skill's duration. HP cannot be reduced below 10% for 3 sec."
+            ]
+        }
+    },
+    "36": {
+        "t5": {
+            "light": "ATK, DEF, HP+15% / P. Block +200",
+            "dark": "When own HP goes below 40%, HP does not go under 10% for 6 sec, and all allies' ATK is increased by 50% of own M.DEF. This effect is activated once every 60 sec."
+        }
+    },
+    "37": {
+        "s3": {
+            "description": "Attacks random enemies 6 times and deals a total of {0} P.DMG, then deals one additional attack of {1} extra P.DMG. If used in Stealth state, dispels all enemies' buffs. If not, turns into Stealth mode for 10 sec. [Stealth] Crit Rate and Dodge Rate are increased by 50.",
+            "light": "Mana cost is increased by 1 orb but DMG is boosted by 100%.",
+            "dark": "Cooldown is reduced by 5 sec.",
+            "ut": [
+                "[Whisper of Death] DMG is increased by 20% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec.",
+                "[Whisper of Death] DMG is increased by 24% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec.",
+                "[Whisper of Death] DMG is increased by 29% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec.",
+                "[Whisper of Death] DMG is increased by 35% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec.",
+                "[Whisper of Death] DMG is increased by 42% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec.",
+                "[Whisper of Death] DMG is increased by 50% and upon use, immediately gains Stealth. If used in Stealth mode, ATK is increased by 20% for 10 sec."
+            ]
+        }
+    },
+    "38": {
+        "s1": {
+            "description": "Swipes nearby enemies in a circular range and deals {0} M.DMG. Then strikes the ground, dealing {1} M.DMG and knocking down enemies for 3 sec. [Fury] - Consumes 15% of current HP to activate. Effect range increases and swipe attack draws in enemies.",
+            "light": "DMG is increased by 40%.",
+            "dark": "After activation, ATK is increased by 40% for 5 sec.",
+            "ut": [
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 10%.",
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 12%.",
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 14%.",
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 17%.",
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 21%.",
+                "[Destructive Instinct] Upon use, heals own HP by 15%, and for 10 sec, increases M.DMG target receives by 25%."
+            ]
+        },
+        "s4": {
+            "description": "Ezekiel gains 1 stack of 'Cursed Blood' at the end of skill. Upon the 4th stack, consumes Cursed Blood to reset all skill cooldown, dealing {0} M.DMG to nearby enemies and knocking them down for 3 sec, while activating Fury for {1} sec, that cannot be dispelled. While in Fury state, goes into an auto-battle mode that cannot be controlled, and ATK is increased by {2} , auto attack DMG is doubled, and all Skill effect are reinforced. Cannot gain Cursed Blood during Fury state, except for when killing an enemy.",
+            "light": "When in Fury state, heal rate is increased by 50%.",
+            "dark": "Per every stacked 'Cursed Blood', takes 12% reduced DMG."
+        }
+    },
+    "39": {
+        "s2": {
+            "description": "For 15 sec, all allies' ATK is increased by {0} and Crit Chance is increased by {1}.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Mana cost is reduced by 1.",
+            "ut": [
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 20%.",
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 24%.",
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 29%.",
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 35%.",
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 42%.",
+                "[Fiercely!] Increases duration by 5 sec and additionally increases Crit DMG by 50%."
+            ]
+        }
+    },
+    "40": {
+        "s2": {
+            "description": "Upon casting, activates 'God of Lightning' and throws a spear of lightning at the enemy, dealing {0} M.DMG. Hit enemy takes {1}% increased M.DMG for 10 sec. While in 'God of Lightning' state, cannot recover mana for 10 sec, but activation chance of 'For Jane' is increased by 40% and ATK is increased by {2}.",
+            "light": "Mana cost is reduced by 1.",
+            "dark": "DMG taken while in Lightning God state is increased by 30% but ATK increase rate is increased by 100%.",
+            "ut": [
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 8%.",
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 9.6%.",
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 11.5%.",
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 13.8%.",
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 16.5%.",
+                "[God of Lightning] ATK Spd is increased by 250 for the duration of skill, and the activation chance of 'For Jane' is increased by an additional 20%."
+            ]
+        },
+        "t5": {
+            "light": "ATK, DEF, HP+15% / Crit Chance +100",
+            "dark": "When 'God of Lightning' is activated, recovers half mana instead. When mana is full, ATK is increased by 50% for 10 sec. This effect only activates once every 20 sec."
+        }
+    },
+    "42": {
+        "uw": [
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 2 sec, and ATK is increased by 14% for 10 sec.",
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 3 sec, and ATK is increased by 17% for 10 sec.",
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 4 sec, and ATK is increased by 21% for 10 sec.",
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 5 sec, and ATK is increased by 25% for 10 sec.",
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 6 sec, and ATK is increased by 30% for 10 sec.",
+            "Upon using Time Distortion, All allies' skill cooldown is reduced by extra 7 sec, and ATK is increased by 35% for 10 sec."
+        ]
+    },
+    "43": {
+        "s1": {
+            "description": "Deals {0} M.DMG to frontal enemies in range. For 10 sec, Hit enemies' ATK is reduced by {1}% for and own ATK is increased by {2}. If used while holding 3 or more stacks of Soul, shackles the enemy for 3 sec.",
+            "light": "In exchange for 1 additional Mana Cost, cooldown is reduced by 4 sec.",
+            "dark": "Soul condition for Shackle effect is erased.",
+            "ut": [
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 1 sec.",
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 1.2 sec.",
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 1.4 sec.",
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 1.7 sec.",
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 2.1 sec.",
+                "[Meal Time!!] Increases DMG by 50%, and makes the target unable to recover Mana for 2.5 sec."
+            ]
+        },
+        "s4": {
+            "description": "Enemies attacked with Viska's skills lose Souls. Upon losing their Soul, targets take {0} extra M.DMG, and per each soul stacked, Viska's HP is healed by {1} and Mana is healed by 300. Souls last until they are used, can't be dispelled and can be stacked up to 5 times max.",
+            "light": "Enemies that had their Souls stolen have their CC resistance reduced by 250 for 10 sec.",
+            "dark": "Per each stacked Soul, ATK is increased by 10%"
+        }
+    },
+    "44": {
+        "s4": {
+            "description": "Own ATK is increased by {0} , and Penetration is increased by {1}.",
+            "light": "ATK boost is increased by 40%.",
+            "dark": "Crit Chance is increased by 250."
+        }
+    },
+    "45": {
+        "s3": {
+            "description": "Removes all negative effects on self. For 30 sec, ATK is increased by {0} and Penetration is increased by {1}. For the duration of skill, auto attacks are changed to consuming 3% mana to deal DMG to all enemies in a straight line and deals {2} extra P.DMG to Dragons ignoring DEF.",
+            "light": "ATK Spd is boosted by 250 for the duration.",
+            "dark": "For the duration, all DMG taken is reduced by 25%.",
+            "ut": [
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 10% for the skill's duration.",
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 12% for the skill's duration.",
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 14% for the skill's duration.",
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 17% for the skill's duration.",
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 21% for the skill's duration.",
+                "[No Holding Back!] Reduces Mana Cost by 1 and increases DMG to Dragons by 25% for the skill's duration."
+            ]
+        },
+        "s4": {
+            "description": "ATK is increased by {0} , and Max HP is increased by {1}%. Also, DMG dealt to Dragons is increased by {2}%.",
+            "light": "All allies take 7% reduced DMG from Dragons.",
+            "dark": "Deals 15% more DMG to Dragons."
+        }
+    },
+    "49": {
+        "s4": {
+            "description": "All allies' ATK is increased by {0} , and Crit Chance is increased by 100. Ophelia gains additional effect according to the card in possession. [Death] - ATK is increased by {2}%. [Love] - Per each sec, heals {3}% of max HP. [Fortune] - M.Dodge Chance is increased by 200.",
+            "light": "At the start of each battle, gains the card of [Death]. This card does not have DMG boost effect.",
+            "dark": "At the start of each battle, gains the card of [Love]. This card does not have heal effect."
+        }
+    },
+    "50": {
+        "s3": {
+            "description": "Own ATK is increased by {1} for {0} sec and the effect of [Tears of Mr. Python], [Screechy Grass Extract], [Tickle Tickle Potion] is doubled. Also, target of [Tears of Mr. Python], [Screechy Grass Extract!], [Tickle Tickle Potion] is increased by 1.",
+            "light": "For the duration, auto attack DMG is increased by 100%.",
+            "dark": "Mana cost is reduced by 1.",
+            "ut": [
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 100 for the duration.",
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 120 for the duration.",
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 140 for the duration.",
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 170 for the duration.",
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 210 for the duration.",
+                "[More! Stronger!] Attacks additional 1 target and ATK Spd is increased by 250 for the duration."
+            ]
+        }
+    },
+    "55": {
+        "s4": {
+            "description": "ATK is increased by {0}. Upon a critical skill hit, own Crit DMG is increased by {1}%. This effect can be stacked up to 30 times.",
+            "light": "Takes 0.7% reduced DMG per stack.",
+            "dark": "When the battle starts, increases DMG to Non-Hero enemies by 25% for 200 sec."
+        }
+    },
+    "57": {
+        "s2": {
+            "description": "When activated, turns into the Everlasting Oasis state for 15 sec. During the Everlasting Oasis state, mana recovery rate per sec is increased by 150% and ATK is increased by {0}. Additionally, all DEF is increased by {1}.",
+            "light": "Mana cost is increased by 1 and is additionally activated on the ally with the highest ATK excluding self.",
+            "dark": "Skill duration is decreased by 5 sec and all effects are increased by 100%.",
+            "ut": [
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 20% during skill duration.",
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 24% during skill duration.",
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 29% during skill duration.",
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 35% during skill duration.",
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 42% during skill duration.",
+                "[Everlasting Oasis] The effect cannot be dispelled, and Crit DMG is increased by 50% during skill duration."
+            ]
+        },
+        "s4": {
+            "description": "Mana recovery upon ATK is fixed, but own ATK is increased by {0} and mana recovery per sec is increased to 120. Per 6 mana recovery per sec, ATK is increased by 1%.",
+            "light": "At the start of each battle, recovers 1000 mana.",
+            "dark": "Deals 15% increased DMG to Boss monsters."
+        },
+        "t5": {
+            "light": "ATK, DEF, HP+15% / Crit DMG +20%",
+            "dark": "ATK is increased by 15% per 1 orb of mana."
+        }
+    },
+    "63": {
+        "s2": {
+            "description": "For 15 sec, ATK is increased by {0} and all DEF is increased by {1}. While the skill is in use, each auto attack has a 30% chance of dealing extra {2} M.DMG to 2 random enemies and stunning them for 0.5 sec.",
+            "light": "ATK and DEF boosts are increased by 40%.",
+            "dark": "Additional DMG effect applies to all enemies.",
+            "ut": [
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 10% additionally.",
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 12% additionally.",
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 14% additionally.",
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 17% additionally.",
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 21% additionally.",
+                "[Power of Lightning!] Changes the effect irremovable and increases the chance to trigger an additional damage by 25% additionally."
+            ]
+        }
+    },
+    "64": {
+        "uw": [
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 200% of own ATK, and ATK is increased by 20%. While the Shield is in effect, gains immunity to CC.",
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 240% of own ATK, and ATK is increased by 24%. While the Shield is in effect, gains immunity to CC.",
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 290% of own ATK, and ATK is increased by 29%. While the Shield is in effect, gains immunity to CC.",
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 350% of own ATK, and ATK is increased by 35%. While the Shield is in effect, gains immunity to CC.",
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 420% of own ATK, and ATK is increased by 42%. While the Shield is in effect, gains immunity to CC.",
+            "Every 15 sec, creates a Shield for 10 sec that blocks DMG proportional to 500% of own ATK, and ATK is increased by 50%. While the Shield is in effect, gains immunity to CC."
+        ],
+        "s4": {
+            "description": "Each attack has a 50% chance of dealing {0} M.DMG to target and nearby enemies, while Artemia gains 1 stack of Blessing of Light. Blessing of Light can be stacked up to 10 times max. Per every stack, ATK is increased by {1} , DMG dealt to enemies other than heroes is increased by {2}% and DMG received by enemies other than heroes is reduced by {3}%.",
+            "light": "Activation chance is changed to 60%.",
+            "dark": "Maximum stack count is increased to 12."
+        }
+    },
+    "90": {
+        "s1": {
+            "description": "All allies' ATK is increased by {0} for 60 sec, and randomly grants one of the following effects: 1. DEF Penetration {1} up, 2. Atk Spd {2} up, 3. Instant Mana recovery by {3}. All effects other than Mana Recovery can be stacked up to 5 times max.",
+            "light": "All effects are not dispelled by 'dispel positive effect' effect.",
+            "dark": "All effects can be stacked max 7 times.",
+            "ut": [
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 2% for 20 sec. This effect can be stacked up to max 8 times.",
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 2.4% for 20 sec. This effect can be stacked up to max 8 times.",
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 2.9% for 20 sec. This effect can be stacked up to max 8 times.",
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 3.4% for 20 sec. This effect can be stacked up to max 8 times.",
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 4.2% for 20 sec. This effect can be stacked up to max 8 times.",
+                "[Take Anything!] Reduces Mana Cost by 1, and increases the target's M.DEF by 5% for 20 sec. This effect can be stacked up to max 8 times."
+            ]
+        }
+    },
+    "91": {
+        "s2": {
+            "description": "Dispel all negative effects on self and deal {0} P.DMG to nearby enemies within a small radius, gaining the Status 'War God' for 10 sec. While in War God mode, ATK is boosted by {1} and all auto attacks have a 30% chance to consume 5% mana to deal an extra attack of {2} extra P.DMG. Upon taking M.DMG, dodge all M.DMG for 1 sec. Dodge effect only activates 1 time in every 2 sec.",
+            "light": "War God state lasts 5 seconds longer.",
+            "dark": "Additional DMG hit chance rises by 20%.",
+            "ut": [
+                "[Advent of the War God] For the skill's duration, recovers 100 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG.",
+                "[Advent of the War God] For the skill's duration, recovers 120 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG.",
+                "[Advent of the War God] For the skill's duration, recovers 140 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG.",
+                "[Advent of the War God] For the skill's duration, recovers 170 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG.",
+                "[Advent of the War God] For the skill's duration, recovers 210 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG.",
+                "[Advent of the War God] For the skill's duration, recovers 250 MP every second and stacks 1 [This will hurt!] upon inflicting additional P.DMG."
+            ]
+        }
+    },
+    "92": {
+        "s4": {
+            "description": "All Allies' ATK is increased by {0} , and upon using the skill 3 times, instantly gains The Top Financier's Knowledge. Per each stack of Top Financier's Knowledge, own Crit DMG is increased by 30%, and all skill effects are increased by 10% each. Top Financier's Knowledge can be stacked up to max 5 times, and cannot be dispelled.",
+            "light": "Recovers the caster's MP by 2 orbs when activated.",
+            "dark": "When activated, increases the caster's ATK by 50% for 10 sec."
+        }
+    }
+}

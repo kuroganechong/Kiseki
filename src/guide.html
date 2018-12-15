@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic Page Needs
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Kiseki</title>
+    <meta name="description" content="">
+    <meta name="author" content="sagiri">
+
+    <!-- Mobile Specific Metas
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,600" rel="stylesheet">
+
+    <!-- CSS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+
+    <!-- Favicon
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Vue JS
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+        div.sticky {
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            padding-top: 10px;
+            top: 0px;
+            background-color: #eae7e6
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-radius: 4px;
+        }
+
+        .clickLabel {
+            display: inline-block;
+            height: 38px;
+            padding: 0 30px;
+            color: #555;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 38px;
+            letter-spacing: .1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            white-space: nowrap;
+            background-color: transparent;
+            border-radius: 4px;
+            border: 1px solid #bbb;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .clickLabel.disable {
+            background-color: #444;
+        }
+
+        input[type=checkbox]:checked+label.clickLabel {
+            background-color: #eae7e6;
+        }
+
+        .selected {
+            background-color: #eae7e6;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+
+        .popup .close {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .popup .close:hover {
+            color: #ddd0c9;
+        }
+
+        .popup .popupcontent {
+            max-height: 30%;
+            overflow: auto;
+            border-radius: 5px;
+        }
+
+        .current {
+            background-color: #ddd0c9
+        }
+
+        .current:hover {
+            background-color: #d0bcb0;
+            transition: all 200ms
+        }
+
+.nav-bar .ul li{
+    display: inline
+}
+.nav-bar .ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #d0bcb0;
+}
+.nav-bar .ul li a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+    </style>
+</head>
+
+<div class="nav-bar">
+    <ul class="ul">
+        <li><a href="https://github.com/kuroganechong/">Github</a></li>
+    </ul>
+</div>
+<div class="container" id="app">
+    <div class="row">
+        <div class="twelve column">
+            <div id="guide" class="">
+                <div class="">
+                    <div class="">
+                        <button id="guidebtn" onclick="window.location.href = 'newlayout.html'">Go Back</button>
+                        <button id="speciallistbtn">Special List</button>
+                        <p>Takes into account all ATK/CDMG/Flat ATK buffs you get from gears, skills, enchants,
+                            runes,
+                            perks,
+                            and
+                            artifacts, then calculate the <strong>optimum amount</strong> of ATK/CDMG lines you
+                            should aim
+                            for
+                            in your gears. It aims to balance between your ATK and CDMG in order to <strong>maximise
+                                damage
+                                per hit.</strong></p>
+                        <p>Enemies are taken to be at <strong>0 DEF</strong> (ie. test dummy), and assumes <strong>all
+                                buffs
+                                are at its maximum stacks and every buff stacks together.</strong></p>
+                        <p>The formula is: <br>
+                            <span>Damage per hit = [(Stat-menu-ATK x (100% + gear-ATK%) x (100% +
+                                perk-&-skill-%ATK-buff)) + flat-ATK] x (200% + Stat-menu-CDMG + CDMG-buff) x DMG-boost%</span>
+                        </p>
+                        <p>
+                            How to use this calculator?
+                            <ol>
+                                <li>Select your hero.</li>
+                                <li>Fill in your hero's gear setup, and desired number of ATK/CDMG lines.</li>
+                                <li>Select the skill/perk buffs you want to take into account of.</li>
+                                <li>Fill in the artifact stats.</li>
+                                <li>Fill in any other additional stats in the last row. Refer to <a style="cursor:pointer"
+                                        onclick="toggleList()">this list</a>.</li>
+                                <li>Click calculate and view your results.</li>
+                                <li>Repeat for any other hero you want.</li>
+                            </ol>
+                        </p>
+
+                        <p>Note: this calculator does not take into account the following:</p>
+                        <ul>
+                            <li>Skill-only damage boost %</li>
+                            <li>Skill ATK multiplier</li>
+                            <li>Skill-only ATK/CDMG/Flat ATK buff</li>
+                            <li>Attack speed/Penetration</li>
+                            <li>Additional attack per hit (Kasel UW effect, Phillop HP% damage etc.)</li>
+                        </ul>
+                        <p>It also doesn't take into account the following, however you can workaround these by
+                            adding them
+                            at
+                            the <strong>additional stats row</strong> at the bottom of the page: (you will need to
+                            calculate
+                            the amount to be added by yourself)</p>
+                        <ul>
+                            <li>Damage boost % (Increase damage by ..., boss damage etc.)</li>
+                            <li>Additional ATK boost based on other character stats (eg. Mediana S3)</li>
+                            <li>Additional ATK boost based on other stats (PDEF, Mana/sec etc.)</li>
+                        </ul>
+                        <p>Refer to <a style="cursor:pointer" onclick="toggleList()">this list</a> for the special
+                            cases heroes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="speciallist" class="overlay">
+                <div class="popup">
+                    <a class="close" id="speciallistclose">&times;</a>
+                    <div class="popupcontent">
+                        <p>List of all heroes skills that are ignored/special cases:<br>If you want to include the
+                            stats in
+                            the
+                            calculation, add them in the <strong>additional stats row</strong> at the bottom of the
+                            page.</p>
+                        <ul>
+                            <li>UW
+                                <ol>
+                                    <li>Gau: ignored (HP lost percentage inconsistent)</li>
+                                    <li>Clause: ignored (Flat ATK boost based on PDEF) </li>
+                                </ol>
+                            </li>
+                            <li>UT
+                                <ol>
+                                    <li>Lilia: UT3 CDMG boost based on stacks ignored</li>
+                                </ol>
+                            </li>
+                            <li>Skills and perks
+                                <ol>
+                                    <li>Flat ATK boost depends on other character stats:
+                                        <ul>
+                                            <li>Frey T5D</li>
+                                            <li>Annette T5D</li>
+                                            <li>Ricardo T5D</li>
+                                            <li>Mediana S3, S3 Light</li>
+                                            <li>Priscilla T5D</li>
+                                        </ul>
+                                    </li>
+                                    <li>Stat boost depends on other effects/stats:
+                                        <ul>
+                                            <li>WARRIOR: T2 Offensive Guard ignored (Flat ATK based on PDEF)</li>
+                                            <li>Lilia: S4 ATK boost based on mana/sec ignored</li>
+                                            <li>Nyx: T5 Dark ATK boost based on blade stacks ignored</li>
+                                            <li>Chase: T5 Dark, S4 resurrected bonus stats ignored</li>
+                                            <li>Neraxis: S4 Dark only gives Flat ATK if S2 is active</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Unknown, to be tested
+                                <ol>
+                                    <li>Zafir: S1 stacks</li>
+                                    <li>Chase: S2 maximum stat boost </li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function hasClass(el, className) {
+        if (el.classList)
+            return el.classList.contains(className);
+        return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+    }
+
+    function addClass(el, className) {
+        if (el.classList)
+            el.classList.add(className)
+        else if (!hasClass(el, className))
+            el.className += " " + className;
+    }
+
+    function removeClass(el, className) {
+        if (el.classList)
+            el.classList.remove(className)
+        else if (hasClass(el, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+            el.className = el.className.replace(reg, ' ');
+        }
+    }
+    function toggleList() {
+        var element = document.getElementById('speciallist')
+        if (element.className.includes('show')) {
+            removeClass(element, 'show')
+        } else {
+            addClass(element, 'show')
+        }
+    }
+    document.getElementById('speciallistbtn').addEventListener("click", toggleList)
+    document.getElementById('speciallistclose').addEventListener("click", toggleList)
+</script>
