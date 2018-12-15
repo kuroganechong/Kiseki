@@ -736,7 +736,7 @@ var app = new Vue({
             addClass(document.getElementById(hash), 'current')
         })
     },
-    beforeCreate() {
+    beforeCreate: function() {
         $.getJSON("data/hero.json").done(function (data) {
             this.posts = data['0']
         });
