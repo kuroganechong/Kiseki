@@ -734,11 +734,9 @@ var app = new Vue({
         this.$nextTick(function () {
             assignCollapse()
             addClass(document.getElementById(hash), 'current')
+            $.getJSON("data/hero.json").done(function (data) {
+                this.posts = data['0']
+            })
         })
-    },
-    beforeCreate: function() {
-        $.getJSON("data/hero.json").done(function (data) {
-            this.posts = data['0']
-        });
-    },
+    }
 })
