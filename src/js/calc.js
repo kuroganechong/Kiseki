@@ -260,7 +260,6 @@ $.getJSON("data/hero.json").done(function (data) {
     var app = new Vue({
         el: '#app',
         data: {
-            posts: [],
             cl: '1',
             statatk: 0,
             statcdmg: 0,

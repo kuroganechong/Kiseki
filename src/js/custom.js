@@ -293,7 +293,6 @@ var post = Vue.component('hero', {
 var app = new Vue({
     el: '#app',
     data: {
-        posts: [],
         testvar: 0,
         cl: '1',
         tier: '8',
@@ -337,7 +336,7 @@ var app = new Vue({
         uwtemp: {},
         t5temp: {},
         uttemp: {},
-        posts: jsonval,
+        posts: [],
         heronames: heronames,
         perk1: false,
         perk2: [],
@@ -739,7 +738,7 @@ var app = new Vue({
     },
     beforeCreate() {
         $.getJSON("data/hero.json").done(function (data) {
-            jsonval = data['0']
+            this.posts = data['0']
         });
     },
 })
