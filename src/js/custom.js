@@ -711,6 +711,10 @@ var app = new Vue({
     },
     beforeUpdate: function () {
         unassignCollapse()
+        $.getJSON("data/hero.json").done(function (data) {
+            this.posts = data['0']
+            console.log('1')
+        })
     },
     updated: function () {
         this.$nextTick(function () {
@@ -734,9 +738,6 @@ var app = new Vue({
         this.$nextTick(function () {
             assignCollapse()
             addClass(document.getElementById(hash), 'current')
-            $.getJSON("data/hero.json").done(function (data) {
-                this.posts = data['0']
-            })
         })
     }
 })
