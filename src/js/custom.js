@@ -732,14 +732,12 @@ var app = new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
+            $.getJSON("data/hero.json").done(function (data) {
+                this.posts = data['0']
+                console.log(3)
+            });
             assignCollapse()
             addClass(document.getElementById(hash), 'current')
         })
-    },
-    created: function() {
-        $.getJSON("data/hero.json").done(function (data) {
-            this.posts = data['0']
-            console.log(2)
-        });
-    },
+    }
 })
