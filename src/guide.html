@@ -25,13 +25,14 @@
     <link rel="stylesheet" href="css/custom.css">
 </head>
 
-<div class="nav-bar">
-    <ul class="ul">
-        <li><a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a></li>
-        <li><a href="guild.html">Kiseki</a></li>
-        <li><a href="index.html">ATK/CDMG</a></li>
-        <li><a href="calc.html">Calculator</a></li>
-    </ul>
+<div class="topnav" id="myTopnav">
+    <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
+    <a href="guild.html">Kiseki</a>
+    <a href="index.html">ATK/CDMG</a>
+    <a href="calc.html">Calculator</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
 </div>
 <div class="container" id="app">
     <div class="row">
@@ -207,4 +208,16 @@
     }
     document.getElementById('speciallistbtn').addEventListener("click", toggleList)
     document.getElementById('speciallistclose').addEventListener("click", toggleList)
+</script>
+
+<script>
+    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
 </script>
