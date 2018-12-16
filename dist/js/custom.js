@@ -146,7 +146,9 @@ return x},n:function(){return Math.round(this.M-this.m)},pref:function(){var x=0
 x=(Number(this.BCd*0.01)+Number(this.a*this.m))*this.T*0.01*(Number(this.BFa)+Number(this.OA*this.BATK*0.01*(Number(1)+Number(this.R1*0.01)+Number(this.b*this.n))))
 return Math.round(x)},f:function(){var x=0
 x=this.pref*this.heroscale
-return Math.round(x)}},components:{post:post},methods:{calcf:function(m){return(Number(this.BCd*0.01)+Number(this.a*m))*this.T*0.01*(Number(this.BFa)+Number(this.OA*this.BATK*0.01*(Number(1)+Number(this.R1*0.01)+Number(this.b*(this.M-m)))))},alert:function(){addClass(document.getElementById('result'),'show')},closeAlert:function(){removeClass(document.getElementById('result'),'show')},reset:function(){window.location.href="index.html#"+this.hero
+return Math.round(x)}},components:{post:post},methods:{calcf:function(m){return(Number(this.BCd*0.01)+Number(this.a*m))*this.T*0.01*(Number(this.BFa)+Number(this.OA*this.BATK*0.01*(Number(1)+Number(this.R1*0.01)+Number(this.b*(this.M-m)))))},alert:function(){addClass(document.getElementById('result'),'show')
+addClass(document.getElementById('tester'),'show')},closeAlert:function(){removeClass(document.getElementById('result'),'show')
+removeClass(document.getElementById('tester'),'show')},reset:function(){window.location.href="index.html#"+this.hero
 window.location.reload()
 assignCollapse()},onClickChild:function(data){this.skillatk=Number(this.skillatk)+Number(data[0])
 this.skillcdmg=Number(this.skillcdmg)+Number(data[1])
@@ -179,3 +181,4 @@ arraym=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 arrayf=arraym.map(a=>this.calcf(a))
 Plotly.react(TESTER,[{x:arraym,y:arrayf}],{margin:{t:0}})})},mounted:function(){this.$nextTick(function(){assignCollapse()
 addClass(document.getElementById(hash),'current')})}})}
+function myFunction(){var x=document.getElementById("myTopnav");if(x.className==="topnav"){x.className+=" responsive"}else{x.className="topnav"}}

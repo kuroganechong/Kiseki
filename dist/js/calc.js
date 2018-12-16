@@ -151,4 +151,4 @@ this.heroscale=this.obs/this.pref}},beforeUpdate:function(){unassignCollapse()},
 var list=document.getElementsByClassName('current')
 for(var i=0;i<list.length;i++){removeClass(list[i],'current')}
 addClass(document.getElementById(hash),'current')})},mounted:function(){this.$nextTick(function(){assignCollapse()
-addClass(document.getElementById(hash),'current')})}})})
+addClass(document.getElementById(hash),'current')})}})});function myFunction(){var x=document.getElementById("myTopnav");if(x.className==="topnav"){x.className+=" responsive"}else{x.className="topnav"}}
