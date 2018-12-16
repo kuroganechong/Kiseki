@@ -89,13 +89,15 @@ $.getJSON("data/hero.json").done(function (data) {
                 <option v-for="(uw, star) in post.uw" v-bind:value="uw">{{star}} star: <span v-if="uw[0] != 0">ATK {{ uw[0] }}%</span><span v-if="uw[1] != 0"> CDMG {{ uw[1] }}%</span><span v-if="uw[2] != 0"> Flat ATK {{ uw[2] }}</span></option>\
                 </select>\
                 </div>\
+                \
                 <div v-if="checkAvail(post.t5, 0)">\
-                T5: <select v-on:change="selT5(5 + post.ally + post.id)" v-bind:id="5 + post.ally + post.id">\
-                <option value="">None</option>\
-                <option v-bind:value="post.t5[1]">Light: <span v-if="post.t5[1][0] != 0">ATK {{ post.t5[1][0] }}%</span><span v-if="post.t5[1][1] != 0"> CDMG {{ post.t5[1][1] }}%</span><span v-if="post.t5[1][2] != 0"> Flat ATK {{ post.t5[1][2] }}</span></option>\
-                <option v-bind:value="post.t5[2]">Dark: <span v-if="post.t5[2][0] != 0">ATK {{ post.t5[2][0] }}%</span><span v-if="post.t5[2][1] != 0"> CDMG {{ post.t5[2][1] }}%</span><span v-if="post.t5[2][2] != 0"> Flat ATK {{ post.t5[2][2] }}</span></option>\
-                </select>\
+                T5:\
+                <input type="checkbox" v-bind:id="String(51) + post.ally + post.id" v-bind:value="post.t5[1]" v-on:click="clickT5(String(51) + post.ally + post.id)">\
+                <label class="clickLabel" v-bind:for="String(51) + post.ally + post.id">Light: <span v-if="post.t5[1][0] != 0">ATK {{ post.t5[1][0] }}%</span><span v-if="post.t5[1][1] != 0"> CDMG {{ post.t5[1][1] }}%</span><span v-if="post.t5[1][2] != 0"> Flat ATK {{ post.t5[1][2] }}</span></label>\
+                <input type="checkbox" v-bind:id="String(52) + post.ally + post.id" v-bind:value="post.t5[2]" v-on:click="clickT5(String(52) + post.ally + post.id)">\
+                <label class="clickLabel" v-bind:for="String(52) + post.ally + post.id">Dark: <span v-if="post.t5[2][0] != 0">ATK {{ post.t5[2][0] }}%</span><span v-if="post.t5[2][1] != 0"> CDMG {{ post.t5[2][1] }}%</span><span v-if="post.t5[2][2] != 0"> Flat ATK {{ post.t5[2][2] }}</span></label>\
                 </div>\
+                \
                 <div v-for="(skill, skillno) in post.data" v-bind:key="skillno + post.ally + post.id" v-if="checkAvail(skill, 0)">\
                 <label>Skill: {{ skillno }}</label>\
                 <span><input type="checkbox" v-on:click="onClick(1 + skillno + post.ally + post.id, skill[1], post.id)" v-bind:value="skill[1]" v-bind:id="1 + skillno + post.ally + post.id" v-bind:ref="1 + skillno + post.ally + post.id">\
@@ -123,13 +125,25 @@ $.getJSON("data/hero.json").done(function (data) {
                     this.$emit('selected', [0, 0, 0], id)
                 }
             },
-            selT5: function (id) {
-                data = document.getElementById(id).value
-                data = data.split(",")
-                if (data[0] != "") {
-                    this.$emit('selectedt5', data, id)
+            clickT5: function (id) {
+                var data
+                if (document.getElementById(id).checked) {
+                    data = document.getElementById(id).value
+                    data = data.split(",")
+                    if (data[0] != "") {
+                        this.$emit('clickedt5', data)
+                    } else {
+                        this.$emit('clickedt5', [0, 0, 0])
+                    }
                 } else {
-                    this.$emit('selectedt5', [0, 0, 0], id)
+                    data = document.getElementById(id).value
+                    data = data.split(",")
+                    newdata = [-data[0], -data[1], -data[2]]
+                    if (newdata[0] != "") {
+                        this.$emit('clickedt5', newdata)
+                    } else {
+                        this.$emit('clickedt5', [0, 0, 0])
+                    }
                 }
             },
             selUT: function (id, utno) {
@@ -277,7 +291,6 @@ $.getJSON("data/hero.json").done(function (data) {
             skillfa: 0,
             hero: hash,
             uwtemp: {},
-            t5temp: {},
             uttemp: {},
             posts: jsonval,
             heronames: heronames,
@@ -396,21 +409,11 @@ $.getJSON("data/hero.json").done(function (data) {
                 this.skillfa = Number(this.skillfa) + Number(data[2])
                 this.uwtemp[id] = data
             },
-            onSelectT5: function (data, id) {
+            onClickT5: function (data) {
                 // data is array of 3 elements [ATK,CDMG,fa]
-                if (this.t5temp[id] != null) {
-                    t5forid = this.t5temp[id]
-                } else {
-                    this.t5temp[id] = [0, 0, 0]
-                    t5forid = this.t5temp[id]
-                }
-                this.skillatk = this.skillatk - t5forid[0]
-                this.skillcdmg = this.skillcdmg - t5forid[1]
-                this.skillfa = this.skillfa - t5forid[2]
                 this.skillatk = Number(this.skillatk) + Number(data[0])
                 this.skillcdmg = Number(this.skillcdmg) + Number(data[1])
                 this.skillfa = Number(this.skillfa) + Number(data[2])
-                this.t5temp[id] = data
             },
             onSelectUT: function (data, id, utno) {
                 // data is array of 3 elements [ATK,CDMG,fa]

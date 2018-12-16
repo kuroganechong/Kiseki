@@ -301,7 +301,7 @@
                 <button class="collapsible">Hero skills/perks</button>
                 <div class="content" id="parentcontent">
                     <hero v-for="post in posts" v-bind:key="String(post.ally) + String(post.id)" v-bind:post="post"
-                        v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @selectedt5="onSelectT5"
+                        v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                         @selectedut="onSelectUT"></hero>
                 </div>
             </div>
