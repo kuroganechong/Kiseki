@@ -721,15 +721,15 @@ function setVue(){
                 for (var i = 0; i < list.length; i++) {
                     removeClass(list[i], 'current')
                 }
-                addClass(document.getElementById(hash), 'current')
-                arraym = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-                arrayf = arraym.map(a => this.calcf(a))
-                Plotly.react(TESTER, [{
-                    x: arraym,
-                    y: arrayf
-                }], {
-                        margin: { t: 0 }
-                    });
+                // addClass(document.getElementById(hash), 'current')
+                // arraym = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+                // arrayf = arraym.map(a => this.calcf(a))
+                // Plotly.react(TESTER, [{
+                //     x: arraym,
+                //     y: arrayf
+                // }], {
+                //         margin: { t: 0 }
+                //     });
             })
         },
         mounted: function () {
