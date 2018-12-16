@@ -129,5 +129,7 @@
         }
         .wrap{
             border: 1px solid darkgray;
-            border-radius: 5px
+            border-radius: 5px;
+            padding: 1em;
+            margin-top: 1em
         }
