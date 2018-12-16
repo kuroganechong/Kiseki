@@ -28,6 +28,8 @@
 <div class="nav-bar">
     <ul class="ul">
         <li><a href="https://github.com/kuroganechong/Kiseki">Github</a></li>
+        <li><a href="index.html">ATK/CDMG</a></li>
+        <li><a href="calc.html">Calculator</a></li>
     </ul>
 </div>
 <div class="container" id="app">
@@ -42,25 +44,31 @@
                             runes,
                             perks,
                             and
-                            artifacts, then calculate the <strong>optimum amount</strong> of ATK/CDMG lines you
+                            artifacts, then calculates the <strong>optimum amount</strong> of ATK/CDMG lines you
                             should aim
                             for
                             in your gears. It aims to balance between your ATK and CDMG in order to <strong>maximise
                                 damage
-                                per hit.</strong></p>
+                                per AUTO ATTACK hit.</strong></p>
                         <p>Enemies are taken to be at <strong>0 DEF</strong> (ie. test dummy), and assumes <strong>all
                                 buffs
                                 are at its maximum stacks and every buff stacks together.</strong></p>
                         <p>The formula is: <br>
-                            <span>Damage per hit = [(Stat-menu-ATK x (100% + gear-ATK%) x (100% +
+                            <span>Damage per AUTO ATTACK hit = [(Stat-menu-ATK x (100% +
                                 perk-&-skill-%ATK-buff)) + flat-ATK] x (200% + Stat-menu-CDMG + CDMG-buff) x DMG-boost%</span>
                         </p>
+                        <p>This formula is still applicable towards enemies with non-zero DEF as the damage reduction
+                            by DEF is calculated after the above formula.</p>
                         <p>
                             How to use this calculator?
                             <ol>
                                 <li>Select your hero.</li>
                                 <li>Fill in your hero's gear setup, and desired number of ATK/CDMG lines.</li>
-                                <li>Select the skill/perk buffs you want to take into account of.</li>
+                                <li>Select the skill/perk buffs you want to take into account of. The stats for each
+                                    skill are <strong>based on lvl90, maxed book effects stats</strong>, and are
+                                    simplified to ATK, CDMG, Flat ATK. If you are unsure about the skill mechanics
+                                    please refer to relevant
+                                    Mask-of-Goblin page.</li>
                                 <li>Fill in the artifact stats.</li>
                                 <li>Fill in any other additional stats in the last row. Refer to <a style="cursor:pointer"
                                         onclick="toggleList()">this list</a>.</li>
@@ -69,7 +77,7 @@
                             </ol>
                         </p>
 
-                        <p>Note: this calculator does not take into account the following:</p>
+                        <p><strong>This calculator does not take into account the following:</strong></p>
                         <ul>
                             <li>Skill-only damage boost %</li>
                             <li>Skill ATK multiplier</li>
@@ -77,6 +85,13 @@
                             <li>Attack speed/Penetration</li>
                             <li>Additional attack per hit (Kasel UW effect, Phillop HP% damage etc.)</li>
                         </ul>
+
+                        <p>Note: If you wish to apply this to skills, it is not entirely correct because each skill has
+                            a different scaling based on hero's ATK value and has a base value. <br>
+                            A proposed formula would be <br>
+                            Skill-damage per hit = [ Base + ((Stat-menu-ATK) x ATK%-buff + Flat-ATK) x scaling ] x
+                            Total-CDMG
+                        </p>
                         <p>It also doesn't take into account the following, however you can workaround these by
                             adding them
                             at
@@ -133,6 +148,7 @@
                                             <li>Nyx: T5 Dark ATK boost based on blade stacks ignored</li>
                                             <li>Chase: T5 Dark, S4 resurrected bonus stats ignored</li>
                                             <li>Neraxis: S4 Dark only gives Flat ATK if S2 is active</li>
+                                            <li>Veronica: UW and S4 gives Flat ATK only when S2 is active</li>
                                         </ul>
                                     </li>
                                 </ol>

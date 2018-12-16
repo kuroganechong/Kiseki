@@ -27,6 +27,8 @@
     <div class="nav-bar">
         <ul class="ul">
             <li><a href="https://github.com/kuroganechong/Kiseki">Github</a></li>
+            <li><a href="index.html">ATK/CDMG</a></li>
+            <li><a href="calc.html">Calculator</a></li>
         </ul>
     </div>
     <!-- Primary Page Layout
@@ -40,12 +42,12 @@
         </div>
         <div class="sticky">
             <div class="row" id="hero-container">
-                <div class="three columns">Hero</div>
+                <div class="three columns">Hero<br>
+                        <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                 <div class="nine columns">
                     <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
                         <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
                     </select>
-                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span>
                 </div>
             </div>
             <hr>
