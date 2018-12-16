@@ -34,362 +34,364 @@
     </div>
     <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <div class="container" id="app">
-        <div class="row">
-            <div class="twelve column">
-                <h4>King's Raid - How many ATK/CDMG lines in the gear should I get?</h4>
-                <button id="guidebtn" onclick="window.location.href = 'guide.html'">Guide</button>
+    <div>
+        <div class="container" id="app">
+            <div class="row">
+                <div class="twelve column">
+                    <h4>King's Raid - How many ATK/CDMG lines in the gear should I get?</h4>
+                    <button id="guidebtn" onclick="window.location.href = 'guide.html'">Guide</button>
+                </div>
             </div>
-        </div>
-        <div class="sticky">
-            <div class="row" id="hero-container">
-                <div class="three columns">Hero<br>
-                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
+            <div class="sticky">
+                <div class="row" id="hero-container">
+                    <div class="three columns">Hero<br>
+                        <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
+                    <div class="nine columns">
+                        <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
+                            <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row" id="class-container">
+                <div class="three columns">Class</div>
                 <div class="nine columns">
-                    <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
-                        <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
+                    <select class="u-full-width" id="class" v-model="cl">
+                        <option value="1">Knight</option>
+                        <option value="2">Warrior</option>
+                        <option value="3">Archer</option>
+                        <option value="4">Assassin</option>
+                        <option value="5">Mechanic</option>
+                        <option value="6">Wizard</option>
+                        <option value="7">Priest</option>
                     </select>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row" id="class-container">
-            <div class="three columns">Class</div>
-            <div class="nine columns">
-                <select class="u-full-width" id="class" v-model="cl">
-                    <option value="1">Knight</option>
-                    <option value="2">Warrior</option>
-                    <option value="3">Archer</option>
-                    <option value="4">Assassin</option>
-                    <option value="5">Mechanic</option>
-                    <option value="6">Wizard</option>
-                    <option value="7">Priest</option>
-                </select>
+            <div class="row" id="tier-container">
+                <div class="three columns">Gear tier</div>
+                <div class="nine columns">
+                    <select class="u-full-width" id="tier" v-model="tier">
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="row" id="tier-container">
-            <div class="three columns">Gear tier</div>
-            <div class="nine columns">
-                <select class="u-full-width" id="tier" v-model="tier">
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                </select>
+            <div class="row" id="uw-container">
+                <div class="three columns">UW</div>
+                <div class="five columns">
+                    <label for="uw">Stars</label>
+                    <select class="u-full-width" id="uw" v-model="star">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="four columns">
+                    <label>Runes</label>
+                    Atk: <input id="uw_rune_1" type="number" v-model="uw_rune_1">% <br>
+                    CDmg: <input id="uw_rune_2" type="number" v-model="uw_rune_2">%
+                </div>
             </div>
-        </div>
-        <div class="row" id="uw-container">
-            <div class="three columns">UW</div>
-            <div class="five columns">
-                <label for="uw">Stars</label>
-                <select class="u-full-width" id="uw" v-model="star">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+            <hr>
+            <div class="row" id="armor-container">
+                <div class="three columns">Armor</div>
+                <div class="three columns">
+                    <label for="armor_line">Desired No. of ATK/CDMG lines</label>
+                    <select class="u-full-width" id="armor_line" v-model="armor_line">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label for="armor-enc">Enchant</label>
+                    Atk: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
+                    CDmg: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
+                </div>
+                <div class="three columns">
+                    <label for="armor_rune_1">Rune</label>
+                    <select class="u-full-width" id="armor_rune_1" v-model="armor_rune_1">
+                        <option value="-">-</option>
+                        <option value="1">11% ATK</option>
+                        <option value="2">22% CDMG</option>
+                        <option value="3">40% CDMG</option>
+                        <option value="4">30% CDMG</option>
+                        <option value="others">others</option>
+                    </select>
+                    <select class="u-full-width" id="armor_rune_2" v-model="armor_rune_2">
+                        <option value="-">-</option>
+                        <option value="1">11% ATK</option>
+                        <option value="2">22% CDMG</option>
+                        <option value="3">40% CDMG</option>
+                        <option value="4">30% CDMG</option>
+                        <option value="others">others</option>
+                    </select>
+                </div>
             </div>
-            <div class="four columns">
-                <label>Runes</label>
-                Atk: <input id="uw_rune_1" type="number" v-model="uw_rune_1">% <br>
-                CDmg: <input id="uw_rune_2" type="number" v-model="uw_rune_2">%
+            <hr>
+            <div class="row" id="subarmor-container">
+                <div class="three columns">Subarmor</div>
+                <div class="three columns">
+                    <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
+                    <select class="u-full-width" id="subarmor_line" v-model="subarmor_line">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label>Enchant</label>
+                    Atk: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
+                    CDmg: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
+                </div>
+                <div class="three columns">
+                    <label for="subarmor_rune_1">Rune</label>
+                    <select class="u-full-width" id="subarmor_rune_1" v-model="subarmor_rune_1">
+                        <option value="-">-</option>
+                        <option value="1">11% ATK</option>
+                        <option value="2">22% CDMG</option>
+                        <option value="others">others</option>
+                    </select>
+                    <select class="u-full-width" id="subarmor_rune_2" v-model="subarmor_rune_2">
+                        <option value="-">-</option>
+                        <option value="1">11% ATK</option>
+                        <option value="2">22% CDMG</option>
+                        <option value="others">others</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row" id="armor-container">
-            <div class="three columns">Armor</div>
-            <div class="three columns">
-                <label for="armor_line">Desired No. of ATK/CDMG lines</label>
-                <select class="u-full-width" id="armor_line" v-model="armor_line">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
+            <hr>
+            <div class="row" id="accessory-container">
+                <div class="three columns">
+                    Accessory
+                    <select class="u-full-width" id="ear" v-model="ear">
+                        <option value="1">Earring</option>
+                        <option value="2">Non-earring</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label for="acc_line">Desired No. of ATK/CDMG lines</label>
+                    <select class="u-full-width" id="acc_line" v-model="acc_line">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label>Enchant</label>
+                    Atk: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
+                    CDmg: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
+                </div>
+                <div class="three columns">
+                </div>
             </div>
-            <div class="three columns">
-                <label for="armor-enc">Enchant</label>
-                Atk: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
-                CDmg: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
+            <hr>
+            <div class="row" id="orb-container">
+                <div class="three columns">Orb</div>
+                <div class="three columns">
+                    <label for="orb_line">Desired No. of ATK/CDMG lines</label>
+                    <select class="u-full-width" id="orb_line" v-model="orb_line">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="three columns">
+                    <label>Enchant</label>
+                    Atk: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
+                    CDmg: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
+                </div>
+                <div class="three columns">
+                </div>
             </div>
-            <div class="three columns">
-                <label for="armor_rune_1">Rune</label>
-                <select class="u-full-width" id="armor_rune_1" v-model="armor_rune_1">
-                    <option value="-">-</option>
-                    <option value="1">11% ATK</option>
-                    <option value="2">22% CDMG</option>
-                    <option value="3">40% CDMG</option>
-                    <option value="4">30% CDMG</option>
-                    <option value="others">others</option>
-                </select>
-                <select class="u-full-width" id="armor_rune_2" v-model="armor_rune_2">
-                    <option value="-">-</option>
-                    <option value="1">11% ATK</option>
-                    <option value="2">22% CDMG</option>
-                    <option value="3">40% CDMG</option>
-                    <option value="4">30% CDMG</option>
-                    <option value="others">others</option>
-                </select>
+            <hr>
+            <div class="row" id="treasure-container">
+                <div class="three columns">
+                    Treasure
+                </div>
+                <div class="three columns">
+                    <label>UT1</label>
+                    Atk: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
+                    CDmg: <input id="ut1_2" type="number" v-model="ut1_2">%
+                </div>
+                <div class="three columns">
+                    <label>UT2</label>
+                    Atk: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
+                    CDmg: <input id="ut2_2" type="number" v-model="ut2_2">%
+                </div>
+                <div class="three columns">
+                    <label>UT3</label>
+                    Atk: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
+                    CDmg: <input id="ut3_2" type="number" v-model="ut3_2">%
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row" id="subarmor-container">
-            <div class="three columns">Subarmor</div>
-            <div class="three columns">
-                <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
-                <select class="u-full-width" id="subarmor_line" v-model="subarmor_line">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            </div>
-            <div class="three columns">
-                <label>Enchant</label>
-                Atk: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
-                CDmg: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
-            </div>
-            <div class="three columns">
-                <label for="subarmor_rune_1">Rune</label>
-                <select class="u-full-width" id="subarmor_rune_1" v-model="subarmor_rune_1">
-                    <option value="-">-</option>
-                    <option value="1">11% ATK</option>
-                    <option value="2">22% CDMG</option>
-                    <option value="others">others</option>
-                </select>
-                <select class="u-full-width" id="subarmor_rune_2" v-model="subarmor_rune_2">
-                    <option value="-">-</option>
-                    <option value="1">11% ATK</option>
-                    <option value="2">22% CDMG</option>
-                    <option value="others">others</option>
-                </select>
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="accessory-container">
-            <div class="three columns">
-                Accessory
-                <select class="u-full-width" id="ear" v-model="ear">
-                    <option value="1">Earring</option>
-                    <option value="2">Non-earring</option>
-                </select>
-            </div>
-            <div class="three columns">
-                <label for="acc_line">Desired No. of ATK/CDMG lines</label>
-                <select class="u-full-width" id="acc_line" v-model="acc_line">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            </div>
-            <div class="three columns">
-                <label>Enchant</label>
-                Atk: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
-                CDmg: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
-            </div>
-            <div class="three columns">
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="orb-container">
-            <div class="three columns">Orb</div>
-            <div class="three columns">
-                <label for="orb_line">Desired No. of ATK/CDMG lines</label>
-                <select class="u-full-width" id="orb_line" v-model="orb_line">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-            </div>
-            <div class="three columns">
-                <label>Enchant</label>
-                Atk: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
-                CDmg: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
-            </div>
-            <div class="three columns">
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="treasure-container">
-            <div class="three columns">
-                Treasure
-            </div>
-            <div class="three columns">
-                <label>UT1</label>
-                Atk: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
-                CDmg: <input id="ut1_2" type="number" v-model="ut1_2">%
-            </div>
-            <div class="three columns">
-                <label>UT2</label>
-                Atk: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
-                CDmg: <input id="ut2_2" type="number" v-model="ut2_2">%
-            </div>
-            <div class="three columns">
-                <label>UT3</label>
-                Atk: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
-                CDmg: <input id="ut3_2" type="number" v-model="ut3_2">%
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="skill-container">
-            <div class="three columns">
-                Skills/Perks/UW UT Effects <br><br>
+            <hr>
+            <div class="row" id="skill-container">
+                <div class="three columns">
+                    Skills/Perks/UW UT Effects <br><br>
 
-                Total skill ATK:
-                <code>
-                    <transition name="slide-fade" mode="out-in">
-                        <span :key="'result_' + Number(skillatk) + Number(perkatk)">{{ Number(skillatk) + Number(perkatk) }}%</span>
-                    </transition>
-                </code>, <br>
-                Total skill CDMG:
-                <code>
-                    <transition name="slide-fade" mode="out-in">
-                        <span :key="'result_' + Number(skillcdmg) + Number(perkcdmg)">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
-                    </transition>
-                </code>, <br>
-                Total skill Flat ATK:
-                <code>
-                    <transition name="slide-fade" mode="out-in">
-                        <span :key="'result_' + skillfa">{{ skillfa }}</span>
-                    </transition>
-                </code>
-            </div>
-            <div class="nine columns">
-                <!-- common -->
-                <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
-                        alt="Atk up"></label><br><br>
-                <!-- warrior -->
-                <div v-if="cl == 2">
-                    <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
-                            src="images/as2.jpg" alt="Opportune Strike"></label>
-                    <input type="checkbox" id="wa2" value="wa2" v-model="perk2"><label class="clickLabel" for="wa2"><img
-                            src="images/wa2.jpg" alt="Warlike"></label>
-                    <span v-if="perk2.includes('wa2')">Number of enemies: <input type="number" v-model="wa2"><br></span>
+                    Total skill ATK:
+                    <code>
+                        <transition name="slide-fade" mode="out-in">
+                            <span :key="'result_' + Number(skillatk) + Number(perkatk)">{{ Number(skillatk) + Number(perkatk) }}%</span>
+                        </transition>
+                    </code>, <br>
+                    Total skill CDMG:
+                    <code>
+                        <transition name="slide-fade" mode="out-in">
+                            <span :key="'result_' + Number(skillcdmg) + Number(perkcdmg)">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
+                        </transition>
+                    </code>, <br>
+                    Total skill Flat ATK:
+                    <code>
+                        <transition name="slide-fade" mode="out-in">
+                            <span :key="'result_' + skillfa">{{ skillfa }}</span>
+                        </transition>
+                    </code>
                 </div>
-                <!-- assassin -->
-                <div v-if="cl == 4">
-                    <input type="checkbox" id="as1" value="as1" v-model="perk2"><label class="clickLabel" for="as1"><img
-                            src="images/as1.jpg" alt="Target Weakness"></label>
-                    <input type="checkbox" id="as2" value="as2" v-model="perk2"><label class="clickLabel" for="as2"><img
-                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                <div class="nine columns">
+                    <!-- common -->
+                    <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
+                            alt="Atk up"></label><br><br>
+                    <!-- warrior -->
+                    <div v-if="cl == 2">
+                        <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
+                                src="images/as2.jpg" alt="Opportune Strike"></label>
+                        <input type="checkbox" id="wa2" value="wa2" v-model="perk2"><label class="clickLabel" for="wa2"><img
+                                src="images/wa2.jpg" alt="Warlike"></label>
+                        <span v-if="perk2.includes('wa2')">Number of enemies: <input type="number" v-model="wa2"><br></span>
+                    </div>
+                    <!-- assassin -->
+                    <div v-if="cl == 4">
+                        <input type="checkbox" id="as1" value="as1" v-model="perk2"><label class="clickLabel" for="as1"><img
+                                src="images/as1.jpg" alt="Target Weakness"></label>
+                        <input type="checkbox" id="as2" value="as2" v-model="perk2"><label class="clickLabel" for="as2"><img
+                                src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                    </div>
+                    <!-- archer -->
+                    <div v-if="cl == 3">
+                        <input type="checkbox" id="ar1" value="ar1" v-model="perk2"><label class="clickLabel" for="ar1"><img
+                                src="images/ar1.jpg" alt="Precision Shot"></label>
+                        <input type="checkbox" id="ar2" value="ar2" v-model="perk2"><label class="clickLabel" for="ar2"><img
+                                src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                    </div>
+                    <!-- mechanic -->
+                    <div v-if="cl == 5">
+                        <input type="checkbox" id="me1" value="me1" v-model="perk2"><label class="clickLabel" for="me1"><img
+                                src="images/as1.jpg" alt="Target Weakness"></label><br><br>
+                    </div>
+                    <!-- wizard -->
+                    <div v-if="cl == 6">
+                        <input type="checkbox" id="wi1" value="wi1" v-model="perk2"><label class="clickLabel" for="wi1"><img
+                                src="images/wi1.jpg" alt="Moral Rise"></label>
+                        <input type="checkbox" id="wi2" value="wi2" v-model="perk2"><label class="clickLabel" for="wi2"><img
+                                src="images/wi2.jpg" alt="Circuit Burst"></label><br><br>
+                    </div>
+                    <button class="collapsible">Hero skills/perks</button>
+                    <div class="content" id="parentcontent">
+                        <hero v-for="post in posts" v-bind:key="String(post.ally) + String(post.id)" v-bind:post="post"
+                            v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
+                            @selectedut="onSelectUT"></hero>
+                    </div>
                 </div>
-                <!-- archer -->
-                <div v-if="cl == 3">
-                    <input type="checkbox" id="ar1" value="ar1" v-model="perk2"><label class="clickLabel" for="ar1"><img
-                            src="images/ar1.jpg" alt="Precision Shot"></label>
-                    <input type="checkbox" id="ar2" value="ar2" v-model="perk2"><label class="clickLabel" for="ar2"><img
-                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+            </div>
+            <hr>
+            <div class="row" id="artifact-container">
+                <div class="three columns">
+                    Artifact
                 </div>
-                <!-- mechanic -->
-                <div v-if="cl == 5">
-                    <input type="checkbox" id="me1" value="me1" v-model="perk2"><label class="clickLabel" for="me1"><img
-                            src="images/as1.jpg" alt="Target Weakness"></label><br><br>
+                <div class="three columns">
+                    <label for="art_1">Atk</label>
+                    <input id="art_1" type="number" v-model="art_1">%
                 </div>
-                <!-- wizard -->
-                <div v-if="cl == 6">
-                    <input type="checkbox" id="wi1" value="wi1" v-model="perk2"><label class="clickLabel" for="wi1"><img
-                            src="images/wi1.jpg" alt="Moral Rise"></label>
-                    <input type="checkbox" id="wi2" value="wi2" v-model="perk2"><label class="clickLabel" for="wi2"><img
-                            src="images/wi2.jpg" alt="Circuit Burst"></label><br><br>
+                <div class="three columns">
+                    <label for="art_2">CDmg</label>
+                    <input id="art_2" type="number" v-model="art_2">%
                 </div>
-                <button class="collapsible">Hero skills/perks</button>
-                <div class="content" id="parentcontent">
-                    <hero v-for="post in posts" v-bind:key="String(post.ally) + String(post.id)" v-bind:post="post"
-                        v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
-                        @selectedut="onSelectUT"></hero>
+                <div class="three columns">
+                    <label for="art_3">Creature Mask</label>
+                    <input id="art_3" type="number" v-model="art_3">%
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row" id="artifact-container">
-            <div class="three columns">
-                Artifact
+            <hr>
+            <div class="row" id="scale-container">
+                <div class="three columns">
+                    <label for="scale">DMG Boost</label>
+                    <input id="scale" type="number" v-model="scale">%
+                </div>
+                <div class="three columns">
+                    <label for="addatk">Additional ATK</label>
+                    <input id="addatk" type="number" v-model="addatk">%
+                </div>
+                <div class="three columns">
+                    <label for="addcdmg">Additional CDMG</label>
+                    <input id="addcdmg" type="number" v-model="addcdmg">%
+                </div>
+                <div class="three columns">
+                    <label for="Fa">Additional Flat ATK</label>
+                    <input id="Fa" type="number" v-model="Fa">
+                </div>
             </div>
-            <div class="three columns">
-                <label for="art_1">Atk</label>
-                <input id="art_1" type="number" v-model="art_1">%
+            <hr>
+            <div class="row" id="heroscale-container">
+                <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+                <div class="three columns">
+                    <label for="obs">Observed damage in dummy</label>
+                    <input id="obs" type="number" v-model="obs">
+                </div>
+                <div class="three columns">
+                    <label for="heroscale">Hero-specific scaling</label>
+                    <span id="heroscale">{{ heroscale * 100 }}%</span>
+                </div>
+                <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
             </div>
-            <div class="three columns">
-                <label for="art_2">CDmg</label>
-                <input id="art_2" type="number" v-model="art_2">%
+            <hr>
+            <div class="row" id="result-container">
+                <button v-on:click="alert" href="#popup1" class="current">Calculate</button>
             </div>
-            <div class="three columns">
-                <label for="art_3">Creature Mask</label>
-                <input id="art_3" type="number" v-model="art_3">%
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="scale-container">
-            <div class="three columns">
-                <label for="scale">DMG Boost</label>
-                <input id="scale" type="number" v-model="scale">%
-            </div>
-            <div class="three columns">
-                <label for="addatk">Additional ATK</label>
-                <input id="addatk" type="number" v-model="addatk">%
-            </div>
-            <div class="three columns">
-                <label for="addcdmg">Additional CDMG</label>
-                <input id="addcdmg" type="number" v-model="addcdmg">%
-            </div>
-            <div class="three columns">
-                <label for="Fa">Additional Flat ATK</label>
-                <input id="Fa" type="number" v-model="Fa">
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="heroscale-container">
-            <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
-            <div class="three columns">
-                <label for="obs">Observed damage in dummy</label>
-                <input id="obs" type="number" v-model="obs">
-            </div>
-            <div class="three columns">
-                <label for="heroscale">Hero-specific scaling</label>
-                <span id="heroscale">{{ heroscale * 100 }}%</span>
-            </div>
-            <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
-        </div>
-        <hr>
-        <div class="row" id="result-container">
-            <button v-on:click="alert" href="#popup1" class="current">Calculate</button>
-        </div>
-        <hr>
+            <hr>
 
-        <div id="result" class="overlay">
-            <div class="popup">
-                <a class="close" v-on:click="closeAlert">&times;</a>
-                <h4>Result</h4>
-                <div class="popupcontent">
-                    Optimum setup is<br>
-                    <code>{{m}} CDMG lines</code><br>
-                    <code>{{n}} ATK lines</code><br><br>
+            <div id="result" class="overlay">
+                <div class="popup">
+                    <a class="close" v-on:click="closeAlert">&times;</a>
+                    <h4>Result</h4>
+                    <div class="popupcontent">
+                        Optimum setup is<br>
+                        <code>{{m}} CDMG lines</code><br>
+                        <code>{{n}} ATK lines</code><br><br>
 
-                    <strong>Total increase</strong> <br>
-                    Additional ATK%: <code>{{ Math.round(Number(BATK)*(Number(100) + Number(R1) + Number(b*n)*100)/100) - 100 }}%</code>
-                    <br>
-                    Additional CDMG%: <code>{{ Math.round(Number(BCd) + Number(a*m)*100) - 200 }}%</code> <br>
-                    Flat ATK boost: <code>{{ BFa }}</code><br><br>
+                        <strong>Total increase</strong> <br>
+                        Additional ATK%: <code>{{ Math.round(Number(BATK)*(Number(100) + Number(R1) + Number(b*n)*100)/100) - 100 }}%</code>
+                        <br>
+                        Additional CDMG%: <code>{{ Math.round(Number(BCd) + Number(a*m)*100) - 200 }}%</code> <br>
+                        Flat ATK boost: <code>{{ BFa }}</code><br><br>
 
-                    <strong>Stat page value</strong> <br>
-                    ATK: <code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))) }}</code> <br>
-                    CDMG: <code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - 200 + m*a*100)}}%</code>
-                    <br><br>
+                        <strong>Stat page value</strong> <br>
+                        ATK: <code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))) }}</code> <br>
+                        CDMG: <code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - 200 + m*a*100)}}%</code>
+                        <br><br>
 
-                    <strong>Final damage value:</strong> <code>{{f}}</code> <br>
+                        <strong>Final damage value:</strong> <code>{{f}}</code> <br>
+                    </div>
                 </div>
             </div>
+            <div id="tester" class="graph">
+                Graph of Damage/no. of cdmg lines
+            </div>
         </div>
-    </div>
-    <div id="tester" class="graph">
-        Graph of Damage/no. of cdmg lines
     </div>
     <hr>
 
