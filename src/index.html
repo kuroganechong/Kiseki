@@ -34,8 +34,8 @@
     </div>
     <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <div>
-        <div class="container" id="app">
+    <div class="container overlay">
+        <div id="app">
             <div class="row">
                 <div class="twelve column">
                     <h4>King's Raid - How many ATK/CDMG lines in the gear should I get?</h4>
@@ -364,7 +364,7 @@
             </div>
             <hr>
 
-            <div id="result" class="overlay">
+            <div id="result" class="">
                 <div class="popup">
                     <a class="close" v-on:click="closeAlert">&times;</a>
                     <h4>Result</h4>
@@ -388,9 +388,9 @@
                     </div>
                 </div>
             </div>
-            <div id="tester" class="graph">
-                Graph of Damage/no. of cdmg lines
-            </div>
+        </div>
+        <div id="tester" class="graph">
+            Graph of Damage/no. of cdmg lines
         </div>
     </div>
     <hr>
