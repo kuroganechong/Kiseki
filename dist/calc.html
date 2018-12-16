@@ -199,7 +199,7 @@
             Damage value before scaling:
             <code>
                 <transition name="slide-fade" mode="out-in">
-                    <span :key="'calc_' + cal">{{pref}}</span>
+                    <span :key="'calc_' + pref">{{pref}}</span>
                 </transition>
             </code> <br>
             <strong>Final damage value:</strong>
@@ -209,7 +209,7 @@
                 </transition>
             </code> <br>
             <strong v-if="atkfocus">Currently ATK% buffs worth more than CDMG% buffs!</strong>
-            <strong v-if="atkfocus">Currently CDMG% buffs worth more than ATK% buffs!</strong>
+            <strong v-if="!atkfocus">Currently CDMG% buffs worth more than ATK% buffs!</strong>
         </div>
         <hr>
     </div>
