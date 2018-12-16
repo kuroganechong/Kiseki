@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kiseki KR-Asia</title>
+    <meta name="description" content="">
+    <meta name="author" content="sagiri">
+
+    <!-- Mobile Specific Metas
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <div class="nav-bar">
+        <ul class="ul">
+            <li><a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a></li>
+            <li><a href="guild.html">Kiseki</a></li>
+            <li><a href="index.html">ATK/CDMG</a></li>
+            <li><a href="calc.html">Calculator</a></li>
+        </ul>
+    </div>
+    <!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container" id="app">
+        <div class="row">
+            <div class="twelve column">
+                <h4>King's Raid - DMG Calculator</h4>
+                <ol>
+                    <li>Fill in your ATK/CDMG in your stat menu</li>
+                    <li>Select any buffs applied</li>
+                    <li>Fill in any additional dmg/stat buffs (guild buffs, other buffs ignored in the skill selection)</li>
+                    <li>Fill in the observed damage per auto attack and calibrate</li>
+                    <li>Check the result</li>
+                </ol>
+            </div>
+        </div>
+        <div class="sticky">
+            <div class="row" id="hero-container">
+                <div class="three columns">Hero<br>
+                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
+                <div class="nine columns">
+                    <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
+                        <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="class-container">
+            <div class="three columns">Class</div>
+            <div class="nine columns">
+                <select class="u-full-width" id="class" v-model="cl">
+                    <option value="1">Knight</option>
+                    <option value="2">Warrior</option>
+                    <option value="3">Archer</option>
+                    <option value="4">Assassin</option>
+                    <option value="5">Mechanic</option>
+                    <option value="6">Wizard</option>
+                    <option value="7">Priest</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="stats-container">
+            <div class="four columns">
+                Stats
+            </div>
+            <div class="four columns">
+                <label for="astatatktk">ATK</label>
+                <input id="statatk" type="number" v-model="statatk">
+            </div>
+            <div class="four columns">
+                <label for="statcdmg">CDMG</label>
+                <input id="statcdmg" type="number" v-model="statcdmg">
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="skill-container">
+            <div class="three columns">
+                Skills/Perks/UW UT Effects <br><br>
+
+                Total skill ATK: <code>{{ Number(skillatk) + Number(perkatk) }}%</code>, <br>
+                Total skill CDMG: <code>{{ Number(skillcdmg) + Number(perkcdmg) }}%</code>, <br>
+                Total skill Flat ATK: <code>{{ skillfa }}</code>
+            </div>
+            <div class="nine columns">
+                <!-- common -->
+                <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
+                        alt="Atk up"></label><br><br>
+                <!-- warrior -->
+                <div v-if="cl == 2">
+                    <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
+                            src="images/as2.jpg" alt="Opportune Strike"></label>
+                    <input type="checkbox" id="wa2" value="wa2" v-model="perk2"><label class="clickLabel" for="wa2"><img
+                            src="images/wa2.jpg" alt="Warlike"></label>
+                    <span v-if="perk2.includes('wa2')">Number of enemies: <input type="number" v-model="wa2"><br></span>
+                </div>
+                <!-- assassin -->
+                <div v-if="cl == 4">
+                    <input type="checkbox" id="as1" value="as1" v-model="perk2"><label class="clickLabel" for="as1"><img
+                            src="images/as1.jpg" alt="Target Weakness"></label>
+                    <input type="checkbox" id="as2" value="as2" v-model="perk2"><label class="clickLabel" for="as2"><img
+                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                </div>
+                <!-- archer -->
+                <div v-if="cl == 3">
+                    <input type="checkbox" id="ar1" value="ar1" v-model="perk2"><label class="clickLabel" for="ar1"><img
+                            src="images/ar1.jpg" alt="Precision Shot"></label>
+                    <input type="checkbox" id="ar2" value="ar2" v-model="perk2"><label class="clickLabel" for="ar2"><img
+                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                </div>
+                <!-- mechanic -->
+                <div v-if="cl == 5">
+                    <input type="checkbox" id="me1" value="me1" v-model="perk2"><label class="clickLabel" for="me1"><img
+                            src="images/as1.jpg" alt="Target Weakness"></label><br><br>
+                </div>
+                <!-- wizard -->
+                <div v-if="cl == 6">
+                    <input type="checkbox" id="wi1" value="wi1" v-model="perk2"><label class="clickLabel" for="wi1"><img
+                            src="images/wi1.jpg" alt="Moral Rise"></label>
+                    <input type="checkbox" id="wi2" value="wi2" v-model="perk2"><label class="clickLabel" for="wi2"><img
+                            src="images/wi2.jpg" alt="Circuit Burst"></label><br><br>
+                </div>
+                <button class="collapsible">Hero skills/perks</button>
+                <div class="content" id="parentcontent">
+                    <hero v-for="post in posts" v-bind:key="String(post.ally) + String(post.id)" v-bind:post="post"
+                        v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
+                        @selectedut="onSelectUT"></hero>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="artifact-container">
+            <div class="three columns">
+                Artifact
+            </div>
+            <div class="three columns">
+                <label for="art_1">Atk</label>
+                <input id="art_1" type="number" v-model="art_1">%
+            </div>
+            <div class="three columns">
+                <label for="art_2">CDmg</label>
+                <input id="art_2" type="number" v-model="art_2">%
+            </div>
+            <div class="three columns">
+                <label for="art_3">Creature Mask</label>
+                <input id="art_3" type="number" v-model="art_3">%
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="scale-container">
+            <div class="three columns">
+                <label for="scale">DMG Boost</label>
+                <input id="scale" type="number" v-model="scale">%
+            </div>
+            <div class="three columns">
+                <label for="addatk">Additional ATK</label>
+                <input id="addatk" type="number" v-model="addatk">%
+            </div>
+            <div class="three columns">
+                <label for="addcdmg">Additional CDMG</label>
+                <input id="addcdmg" type="number" v-model="addcdmg">%
+            </div>
+            <div class="three columns">
+                <label for="Fa">Additional Flat ATK</label>
+                <input id="Fa" type="number" v-model="Fa">
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="heroscale-container">
+            <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+            <div class="three columns">
+                <label for="obs">Observed damage in dummy</label>
+                <input id="obs" type="number" v-model="obs">
+            </div>
+            <div class="three columns">
+                <label for="heroscale">Hero-specific scaling</label>
+                <span id="heroscale">{{ heroscale * 100 }}%</span>
+            </div>
+            <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
+        </div>
+        <hr>
+        <div class="row" id="result-container">
+            Damage value before scaling:
+            <code>
+                <transition name="slide-fade" mode="out-in">
+                    <span :key="'calc_' + cal">{{pref}}</span>
+                </transition>
+            </code> <br>
+            <strong>Final damage value:</strong>
+            <code>
+                <transition name="slide-fade" mode="out-in">
+                    <span :key="'result_' + f">{{f}}</span>
+                </transition>
+            </code> <br>
+        </div>
+        <hr>
+    </div>
+
+    <!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="js/calc.js"></script>
+</body>
+
+</html>
