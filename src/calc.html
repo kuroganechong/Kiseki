@@ -192,6 +192,12 @@
         </div>
         <hr>
         <div class="row" id="result-container">
+            Damage value before scaling:
+            <code>
+                <transition name="slide-fade" mode="out-in">
+                    <span :key="'calc_' + cal">{{pref}}</span>
+                </transition>
+            </code> <br>
             <strong>Final damage value:</strong>
             <code>
                 <transition name="slide-fade" mode="out-in">
