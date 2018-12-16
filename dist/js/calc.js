@@ -378,11 +378,19 @@ $.getJSON("data/hero.json").done(function (data) {
                 return Math.round(x)
             },
             atkfocus: function(){
-                var breakpoint = Number(1) + Number(this.BFa/this.statatk)
-                if (this.Cd/this.BATK > breakpoint){
-                    return true
+                if (this.statatk != 0){
+                    var breakpoint = Number(1) + Number(this.BFa/this.statatk)
+                    if (this.BATK != 0){
+                        if (this.Cd/this.BATK > breakpoint){
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return true
+                    }
                 } else {
-                    return false
+                    return true
                 }
             }
         },
