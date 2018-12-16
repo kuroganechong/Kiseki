@@ -43,7 +43,7 @@
         <div class="sticky">
             <div class="row" id="hero-container">
                 <div class="three columns">Hero<br>
-                        <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
+                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                 <div class="nine columns">
                     <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
                         <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
@@ -175,7 +175,11 @@
         <hr>
         <div class="row" id="result-container">
             <strong>Final damage value:</strong> <code>
-                    <transition name="bounce">{{f}}</transition></code> <br>
+                    <transition name="slide-fade" mode="out-in">
+                        <div v-bind:key="f">
+                            {{f}}
+                        </div>
+                    </transition></code> <br>
         </div>
         <hr>
     </div>
