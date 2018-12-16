@@ -174,12 +174,12 @@
         </div>
         <hr>
         <div class="row" id="result-container">
-            <strong>Final damage value:</strong> <code>
-                    <transition name="slide-fade" mode="out-in">
-                        <div v-bind:key="f">
-                            {{f}}
-                        </div>
-                    </transition></code> <br>
+            <strong>Final damage value:</strong>
+            <code>
+                <transition name="slide-fade" mode="out-in">
+                    <span :key="'result_' + f">{{f}}</span>
+                </transition>
+            </code> <br>
         </div>
         <hr>
     </div>
