@@ -351,7 +351,7 @@ function setVue() {
             art_2: 0,
             art_3: 0,
             scale: 0,
-            addatk: 1,
+            addatk: 0,
             addcdmg: 0,
             Fa: 0,
             skillatk: 0,
