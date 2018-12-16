@@ -344,6 +344,19 @@
             </div>
         </div>
         <hr>
+        <div class="row" id="heroscale-container">
+            <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+            <div class="three columns">
+                <label for="obs">Observed damage in dummy</label>
+                <input id="obs" type="number" v-model="obs">
+            </div>
+            <div class="three columns">
+                <label for="heroscale">Hero-specific scaling</label>
+                <span id="heroscale">{{ heroscale * 100 }}%</span>
+            </div>
+            <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
+        </div>
+        <hr>
         <div class="row" id="result-container">
             <button v-on:click="alert" href="#popup1" class="current">Calculate</button>
         </div>
