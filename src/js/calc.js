@@ -376,6 +376,14 @@ $.getJSON("data/hero.json").done(function (data) {
                 var x = 0
                 x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale
                 return Math.round(x)
+            },
+            atkfocus: function(){
+                var breakpoint = Number(1) + Number(this.BFa/this.statatk)
+                if (this.Cd/this.BATK > breakpoint){
+                    return true
+                } else {
+                    return false
+                }
             }
         },
         components: {
