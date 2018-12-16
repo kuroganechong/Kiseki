@@ -665,9 +665,11 @@ function setVue() {
             },
             alert: function () {
                 addClass(document.getElementById('result'), 'show')
+                addClass(document.getElementById('tester'), 'show')
             },
             closeAlert: function () {
                 removeClass(document.getElementById('result'), 'show')
+                removeClass(document.getElementById('tester'), 'show')
             },
             reset: function () {
                 window.location.href = "index.html#" + this.hero

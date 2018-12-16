@@ -72,6 +72,10 @@
             visibility: visible;
             opacity: 1;
         }
+        .graph.show {
+            visibility: hidden;
+            opacity: 0;
+        }
 
         .popup {
             margin: 70px auto;
