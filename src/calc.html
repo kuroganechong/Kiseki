@@ -42,12 +42,12 @@
         </div>
         <div class="sticky">
             <div class="row" id="hero-container">
-                <div class="three columns">Hero</div>
+                <div class="three columns">Hero<br>
+                        <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                 <div class="nine columns">
                     <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
                         <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
                     </select>
-                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span>
                 </div>
             </div>
         </div>
@@ -169,12 +169,13 @@
             </div>
             <div class="three columns">
                 <label for="Fa">Additional Flat ATK</label>
-                <input id="Fa" type="number" v-model="Fa">%
+                <input id="Fa" type="number" v-model="Fa">
             </div>
         </div>
         <hr>
         <div class="row" id="result-container">
-            <strong>Final damage value:</strong> <code>{{f}}</code> <br>
+            <strong>Final damage value:</strong> <code>
+                    <transition name="bounce">{{f}}</transition></code> <br>
         </div>
         <hr>
     </div>
