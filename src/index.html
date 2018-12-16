@@ -43,7 +43,7 @@
         <div class="sticky">
             <div class="row" id="hero-container">
                 <div class="three columns">Hero<br>
-                        <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
+                    <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                 <div class="nine columns">
                     <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
                         <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
@@ -241,9 +241,24 @@
             <div class="three columns">
                 Skills/Perks/UW UT Effects <br><br>
 
-                Total skill ATK: <code>{{ Number(skillatk) + Number(perkatk) }}%</code>, <br>
-                Total skill CDMG: <code>{{ Number(skillcdmg) + Number(perkcdmg) }}%</code>, <br>
-                Total skill Flat ATK: <code>{{ skillfa }}</code>
+                Total skill ATK:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'result_' + Number(skillatk) + Number(perkatk)">{{ Number(skillatk) + Number(perkatk) }}%</span>
+                    </transition>
+                </code>, <br>
+                Total skill CDMG:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'result_' + Number(skillcdmg) + Number(perkcdmg)">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
+                    </transition>
+                </code>, <br>
+                Total skill Flat ATK:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'result_' + skillfa">{{ skillfa }}</span>
+                    </transition>
+                </code>
             </div>
             <div class="nine columns">
                 <!-- common -->
@@ -342,15 +357,17 @@
                     Optimum setup is<br>
                     <code>{{m}} CDMG lines</code><br>
                     <code>{{n}} ATK lines</code><br><br>
-                    
+
                     <strong>Total increase</strong> <br>
-                    Additional ATK%: <code>{{ Math.round(Number(BATK)*(Number(100) + Number(R1) + Number(b*n)*100)/100) - 100 }}%</code> <br>
+                    Additional ATK%: <code>{{ Math.round(Number(BATK)*(Number(100) + Number(R1) + Number(b*n)*100)/100) - 100 }}%</code>
+                    <br>
                     Additional CDMG%: <code>{{ Math.round(Number(BCd) + Number(a*m)*100) - 200 }}%</code> <br>
                     Flat ATK boost: <code>{{ BFa }}</code><br><br>
 
                     <strong>Stat page value</strong> <br>
                     ATK: <code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))) }}</code> <br>
-                    CDMG: <code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - 200 + m*a*100)}}%</code> <br><br>
+                    CDMG: <code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - 200 + m*a*100)}}%</code>
+                    <br><br>
 
                     <strong>Final damage value:</strong> <code>{{f}}</code> <br>
                 </div>
@@ -366,11 +383,13 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="js/custom.js"></script>
     <script>
-    TESTER = document.getElementById('tester');
-	Plotly.plot( TESTER, [{
-	x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-	y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] }], {
-    margin: { t: 0 } } );
+        TESTER = document.getElementById('tester');
+        Plotly.plot(TESTER, [{
+            x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            y: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        }], {
+                margin: { t: 0 }
+            });
     </script>
 </body>
 
