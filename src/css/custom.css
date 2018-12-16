@@ -127,3 +127,7 @@
             /* .slide-fade-leave-active for <2.1.8 */ {
             opacity: 0;
         }
+        .wrap{
+            border: 1px solid darkgray;
+            border-radius: 5px
+        }
