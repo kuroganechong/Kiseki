@@ -1,16 +1,22 @@
 
+        div{
+            font-family: "IBM Plex Sans"!important
+        }
         div.graph{
             height: 400px;
-            width: 100%
+            width: 100%;
+            text-align: center;
+            font-style: italic
         }
         div.sticky {
             position: -webkit-sticky; /* Safari */
             position: sticky;
             padding: 10px;
             top:0px;
-            background-color: #eae7e6;
+            background-color: #F0E7D8;
             border-bottom-left-radius: 4px;
-            border-bottom-right-radius: 4px
+            border-bottom-right-radius: 4px;
+            border: 1px solid #99938A;
         }
         .content {
             padding: 0 18px;
@@ -23,7 +29,7 @@
             display: inline-block;
             height: 38px;
             padding: 0 30px;
-            color: #555;
+            color: #4E4745;
             text-align: center;
             font-size: 11px;
             font-weight: 600;
@@ -41,11 +47,15 @@
         .clickLabel.disable{
             background-color: 	#444;
         }
+        input[type=checkbox]{
+            display:none
+        }
         input[type=checkbox]:checked + label.clickLabel{
-            background-color: 	#eae7e6;
+            background-color: 	#F0E7D8;
+            border-color: #A63A50
         }
         .selected{
-            background-color: 	#eae7e6;
+            background-color: 	#F0E7D8;
         }
         
         .overlay {
@@ -66,7 +76,7 @@
         .popup {
             margin: 70px auto;
             padding: 20px;
-            background: #fff;
+            background: #F0E7D8;
             border-radius: 5px;
             width: 70%;
             position: relative;
@@ -94,22 +104,24 @@
             border-radius: 5px;
         }
         .current {
-            background-color: 	#ddd0c9
+            background-color: 	#F0E7D8;
+            border-color: #4E4745
         }
         .current:hover {
-            background-color:	#d0bcb0;
+            background-color:	#BE6F7F;
             transition: all 200ms
         }
 
         .nav-bar .ul li{
-            display: inline
+            display: inline-block;
+            margin: 0.5em
         }
         .nav-bar .ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #d0bcb0;
+            background-color: #A63A50;
         }
         .nav-bar .ul li a {
             color: white;
