@@ -37,7 +37,12 @@
         <div class="row">
             <div class="twelve column">
                 <h3>Kiseki - DMG Calculator</h3>
-                <p>Fill in your ATK/CDMG in your stat menu, and select any buffs applied</p>
+                <ol>
+                    <li>Fill in your ATK/CDMG in your stat menu</li>
+                    <li>Select any buffs applied</li>
+                    <li>Fill in the observed damage per auto attack</li>
+                    <li>Check the result</li>
+                </ol>
             </div>
         </div>
         <div class="sticky">
@@ -171,6 +176,19 @@
                 <label for="Fa">Additional Flat ATK</label>
                 <input id="Fa" type="number" v-model="Fa">
             </div>
+        </div>
+        <hr>
+        <div class="row" id="artifact-container">
+            <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+            <div class="three columns">
+                <label for="obs">Observed damage in dummy</label>
+                <input id="obs" type="number" v-model="obs">
+            </div>
+            <div class="three columns">
+                <label for="heroscale">Hero-specific scaling</label>
+                <span id="heroscale">{{ heroscale * 100 }}%</span>
+            </div>
+            <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
         </div>
         <hr>
         <div class="row" id="result-container">

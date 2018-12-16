@@ -282,7 +282,9 @@ $.getJSON("data/hero.json").done(function (data) {
             heronames: heronames,
             perk1: false,
             perk2: [],
-            wa2: 0
+            wa2: 0,
+            obs: 0,
+            heroscale: 1
         },
         computed: {
             perkatk: function () {
@@ -351,9 +353,14 @@ $.getJSON("data/hero.json").done(function (data) {
                 x = Number(200) + Number(this.addcdmg) + Number(this.art_2) + Number(this.skillcdmg) + Number(this.perkcdmg) + Number(this.statcdmg)
                 return x
             },
-            f: function () {
+            pref: function () {
                 var x = 0
                 x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01))
+                return Math.round(x)
+            },
+            f: function () {
+                var x = 0
+                x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale
                 return Math.round(x)
             }
         },
@@ -429,6 +436,13 @@ $.getJSON("data/hero.json").done(function (data) {
                 this.skillcdmg = Number(this.skillcdmg) + Number(data[1])
                 this.skillfa = Number(this.skillfa) + Number(data[2])
                 this.uttemp[id][utno] = data
+            },
+            calibrate: function(){
+                if(this.pref == 0){
+                    console.log('divide by zero error')
+                    return
+                }
+                this.heroscale = this.obs/this.pref
             }
         },
         beforeUpdate: function () {
