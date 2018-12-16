@@ -69,6 +69,7 @@ function removeClass(el, className) {
 }
 
 var jsonval = []
+var app
 $.getJSON("data/hero.json").done(function (data) {
     jsonval = data['0']
 
@@ -257,7 +258,7 @@ $.getJSON("data/hero.json").done(function (data) {
         }
     })
 
-    var app = new Vue({
+    app = new Vue({
         el: '#app',
         data: {
             cl: '1',
