@@ -208,8 +208,8 @@
                     <span :key="'result_' + f">{{f}}</span>
                 </transition>
             </code> <br>
-            <strong v-if="atkfocus">Currently ATK% buffs worth more than CDMG% buffs!</strong>
-            <strong v-if="!atkfocus">Currently CDMG% buffs worth more than ATK% buffs!</strong>
+            <strong v-if="atkfocus == 1">Currently ATK% buffs worth more than CDMG% buffs!</strong>
+            <strong v-if="atkfocus == 0">Currently CDMG% buffs worth more than ATK% buffs!</strong>
         </div>
         <hr>
     </div>

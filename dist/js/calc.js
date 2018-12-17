@@ -70,7 +70,8 @@ function removeClass(el, className) {
 
 var jsonval = []
 var app
-$.getJSON("data/hero.json").done(function (data) {
+//$.getJSON("data/hero.json").done(function (data) {
+$.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/data/hero.json").done(function (data) {
     jsonval = data['0']
 
     var heronames = { "Kasel": "1", "Frey": "2", "Cleo": "3", "Roi": "4", "Gau": "5", "Phillop": "6", "Lakrak": "7", "Kaulah": "8", "Epis": "9", "Selene": "10", "Maria": "11", "Miruru": "12", "Lorraine": "13", "Clause": "15", "Rephy": "16", "Dimael": "17", "Reina": "18", "Pavel": "19", "Demia": "20", "Naila": "21", "Rodina": "22", "Morrah": "23", "Baudouin": "24", "Jane": "25", "Aisha": "26", "Leo": "27", "Fluss": "28", "Luna": "29", "Laias": "30", "Arch": "31", "Lewisia": "32", "Nyx": "33", "Annette": "34", "Mitra": "35", "Ricardo": "36", "Tanya": "37", "Ezekiel": "38", "Cassandra": "39", "Theo": "40", "Mediana": "41", "Oddy": "42", "Viska": "43", "Priscilla": "44", "Yanne": "45", "Zafir": "46", "Ophelia": "49", "Requina": "50", "Aselica": "51", "Crow": "52", "Shamilla": "53", "Seria": "55", "Erze": "56", "Lilia": "57", "Laudia": "58", "Lucias": "59", "Chrisha": "60", "Neraxis": "61", "Scarlet": "62", "Sonia": "63", "Artemia": "64", "Mirianne": "65", "Shea": "66", "Kara": "67", "Nia": "68", "Chase": "73", "May": "90", "Gladi": "91", "Veronica": "92", "Loman": "93", "Juno": "94", "Nicky": "95" }
@@ -84,7 +85,7 @@ $.getJSON("data/hero.json").done(function (data) {
                 <button class="collapsible" v-bind:id="post.id">{{ matchName(post.id) }}</button>\
                 <div class="content">\
                 <div v-if="checkAvail(post.uw, 0)">\
-                UW: <select v-on:change="selUW(0 + post.ally + post.id)" v-bind:id="0 + post.ally + post.id">\
+                UW: <select v-on:change="selUW(String(0) + String(post.ally) + String(post.id))" v-bind:id="String(0) + String(post.ally) + String(post.id)">\
                 <option value="">Please select</option>\
                 <option v-for="(uw, star) in post.uw" v-bind:value="uw">{{star}} star: <span v-if="uw[0] != 0">ATK {{ uw[0] }}%</span><span v-if="uw[1] != 0"> CDMG {{ uw[1] }}%</span><span v-if="uw[2] != 0"> Flat ATK {{ uw[2] }}</span></option>\
                 </select>\
@@ -99,7 +100,7 @@ $.getJSON("data/hero.json").done(function (data) {
                 </div>\
                 \
                 <div v-for="(skill, skillno) in post.data" v-bind:key="skillno + post.ally + post.id" v-if="checkAvail(skill, 0)">\
-                <label>Skill: {{ skillno }}</label>\
+                <label>Skill: {{ skillno.charAt(1) }}</label>\
                 <span><input type="checkbox" v-on:click="onClick(1 + skillno + post.ally + post.id, skill[1], post.id)" v-bind:value="skill[1]" v-bind:id="1 + skillno + post.ally + post.id" v-bind:ref="1 + skillno + post.ally + post.id">\
                     <label class="clickLabel" v-bind:for="1 + skillno + post.ally + post.id" v-bind:id="11 + skillno + post.ally + post.id">Base skill: <span v-if="skill[1][0] != 0">ATK {{ skill[1][0] }}%</span><span v-if="skill[1][1] != 0"> CDMG {{ skill[1][1] }}%</span><span v-if="skill[1][2] != 0"> Flat ATK {{ skill[1][2] }}</span></label></span><br>\
                 <span><input type="checkbox" v-on:click="onClick(2 + skillno + post.ally + post.id, skill[2], post.id)" v-bind:value="skill[2]" v-bind:id="2 + skillno + post.ally + post.id" v-bind:ref="2 + skillno + post.ally + post.id">\
@@ -307,7 +308,10 @@ $.getJSON("data/hero.json").done(function (data) {
                     x = Number(x) + Number(30)
                 }
                 if (this.cl == 2 && this.perk2.includes("wa2")) {
-                    x = Number(x) + Number(this.wa2)
+                    if (this.wa2 > 10){
+                        this.wa2 = 10
+                    }
+                    x = Number(x) + Number(this.wa2) * 7
                 }
                 if (this.cl == 4 && this.perk2.includes("as1")) {
                     x = Number(x) + Number(20)
@@ -378,19 +382,15 @@ $.getJSON("data/hero.json").done(function (data) {
                 return Math.round(x)
             },
             atkfocus: function(){
-                if (this.statatk != 0){
-                    var breakpoint = Number(1) + Number(this.BFa/this.statatk)
-                    if (this.BATK != 0){
-                        if (this.Cd/this.BATK > breakpoint){
-                            return true
-                        } else {
-                            return false
-                        }
-                    } else {
-                        return true
-                    }
+                var der_a = this.statatk * this.Cd * 0.01
+                var der_c = Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)
+
+                if (der_a - der_c > 0){
+                    return 1
+                } else if(der_a - der_c < 0){
+                    return 0
                 } else {
-                    return true
+                    return 2
                 }
             }
         },
