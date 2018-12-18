@@ -76,6 +76,8 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
 
     var heronames = { "Kasel": "1", "Frey": "2", "Cleo": "3", "Roi": "4", "Gau": "5", "Phillop": "6", "Lakrak": "7", "Kaulah": "8", "Epis": "9", "Selene": "10", "Maria": "11", "Miruru": "12", "Lorraine": "13", "Clause": "15", "Rephy": "16", "Dimael": "17", "Reina": "18", "Pavel": "19", "Demia": "20", "Naila": "21", "Rodina": "22", "Morrah": "23", "Baudouin": "24", "Jane": "25", "Aisha": "26", "Leo": "27", "Fluss": "28", "Luna": "29", "Laias": "30", "Arch": "31", "Lewisia": "32", "Nyx": "33", "Annette": "34", "Mitra": "35", "Ricardo": "36", "Tanya": "37", "Ezekiel": "38", "Cassandra": "39", "Theo": "40", "Mediana": "41", "Oddy": "42", "Viska": "43", "Priscilla": "44", "Yanne": "45", "Zafir": "46", "Ophelia": "49", "Requina": "50", "Aselica": "51", "Crow": "52", "Shamilla": "53", "Seria": "55", "Erze": "56", "Lilia": "57", "Laudia": "58", "Lucias": "59", "Chrisha": "60", "Neraxis": "61", "Scarlet": "62", "Sonia": "63", "Artemia": "64", "Mirianne": "65", "Shea": "66", "Kara": "67", "Nia": "68", "Chase": "73", "May": "90", "Gladi": "91", "Veronica": "92", "Loman": "93", "Juno": "94", "Nicky": "95" }
 
+    var heroclass = { "1": "2", "2": "7", "3": "6", "4": "4", "5": "2", "6": "1", "7": "5", "8": "7", "9": "4", "10": "3", "11": "6", "12": "5", "13": "6", "15": "1", "16": "7", "17": "3", "18": "4", "19": "6", "20": "1", "21": "2", "22": "5", "23": "1", "24": "7", "25": "1", "26": "6", "27": "7", "28": "4", "29": "3", "30": "7", "31": "3", "32": "6", "33": "6", "34": "5", "35": "5", "36": "1", "37": "4", "38": "4", "39": "7", "40": "2", "41": "7", "42": "5", "43": "2", "44": "2", "45": "3", "46": "3", "49": "6", "50": "3", "51": "1", "52": "5", "53": "3", "55": "2", "56": "4", "57": "6", "58": "4", "59": "7", "60": "5", "61": "1", "62": "2", "63": "1", "64": "6", "65": "4", "66": "7", "67": "5", "68": "4", "73": "2", "90": "7", "91": "4", "92": "6", "93": "1", "94": "7", "95": "2" }
+
     var post = Vue.component('hero', {
         props: ['post', 'hero'],
         data: function () {
@@ -276,7 +278,6 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
     app = new Vue({
         el: '#app',
         data: {
-            cl: '1',
             statatk: 0,
             statcdmg: 0,
             statpen: 0,
@@ -298,17 +299,49 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             perk1: false,
             perk2: [],
             wa2: 0,
+            wa3base: 0,
+            wa3flat: 0,
+            wa3perc: 0,
             obs: 0,
-            heroscale: 1
+            heroscale: 1,
+            skillbase: 0,
+            skillmulti: 1,
+            skillbook: 50,
+            enemydef: 0,
+            defdownperc: 0,
+            defshred: 0,
+            pen: 0,
+            pendata: {
+              MaxK: 900,
+              X1: 1000,
+              A1: 2,
+              B1: 1000,
+              X2: 450,
+              A2: 409,
+              B2: 266,
+              MinK: 0,
+              X3: -500,
+              A3: 0,
+              B3: 0,
+              X4: 0,
+              A4: 0,
+              B4: 0
+            }
         },
         computed: {
+            effpen: function(){
+                return this.actualStat(this.pendata, this.pen)
+            },
+            cl: function () {
+                return heroclass[this.hero]
+            },
             perkatk: function () {
                 var x = 0
                 if (this.perk1) {
                     x = Number(x) + Number(30)
                 }
                 if (this.cl == 2 && this.perk2.includes("wa2")) {
-                    if (this.wa2 > 10){
+                    if (this.wa2 > 10) {
                         this.wa2 = 10
                     }
                     x = Number(x) + Number(this.wa2) * 7
@@ -346,10 +379,19 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 x = Number(100) + Number(this.scale) + Number(this.art_3)
                 return x
             },
+            wa3fa: function () {
+                if (this.perk2.includes('wa3')) {
+                    var y = 0
+                    y = Number(Number(this.wa3base) * (Number(this.wa3perc) + Number(100)) * 0.01) + Number(this.wa3flat)
+                    return y * 0.5
+                } else {
+                    return 0
+                }
+            },
             BFa: function () {
                 var x = 0
                 // sum of all flat ATK buff
-                x = Number(this.Fa) + Number(this.skillfa)
+                x = Number(this.Fa) + Number(this.skillfa) + Number(this.wa3fa)
                 return x
             },
             perkcdmg: function () {
@@ -381,23 +423,146 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale
                 return Math.round(x)
             },
-            atkfocus: function(){
+            atkfocus: function () {
                 var der_a = this.statatk * this.Cd * 0.01
                 var der_c = Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)
 
-                if (der_a - der_c > 0){
+                if (der_a - der_c > 0) {
                     return 1
-                } else if(der_a - der_c < 0){
+                } else if (der_a - der_c < 0) {
                     return 0
                 } else {
                     return 2
                 }
+            },
+            skillf: function () {
+                var x = 0
+                x = (Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * this.skillmulti) + Number(this.skillbase)) * this.Cd * 0.01 * (Number(this.skillbook * 0.01) + Number(this.T * 0.01))
+                return Math.round(x)
+            },
+            skillatkfocus: function () {
+                var der_a = this.statatk * this.Cd * 0.01 * this.skillmulti
+                var der_c = Number(Number(this.statatk * this.BATK * 0.01) * this.skillmulti + Number(this.BFa) * this.skillmulti) + Number(this.skillbase)
+
+                if (der_a - der_c > 0) {
+                    return 1
+                } else if (der_a - der_c < 0) {
+                    return 0
+                } else {
+                    return 2
+                }
+            },
+            defreduce: function () {
+                var DEF = 0
+                DEF = (this.enemydef * (1 - this.defdownperc * 0.01) - this.defshred) * (1 - this.effpen / 100)
+                return (1 - 0.9817 * DEF / (Number(19360.3675) + Number(DEF)))
+            },
+            percfpen: function(){
+                var a = 0.9817
+                var b = 19360.3675
+                var A = this.f
+                if (A == 0){
+                    A = 1
+                }
+                var B = (this.enemydef * (1 - this.defdownperc * 0.01) - this.defshred)
+                var x = this.effpen / 100
+                var y = (B*x - B - b) * (B*x - B - b)
+                if (y == 0){
+                    y = 1
+                }
+                return (a * b * B * A * this.rate(this.pendata, this.pen) / 100 / y) / A * 100
+            },
+            penfocus: function () {
+                var der_a = this.statatk * this.Cd * (this.defreduce) * 0.01
+                var der_c = (Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce)
+                var der_p = this.percfpen * 100  * this.pref
+
+                var arr = [der_a, der_c, der_p];
+                var maxIndex = [0];
+                var max = arr[0]
+
+                for (var i = 1; i < arr.length; i++) {
+                    if (arr[i] - max > 0.001) {
+                        maxIndex = [i];
+                        max = arr[i];
+                    } else if(Math.abs(arr[i] - max) < 0.001){
+                        maxIndex.push(i);
+                    }
+                }
+
+                return maxIndex
             }
         },
         components: {
             post: post
         },
         methods: {
+            // imported from MoG
+            actualStat: function (statType, istat) {
+                var actual = 0;
+                // variable names are fucked cause vespa
+                if (istat === 0) {
+                    actual = 0;
+                    // 2nd upper softcap
+                } else if (istat > statType.X1) {
+                    actual = this.attenuateInv(
+                        istat,
+                        statType.MaxK,
+                        statType.A1,
+                        statType.B1
+                    );
+                    // 1st upper softcap
+                } else if (istat > statType.X2) {
+                    actual = Number(Math.floor((istat * statType.A2) / 1000)) + Number(statType.B2);
+                    // 2nd lower softcap
+                } else if (istat < statType.X3) {
+                    actual = this.attenuateInv(
+                        istat,
+                        statType.MinK,
+                        statType.A3,
+                        statType.B3
+                    );
+                    // 1st lower softcap
+                } else if (istat < statType.X4) {
+                    actual = this.attenuate(istat, statType.MinK, statType.A4, statType.B4);
+                    // uncapped
+                } else {
+                    actual = istat;
+                }
+                // return to 1 significant decimal place
+                actual = Math.round(actual) / 10;
+                return actual.toFixed(1);
+            },
+            attenuate: function (x, k, a, b) {
+                return Math.floor((k * 1000000) / (Number(a * x * x) + Number(b * x) + Number(1000000)));
+            },
+            attenuateInv: function (x, k, a, b) {
+                return k - Math.floor((k * 1000000) / (Number(a * x * x) + Number(b * x) + Number(1000000)));
+            },
+            // end import
+            rattenuateInv: function (x, k, a, b) {
+                return 0 - Math.floor((k * 1000000) * (Number(2 * a * x) + Number(b)) / 10 / (Number(a * x * x) + Number(b * x) + Number(1000000)) / (Number(a * x * x) + Number(b * x) + Number(1000000)));
+            },
+            rate: function (statType, istat) {
+                var ractual = 0;
+                // variable names are fucked cause vespa
+                if (istat > statType.X1) {
+                    ractual = this.rattenuateInv(
+                        istat,
+                        statType.MaxK,
+                        statType.A1,
+                        statType.B1
+                    );
+                    // 1st upper softcap
+                } else if (istat > statType.X2) {
+                    ractual = Math.floor(statType.A2) / 10000;
+                    // uncapped
+                } else {
+                    ractual = 1/10;
+                }
+                // return to 1 significant decimal place
+                return ractual;
+            },
             reset: function () {
                 window.location.href = "calc.html#" + this.hero
                 window.location.reload()
@@ -457,12 +622,12 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 this.skillfa = Number(this.skillfa) + Number(data[2])
                 this.uttemp[id][utno] = data
             },
-            calibrate: function(){
-                if(this.pref == 0){
+            calibrate: function () {
+                if (this.pref == 0) {
                     console.log('divide by zero error')
                     return
                 }
-                this.heroscale = this.obs/this.pref
+                this.heroscale = this.obs / this.pref
             }
         },
         beforeUpdate: function () {
@@ -482,6 +647,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             this.$nextTick(function () {
                 assignCollapse()
                 addClass(document.getElementById(hash), 'current')
+                removeClass(document.getElementById('app'), 'hide')
             })
         }
     })

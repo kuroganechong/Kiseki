@@ -36,7 +36,7 @@
     </div>
     <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <div class="container" id="app">
+    <div class="container hide" id="app">
         <div class="row">
             <div class="twelve column">
                 <h4>King's Raid - DMG Calculator</h4>
@@ -44,7 +44,8 @@
                     <li>Fill in your ATK/CDMG in your stat menu</li>
                     <li>Select any buffs applied</li>
                     <li>Fill in any additional dmg/stat buffs (guild buffs, other buffs ignored in the skill selection)</li>
-                    <li>Fill in the observed damage per auto attack and calibrate</li>
+                    <li>Fill in the observed damage per auto attack and calibrate/ Fill in the required skill values</li>
+                    <li>Optional: fill in DEF and PEN values to see the effects of PEN</li>
                     <li>Check the result</li>
                 </ol>
             </div>
@@ -64,15 +65,13 @@
         <div class="row" id="class-container">
             <div class="three columns">Class</div>
             <div class="nine columns">
-                <select class="u-full-width" id="class" v-model="cl">
-                    <option value="1">Knight</option>
-                    <option value="2">Warrior</option>
-                    <option value="3">Archer</option>
-                    <option value="4">Assassin</option>
-                    <option value="5">Mechanic</option>
-                    <option value="6">Wizard</option>
-                    <option value="7">Priest</option>
-                </select>
+                <span v-if="cl == 1">Knight</span>
+                <span v-if="cl == 2">Warrior</span>
+                <span v-if="cl == 3">Archer</span>
+                <span v-if="cl == 4">Assassin</span>
+                <span v-if="cl == 5">Mechanic</span>
+                <span v-if="cl == 6">Wizard</span>
+                <span v-if="cl == 7">Priest</span>
             </div>
         </div>
         <hr>
@@ -94,9 +93,26 @@
             <div class="three columns">
                 Skills/Perks/UW UT Effects <br><br>
 
-                Total skill ATK: <code>{{ Number(skillatk) + Number(perkatk) }}%</code>, <br>
-                Total skill CDMG: <code>{{ Number(skillcdmg) + Number(perkcdmg) }}%</code>, <br>
-                Total skill Flat ATK: <code>{{ skillfa }}</code>
+                Total skill ATK:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'skillatk_' + skillatk + perkatk">{{ Number(skillatk) + Number(perkatk) }}%</span>
+                    </transition>
+                </code>,
+                <br>
+                Total skill CDMG:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'skillcdmg_' + skillcdmg + perkcdmg">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
+                    </transition>
+                </code>,
+                <br>
+                Total skill Flat ATK:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'skillfa' + skillfa">{{ (skillfa + wa3fa).toLocaleString('en', {useGrouping:true}) }}</span>
+                    </transition>
+                </code>
             </div>
             <div class="nine columns">
                 <!-- common -->
@@ -108,7 +124,12 @@
                             src="images/as2.jpg" alt="Opportune Strike"></label>
                     <input type="checkbox" id="wa2" value="wa2" v-model="perk2"><label class="clickLabel" for="wa2"><img
                             src="images/wa2.jpg" alt="Warlike"></label>
+                    <input type="checkbox" id="wa3" value="wa3" v-model="perk2"><label class="clickLabel" for="wa3"><img
+                            src="images/wa3.jpg" alt="Offensive Guard"></label><br>
                     <span v-if="perk2.includes('wa2')">Number of enemies: <input type="number" v-model="wa2"><br></span>
+                    <span v-if="perk2.includes('wa3')">Stat menu PDEF: <input type="number" v-model="wa3base"><br></span>
+                    <span v-if="perk2.includes('wa3')">PDEF% buff: <input type="number" v-model="wa3perc"><br></span>
+                    <span v-if="perk2.includes('wa3')">Flat PDEF buff: <input type="number" v-model="wa3flat"><br></span>
                 </div>
                 <!-- assassin -->
                 <div v-if="cl == 4">
@@ -142,6 +163,10 @@
                         v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                         @selectedut="onSelectUT"></hero>
                 </div>
+                <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
+                    buffs by
+                    skills and perks. For damage boost buffs and stats buffs that only affect that skill, please add
+                    them in the Additional stats row.</span>
             </div>
         </div>
         <hr>
@@ -163,6 +188,12 @@
             </div>
         </div>
         <hr>
+        <div class="row">
+            <div class="twelve columns small">
+                Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost effects.
+                <a href="guide.html" target="_blank">GUIDE</a>
+            </div>
+        </div>
         <div class="row" id="scale-container">
             <div class="three columns">
                 <label for="scale">DMG Boost</label>
@@ -183,33 +214,138 @@
         </div>
         <hr>
         <div class="row" id="heroscale-container">
-            <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+            <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
             <div class="three columns">
-                <label for="obs">Observed damage in dummy</label>
+                <label for="obs">Observed auto attack damage in dummy</label>
                 <input id="obs" type="number" v-model="obs">
             </div>
             <div class="three columns">
-                <label for="heroscale">Hero-specific scaling</label>
+                <label for="heroscale">Auto attack scaling</label>
                 <span id="heroscale">{{ heroscale * 100 }}%</span>
             </div>
             <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
         </div>
         <hr>
+        <div class="row" id="skillscale-container">
+            <div class="three columns">Skill damage:<br><a href="https://docs.google.com/spreadsheets/d/1QfFyxwEgvIfwIpDXTPu-vD5vI75GQ6Is5NYcMFqUCyk/edit#gid=483914493"
+                    target="_blank">LINK</a></div>
+            <div class="three columns">
+                <label for="skillbase">Skill Base value</label>
+                <input id="skillbase" type="number" v-model="skillbase">
+            </div>
+            <div class="three columns">
+                <label for="skillmulti">Skill ATK Multiplier value</label>
+                <input id="skillmulti" type="number" v-model="skillmulti">
+            </div>
+            <div class="three columns">
+                <label for="skillbook">Skill Book value</label>
+                <input id="skillbook" type="number" v-model="skillbook">%
+            </div>
+        </div>
+        <hr>
+        <div class="row" id="pen-container">
+            <div class="three columns">
+                <label for="enemydef">Enemy DEF</label>
+                <input id="enemydef" type="number" v-model="enemydef">
+            </div>
+            <div class="three columns">
+                <label for="defshred">DEF Shred</label>
+                <input id="defshred" type="number" v-model="defshred">
+            </div>
+            <div class="three columns">
+                <label for="defdownperc">DEF% Debuff</label>
+                <input id="defdownperc" type="number" v-model="defdownperc">%
+            </div>
+            <div class="three columns">
+                <label for="pen">Total PEN value</label>
+                <input id="pen" type="number" v-model="pen">
+                <br><span>Effective PEN: {{effpen}}</span>%
+            </div>
+        </div>
+        <hr>
         <div class="row" id="result-container">
-            Damage value before scaling:
-            <code>
-                <transition name="slide-fade" mode="out-in">
-                    <span :key="'calc_' + pref">{{pref}}</span>
-                </transition>
-            </code> <br>
-            <strong>Final damage value:</strong>
-            <code>
-                <transition name="slide-fade" mode="out-in">
-                    <span :key="'result_' + f">{{f}}</span>
-                </transition>
-            </code> <br>
-            <strong v-if="atkfocus == 1">Currently ATK% buffs worth more than CDMG% buffs!</strong>
-            <strong v-if="atkfocus == 0">Currently CDMG% buffs worth more than ATK% buffs!</strong>
+            <h5>Result</h5>
+            <table class="">
+                <tbody>
+                    <tr>
+                        <td><strong>Before DEF reduction</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Auto Attack Final damage value:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'result_' + f">{{f.toLocaleString('en', {useGrouping:true})}}</span>
+                                </transition>
+                            </code></td>
+                    </tr>
+                    <tr>
+                        <td><strong v-if="atkfocus == 1">Currently ATK% buffs worth more than CDMG% buffs!</strong>
+                            <strong v-if="atkfocus == 0">Currently CDMG% buffs worth more than ATK% buffs!</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Skill Final damage value:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'skillresult_' + f">{{skillf.toLocaleString('en', {useGrouping:true})}}</span>
+                                </transition>
+                            </code></td>
+                    </tr>
+                    <tr>
+                        <td><strong v-if="skillatkfocus == 1">For skill, currently ATK% buffs worth more than CDMG%
+                                buffs!</strong>
+                            <strong v-if="skillatkfocus == 0">For skill, currently CDMG% buffs worth more than ATK%
+                                buffs!</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong> DEF reduction</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Reduction due to DEF after PEN:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'defreduce_pen_' + defreduce ">{{ -((1-defreduce)*100).toFixed(2) }}%</span>
+                                </transition></code></td>
+                    </tr>
+                    <tr>
+                        <td>Decrease in Reduction per PEN:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'pen_' + percfpen">{{ (percfpen).toFixed(2) }}%</span>
+                                </transition></code></td>
+                    </tr>
+                    <tr>
+                        <td>Auto Attack Final damage value:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'result_' + f + 'DEF'">{{Math.round(f*defreduce).toLocaleString('en', {useGrouping:true})}}</span>
+                                </transition>
+                            </code></td>
+                    </tr>
+                    <tr>
+                        <td>Skill Final damage value:</td>
+                        <td><code>
+                                <transition name="slide-fade" mode="out-in">
+                                    <span :key="'skillresult_' + f + 'DEF'">{{Math.round(skillf*defreduce).toLocaleString('en', {useGrouping:true})}}</span>
+                                </transition>
+                            </code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Suggestions</strong></td>
+                        <td>These buffs give more benefit currently (if more than one is shown, they have the same
+                                priority):
+                            <ul>
+                                <li v-if="penfocus.includes(0)">ATK%</li>
+                                <li v-if="penfocus.includes(1)">CDMG%</li>
+                                <li v-if="penfocus.includes(2)">PEN%</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <hr>
     </div>

@@ -1,4 +1,7 @@
 
+        .hide {
+            visibility: hidden;
+        }
         div{
             font-family: "IBM Plex Sans"!important
         }
@@ -75,16 +78,17 @@
         .graph.show {
             visibility: hidden;
             opacity: 0;
+            display:none
         }
 
         .popup {
             margin: 70px auto;
             padding: 20px;
-            background: #F0E7D8;
+            background: rgb(247, 244, 238);
             border-radius: 5px;
             width: 70%;
             position: relative;
-            transition: all 1s ease-in-out;
+            transition: all 0.1s ease-in-out;
         }
 
         .popup .close {
@@ -175,4 +179,9 @@
       display: block;
       text-align: left;
     }
+  }
+  .small{
+      font-size: 0.9em;
+      padding-bottom: 1em;
+      font-style: italic
   }

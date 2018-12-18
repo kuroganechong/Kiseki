@@ -51,13 +51,16 @@
                         for
                         in your gears. It aims to balance between your ATK and CDMG in order to <strong>maximise
                             damage
-                            per AUTO ATTACK hit.</strong></p>
+                            per hit.</strong> (ie. ATK SPD does not apply)</p>
                     <p>Enemies are taken to be at <strong>0 DEF</strong> (ie. test dummy), and assumes <strong>all
                             buffs
-                            are at its maximum stacks and every buff stacks together.</strong></p>
-                    <p>The formula is: <br>
-                        <span>Damage per AUTO ATTACK hit = [(Stat-menu-ATK x (100% +
-                            perk-&-skill-%ATK-buff)) + flat-ATK] x (200% + Stat-menu-CDMG + CDMG-buff) x DMG-boost%</span>
+                            are at its maximum stacks and every buff stacks together. All attacks are crits.</strong></p>
+                    <p>The formulae are: <br>
+                        <span>Damage per AUTO ATTACK hit = [(statMenuATK x (100% +
+                            ATK%buff)) + flatATK] x (200% + statMenuCDMG + CDMG%buff) x DMGboost% x heroScaling</span><br><br>
+                        <span>Skill Damage per hit = [ skillBase + ((statMenuATK) x ATK%buff + flatATK) x
+                            skillATKmultiplier ] x
+                            totalCDMG x (skillBooks + damageBoost%)</span>
                     </p>
                     <p>This formula is still applicable towards enemies with non-zero DEF as the damage reduction
                         by DEF is calculated after the above formula.</p>
@@ -71,48 +74,42 @@
                         <li>Select the skill/perk buffs you want to take into account of. The stats for each
                             skill are <strong>based on lvl90, maxed book effects stats</strong>, and are
                             simplified to ATK, CDMG, Flat ATK. If you are unsure about the skill mechanics
-                            please refer to relevant
+                            please refer to the relevant
                             Mask-of-Goblin page.</li>
                         <li>Fill in the artifact stats.</li>
                         <li>Fill in any other additional stats (guild buffs, dmg boost, ignored stats in skill
-                            selection) in the last row. Refer to <a style="cursor:pointer" onclick="toggleList()">this
+                            selection) in the additional stats section. Refer to <a style="cursor:pointer" onclick="toggleList()">this
                                 list</a>.</li>
-                        <li>For the first run, fill in the observed damage in test dummy and click calibrate.
+                        <li>For auto attacks, in the first run, fill in the observed damage in test dummy and click
+                            calibrate.
                         </li>
+                        <li>For skill damage, fill in the skill base value at lvl90, skill ATK multiplier and skill
+                            books damage boost.</li>
                         <li>Click calculate and view your results.</li>
+                        <li>Fill in the DEF and PEN value if you wish to see the effects of PEN.</li>
                         <li>Repeat for any other hero you want.</li>
                     </ol>
                     </p>
                 </div>
                 <div class="wrap">
 
-                    <p><strong>This calculator does not take into account the following:</strong></p>
-                    <ul>
-                        <li>Skill-only damage boost %</li>
-                        <li>Skill ATK multiplier</li>
-                        <li>Skill-only ATK/CDMG/Flat ATK buff</li>
-                        <li>Attack speed/Penetration</li>
-                        <li>Additional attack per hit (Kasel UW effect, Phillop HP% damage etc.)</li>
-                    </ul>
-
-                    <p>Note: If you wish to apply this to skills, it is not entirely correct because each skill has
-                        a different scaling based on hero's ATK value and has a base value. <br>
-                        A proposed formula would be <br>
-                        Skill-damage per hit = [ Base + ((Stat-menu-ATK) x ATK%-buff + Flat-ATK) x scaling ] x
-                        Total-CDMG
-                    </p>
-                    <p>It also doesn't take into account the following, however you can workaround these by
-                        adding them
-                        at
-                        the <strong>additional stats row</strong> at the bottom of the page: (you will need to
-                        calculate
-                        the amount to be added by yourself)</p>
+                    <p><strong>This calculator does not give you the values for the following buffs/effects:</strong></p>
                     <ul>
                         <li>Guild buffs</li>
-                        <li>Damage boost % (Increase damage by ..., boss damage etc.)</li>
+                        <li>Damage buff % (Increase damage by ..., boss damage etc.)</li>
+                        <li>Skill-only damage buff %</li>
+                        <li>Skill-only ATK/CDMG/Flat ATK buff</li>
                         <li>Additional ATK boost based on other character stats (eg. Mediana S3)</li>
                         <li>Additional ATK boost based on other stats (PDEF, Mana/sec etc.)</li>
+                        <li>Additional attack per hit (Kasel UW effect, Phillop HP% damage etc.)</li>
                     </ul>
+                    <p>However, you can workaround these by
+                        adding them
+                        at
+                        the <strong>additional stats section</strong> at the bottom of the page: (you will need to
+                        calculate
+                        the amount to be added by yourself)<br>
+                    </p>
                     <p>Refer to <a style="cursor:pointer" onclick="toggleList()">this list</a> for the special
                         cases heroes.</p>
                 </div>
@@ -127,7 +124,7 @@
                     <p>List of all heroes skills that are ignored/special cases:<br>If you want to include the
                         stats in
                         the
-                        calculation, add them in the <strong>additional stats row</strong> at the bottom of the
+                        calculation, add them in the <strong>additional stats section</strong> at the bottom of the
                         page.</p>
                     <ul>
                         <li>UW
@@ -143,7 +140,7 @@
                         </li>
                         <li>Skills and perks
                             <ol>
-                                <li>Flat ATK boost depends on other character stats:
+                                <li>Flat ATK boost depends on other character stats are ignored:
                                     <ul>
                                         <li>Frey T5D</li>
                                         <li>Annette T5D</li>
@@ -152,9 +149,8 @@
                                         <li>Priscilla S2, T5D</li>
                                     </ul>
                                 </li>
-                                <li>Stat boost depends on other effects/stats:
+                                <li>Stat boost depends on other effects/stats are ignored:
                                     <ul>
-                                        <li>WARRIOR: T2 Offensive Guard ignored (Flat ATK based on PDEF)</li>
                                         <li>Lilia: S4 ATK boost based on mana/sec ignored</li>
                                         <li>Nyx: T5 Dark ATK boost based on blade stacks ignored</li>
                                         <li>Chase: T5 Dark, S4 resurrected bonus stats ignored</li>

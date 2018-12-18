@@ -37,7 +37,7 @@
     <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <div class="container">
-        <div id="app">
+        <div id="app" class="hide">
             <div class="row">
                 <div class="twelve column">
                     <h4>King's Raid - How many ATK/CDMG lines in the gear should I get?</h4>
@@ -59,19 +59,17 @@
             <div class="row" id="class-container">
                 <div class="three columns">Class</div>
                 <div class="nine columns">
-                    <select class="u-full-width" id="class" v-model="cl">
-                        <option value="1">Knight</option>
-                        <option value="2">Warrior</option>
-                        <option value="3">Archer</option>
-                        <option value="4">Assassin</option>
-                        <option value="5">Mechanic</option>
-                        <option value="6">Wizard</option>
-                        <option value="7">Priest</option>
-                    </select>
+                    <span v-if="cl == 1">Knight</span>
+                    <span v-if="cl == 2">Warrior</span>
+                    <span v-if="cl == 3">Archer</span>
+                    <span v-if="cl == 4">Assassin</span>
+                    <span v-if="cl == 5">Mechanic</span>
+                    <span v-if="cl == 6">Wizard</span>
+                    <span v-if="cl == 7">Priest</span>
                 </div>
             </div>
             <div class="row" id="tier-container">
-                <div class="three columns">Gear tier</div>
+                <div class="three columns">Gear tier (All gears at 5 stars)</div>
                 <div class="nine columns">
                     <select class="u-full-width" id="tier" v-model="tier">
                         <option value="6">6</option>
@@ -248,19 +246,19 @@
                     Total skill ATK:
                     <code>
                         <transition name="slide-fade" mode="out-in">
-                            <span :key="'result_' + Number(skillatk) + Number(perkatk)">{{ Number(skillatk) + Number(perkatk) }}%</span>
+                            <span :key="'skillatk' + Number(skillatk) + Number(perkatk)">{{ Number(skillatk) + Number(perkatk) }}%</span>
                         </transition>
                     </code>, <br>
                     Total skill CDMG:
                     <code>
                         <transition name="slide-fade" mode="out-in">
-                            <span :key="'result_' + Number(skillcdmg) + Number(perkcdmg)">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
+                            <span :key="'skillcdmg' + Number(skillcdmg) + Number(perkcdmg)">{{ Number(skillcdmg) + Number(perkcdmg) }}%</span>
                         </transition>
                     </code>, <br>
                     Total skill Flat ATK:
                     <code>
                         <transition name="slide-fade" mode="out-in">
-                            <span :key="'result_' + skillfa">{{ skillfa }}</span>
+                            <span :key="'skillfa' + skillfa">{{ (skillfa + wa3fa).toLocaleString('en', {useGrouping:true}) }}</span>
                         </transition>
                     </code>
                 </div>
@@ -274,7 +272,12 @@
                                 src="images/as2.jpg" alt="Opportune Strike"></label>
                         <input type="checkbox" id="wa2" value="wa2" v-model="perk2"><label class="clickLabel" for="wa2"><img
                                 src="images/wa2.jpg" alt="Warlike"></label>
+                        <input type="checkbox" id="wa3" value="wa3" v-model="perk2"><label class="clickLabel" for="wa3"><img
+                                src="images/wa3.jpg" alt="Offensive Guard"></label><br>
                         <span v-if="perk2.includes('wa2')">Number of enemies: <input type="number" v-model="wa2"><br></span>
+                        <span v-if="perk2.includes('wa3')">Stat menu PDEF: <input type="number" v-model="wa3base"><br></span>
+                        <span v-if="perk2.includes('wa3')">PDEF% buff: <input type="number" v-model="wa3perc"><br></span>
+                        <span v-if="perk2.includes('wa3')">Flat PDEF buff: <input type="number" v-model="wa3flat"><br></span>
                     </div>
                     <!-- assassin -->
                     <div v-if="cl == 4">
@@ -308,6 +311,10 @@
                             v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                             @selectedut="onSelectUT"></hero>
                     </div>
+                    <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
+                        buffs by
+                        skills and perks. For damage boost buffs and stats buffs that only affect that skill, please
+                        add them in the Additional stats section.</span>
                 </div>
             </div>
             <hr>
@@ -329,6 +336,12 @@
                 </div>
             </div>
             <hr>
+            <div class="row">
+                <div class="twelve columns small">
+                    Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost effects.
+                    <a href="guide.html" target="_blank">GUIDE</a>
+                </div>
+            </div>
             <div class="row" id="scale-container">
                 <div class="three columns">
                     <label for="scale">DMG Boost</label>
@@ -349,16 +362,60 @@
             </div>
             <hr>
             <div class="row" id="heroscale-container">
-                <div class="three columns">Calibrate the hero-specific scaling for the first run:</div>
+                <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
                 <div class="three columns">
-                    <label for="obs">Observed damage in dummy</label>
+                    <label for="obs">Observed auto attack damage in dummy</label>
                     <input id="obs" type="number" v-model="obs">
                 </div>
                 <div class="three columns">
-                    <label for="heroscale">Hero-specific scaling</label>
+                    <label for="heroscale">Auto attack scaling</label>
                     <span id="heroscale">{{ heroscale * 100 }}%</span>
                 </div>
                 <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
+            </div>
+            <hr>
+            <div class="row" id="skillscale-container">
+                <div class="three columns">Skill damage:<br><a href="https://docs.google.com/spreadsheets/d/1QfFyxwEgvIfwIpDXTPu-vD5vI75GQ6Is5NYcMFqUCyk/edit#gid=483914493"
+                        target="_blank">LINK</a></div>
+                <div class="three columns">
+                    <label for="skillbase">Skill Base value</label>
+                    <input id="skillbase" type="number" v-model="skillbase">
+                </div>
+                <div class="three columns">
+                    <label for="skillmulti">Skill ATK Multiplier value</label>
+                    <input id="skillmulti" type="number" v-model="skillmulti">
+                </div>
+                <div class="three columns">
+                    <label for="skillbook">Skill Book value</label>
+                    <input id="skillbook" type="number" v-model="skillbook">%
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="twelve columns small">
+                    This section is optional as it will not affect the final calculation for ATK/CDMG, however you can
+                    use
+                    this to judge whether more PEN is better by comparing the final damage.
+                </div>
+            </div>
+            <div class="row" id="pen-container">
+                <div class="three columns">
+                    <label for="enemydef">Enemy DEF</label>
+                    <input id="enemydef" type="number" v-model="enemydef">
+                </div>
+                <div class="three columns">
+                    <label for="defshred">DEF Shred</label>
+                    <input id="defshred" type="number" v-model="defshred">
+                </div>
+                <div class="three columns">
+                    <label for="defdownperc">DEF% Debuff</label>
+                    <input id="defdownperc" type="number" v-model="defdownperc">%
+                </div>
+                <div class="three columns">
+                    <label for="pen">Total PEN value</label>
+                    <input id="pen" type="number" v-model="pen">
+                    <br><span>Effective PEN: {{effpen}}</span>%
+                </div>
             </div>
             <hr>
             <div class="row" id="result-container">
@@ -371,28 +428,118 @@
                     <a class="close" v-on:click="closeAlert">&times;</a>
                     <h4>Result</h4>
                     <div class="popupcontent">
-                        Optimum setup is<br>
-                        <code>{{m}} CDMG lines</code><br>
-                        <code>{{n}} ATK lines</code><br><br>
-
-                        <strong>Total increase (including gears)</strong> <br>
-                        Additional ATK%: <code>{{ Math.round(Number(BATK)*(Number(100) + Number(R1) + Number(b*n)*100)/100) - 100 }}%</code>
-                        <br>
-                        Additional CDMG%: <code>{{ Math.round(Number(BCd) + Number(a*m)*100) - 200 }}%</code> <br>
-                        Flat ATK boost: <code>{{ BFa }}</code><br><br>
-
-                        <strong>Stat page value</strong> <br>
-                        ATK: <code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))) }}</code> <br>
-                        CDMG: <code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - 200 + m*a*100)}}%</code>
-                        <br><br>
-
-                        <strong>Final damage value:</strong> <code>{{f}}</code> <br>
+                        <table class="">
+                            <tbody>
+                                <tr>
+                                    <td>Optimum setup for auto attack is</td>
+                                    <td>
+                                        <code>{{m}} CDMG lines</code><br>
+                                        <code>{{n}} ATK lines</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Optimum setup for skill is</td>
+                                    <td>
+                                        <code>{{skillm}} CDMG lines</code><br>
+                                        <code>{{skilln}} ATK lines</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>ATK% increase from gears: </td>
+                                    <td><code>{{ Math.round(Number(R1) + Number(b*n)*100).toLocaleString('en', {useGrouping:true}) }}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>ATK% increase from buffs (multiplied with ATK% from gears):</td>
+                                    <td><code>{{ (BATK - 100).toLocaleString('en', {useGrouping:true}) }}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>CDMG% increase: </td>
+                                    <td><code>{{ (Math.round(Number(BCd) + Number(a*m)*100) - 200).toLocaleString('en', {useGrouping:true}) }}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Flat ATK boost: </td>
+                                    <td><code>{{ BFa.toLocaleString('en', {useGrouping:true}) }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Optimum stat page value</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>ATK: </td>
+                                    <td><code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))).toLocaleString('en', {useGrouping:true}) }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>CDMG: </td>
+                                    <td><code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - Number(addcdmg) - 200 + m*a*100).toLocaleString('en', {useGrouping:true})}}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Auto attack final damage value:</td>
+                                    <td><code>{{f.toLocaleString('en', {useGrouping:true})}}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Skill final damage value:</td>
+                                    <td><code>{{skillf.toLocaleString('en', {useGrouping:true})}}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>After DEF reduction</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Reduction due to DEF after PEN:</td>
+                                    <td><code>{{ -((1-defreduce)*100).toFixed(2) }}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Auto Attack Final damage value:</td>
+                                    <td><code>{{Math.round(f*defreduce).toLocaleString('en', {useGrouping:true})}}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Skill Final damage value:</td>
+                                    <td><code>{{Math.round(skillf*defreduce).toLocaleString('en', {useGrouping:true})}}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Compare damage</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Your current no. of ATK lines:</td>
+                                    <td><input type="number" v-model="currentatk"></td>
+                                </tr>
+                                <tr>
+                                    <td>Your current no. of CDMG lines:</td>
+                                    <td><input type="number" v-model="currentcdmg"></td>
+                                </tr>
+                                <tr>
+                                    <td>Current Auto Attack damage: </td>
+                                    <td><code>{{ currentf.toLocaleString('en', {useGrouping:true}) }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Percentage change:</td>
+                                    <td><code>{{ ((currentf - pref)/pref*100).toFixed(2) }}%</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Current Skill damage: </td>
+                                    <td><code>{{ currentskillf.toLocaleString('en', {useGrouping:true}) }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Percentage change: </td>
+                                    <td><code>{{ ((currentskillf - skillf)/skillf*100).toFixed(2) }}%</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
         <div id="tester" class="graph">
-            Graph of Damage/no. of cdmg lines
+            Graph of Auto Attack Damage/no. of cdmg lines
+        </div>
+        <hr>
+        <div id="skilltester" class="graph">
+            Graph of Skill Damage/no. of cdmg lines
         </div>
     </div>
     <hr>
@@ -403,6 +550,13 @@
     <script>
         TESTER = document.getElementById('tester');
         Plotly.plot(TESTER, [{
+            x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            y: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        }], {
+                margin: { t: 0 }
+            });
+        SKILLTESTER = document.getElementById('skilltester');
+        Plotly.plot(SKILLTESTER, [{
             x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
             y: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }], {
