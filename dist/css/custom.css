@@ -185,3 +185,9 @@
       padding-bottom: 1em;
       font-style: italic
   }
+  .footer {
+      font-size: 0.6em;
+    width: 100%;
+    text-align: center;
+    font-style: italic
+  }
