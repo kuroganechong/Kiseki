@@ -49,29 +49,33 @@
                     <div class="three columns">Hero<br>
                         <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                     <div class="nine columns">
-                        <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
+                    <span class="classIcon">
+                        <span v-if="cl == 1"><img
+                            src="images/20px-KnightsIcon.png" alt="Knight"></span>
+                        <span v-if="cl == 2"><img
+                            src="images/20px-WarriorsIcon.png" alt="Warrior"></span>
+                        <span v-if="cl == 3"><img
+                            src="images/20px-ArchersIcon.png" alt="Archer"></span>
+                        <span v-if="cl == 4"><img
+                            src="images/20px-AssassinsIcon.png" alt="Assassin"></span>
+                        <span v-if="cl == 5"><img
+                            src="images/20px-MechanicsIcon.png" alt="Mechanic"></span>
+                        <span v-if="cl == 6"><img
+                            src="images/20px-WizardsIcon.png" alt="Wizard"></span>
+                        <span v-if="cl == 7"><img
+                            src="images/20px-PriestsIcon.png" alt="Priest"></span>
+                    </span>
+                        <select class="heroSelection" id="hero" v-model="hero" v-on:change="reset">
                             <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
                         </select>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="row" id="class-container">
-                <div class="three columns">Class</div>
-                <div class="nine columns">
-                    <span v-if="cl == 1">Knight</span>
-                    <span v-if="cl == 2">Warrior</span>
-                    <span v-if="cl == 3">Archer</span>
-                    <span v-if="cl == 4">Assassin</span>
-                    <span v-if="cl == 5">Mechanic</span>
-                    <span v-if="cl == 6">Wizard</span>
-                    <span v-if="cl == 7">Priest</span>
-                </div>
-            </div>
             <div class="row" id="tier-container">
                 <div class="three columns">Gear tier (All gears at 5 stars)</div>
                 <div class="nine columns">
-                    <select class="u-full-width" id="tier" v-model="tier">
+                    <select class="" id="tier" v-model="tier">
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
@@ -82,7 +86,7 @@
                 <div class="three columns">UW</div>
                 <div class="five columns">
                     <label for="uw">Stars</label>
-                    <select class="u-full-width" id="uw" v-model="star">
+                    <select class="" id="uw" v-model="star">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -93,8 +97,8 @@
                 </div>
                 <div class="four columns">
                     <label>Runes</label>
-                    Atk: <input id="uw_rune_1" type="number" v-model="uw_rune_1">% <br>
-                    CDmg: <input id="uw_rune_2" type="number" v-model="uw_rune_2">%
+                    ATK: <input id="uw_rune_1" type="number" v-model="uw_rune_1">% <br>
+                    CDMG: <input id="uw_rune_2" type="number" v-model="uw_rune_2">%
                 </div>
             </div>
             <hr>
@@ -102,7 +106,7 @@
                 <div class="three columns">Armor</div>
                 <div class="three columns">
                     <label for="armor_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="u-full-width" id="armor_line" v-model="armor_line">
+                    <select class="" id="armor_line" v-model="armor_line">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -112,8 +116,8 @@
                 </div>
                 <div class="three columns">
                     <label for="armor-enc">Enchant</label>
-                    Atk: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
-                    CDmg: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
+                    ATK: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
+                    CDMG: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
                 </div>
                 <div class="three columns">
                     <label for="armor_rune_1">Rune</label>
@@ -140,7 +144,7 @@
                 <div class="three columns">Subarmor</div>
                 <div class="three columns">
                     <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="u-full-width" id="subarmor_line" v-model="subarmor_line">
+                    <select class="" id="subarmor_line" v-model="subarmor_line">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -150,8 +154,8 @@
                 </div>
                 <div class="three columns">
                     <label>Enchant</label>
-                    Atk: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
-                    CDmg: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
+                    ATK: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
+                    CDMG: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
                 </div>
                 <div class="three columns">
                     <label for="subarmor_rune_1">Rune</label>
@@ -175,12 +179,12 @@
                     Accessory
                     <select class="u-full-width" id="ear" v-model="ear">
                         <option value="1">Earring</option>
-                        <option value="2">Non-earring</option>
+                        <option value="2">Others</option>
                     </select>
                 </div>
                 <div class="three columns">
                     <label for="acc_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="u-full-width" id="acc_line" v-model="acc_line">
+                    <select class="" id="acc_line" v-model="acc_line">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -190,8 +194,8 @@
                 </div>
                 <div class="three columns">
                     <label>Enchant</label>
-                    Atk: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
-                    CDmg: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
+                    ATK: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
+                    CDMG: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
                 </div>
                 <div class="three columns">
                 </div>
@@ -201,7 +205,7 @@
                 <div class="three columns">Orb</div>
                 <div class="three columns">
                     <label for="orb_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="u-full-width" id="orb_line" v-model="orb_line">
+                    <select class="" id="orb_line" v-model="orb_line">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -211,8 +215,8 @@
                 </div>
                 <div class="three columns">
                     <label>Enchant</label>
-                    Atk: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
-                    CDmg: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
+                    ATK: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
+                    CDMG: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
                 </div>
                 <div class="three columns">
                 </div>
@@ -223,19 +227,19 @@
                     Treasure
                 </div>
                 <div class="three columns">
-                    <label>UT1</label>
-                    Atk: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
-                    CDmg: <input id="ut1_2" type="number" v-model="ut1_2">%
+                    <label>Slot 1</label>
+                    ATK: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
+                    CDMG: <input id="ut1_2" type="number" v-model="ut1_2">%
                 </div>
                 <div class="three columns">
-                    <label>UT2</label>
-                    Atk: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
-                    CDmg: <input id="ut2_2" type="number" v-model="ut2_2">%
+                    <label>Slot 2</label>
+                    ATK: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
+                    CDMG: <input id="ut2_2" type="number" v-model="ut2_2">%
                 </div>
                 <div class="three columns">
-                    <label>UT3</label>
-                    Atk: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
-                    CDmg: <input id="ut3_2" type="number" v-model="ut3_2">%
+                    <label>Slot 3</label>
+                    ATK: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
+                    CDMG: <input id="ut3_2" type="number" v-model="ut3_2">%
                 </div>
             </div>
             <hr>
@@ -265,7 +269,7 @@
                 <div class="nine columns">
                     <!-- common -->
                     <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
-                            alt="Atk up"></label><br><br>
+                            alt="ATK up"></label><br><br>
                     <!-- warrior -->
                     <div v-if="cl == 2">
                         <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
@@ -313,8 +317,10 @@
                     </div>
                     <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
                         buffs by
-                        skills and perks. For damage boost buffs and stats buffs that only affect that skill, please
-                        add them in the Additional stats section.</span>
+                        skills and perks. Damage boost buffs and stats buffs that only affect that skill are not included.
+                        Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
+                        for full list and add
+                        them in the Additional stats row.</span>
                 </div>
             </div>
             <hr>
@@ -323,11 +329,11 @@
                     Artifact
                 </div>
                 <div class="three columns">
-                    <label for="art_1">Atk</label>
+                    <label for="art_1">ATK</label>
                     <input id="art_1" type="number" v-model="art_1">%
                 </div>
                 <div class="three columns">
-                    <label for="art_2">CDmg</label>
+                    <label for="art_2">CDMG</label>
                     <input id="art_2" type="number" v-model="art_2">%
                 </div>
                 <div class="three columns">
@@ -453,8 +459,8 @@
                                     <td><code>{{ Math.round(Number(R1) + Number(b*n)*100).toLocaleString('en', {useGrouping:true}) }}%</code></td>
                                 </tr>
                                 <tr>
-                                    <td>ATK% increase from buffs (multiplied with ATK% from gears):</td>
-                                    <td><code>{{ (BATK - 100).toLocaleString('en', {useGrouping:true}) }}%</code></td>
+                                    <td>ATK% from buffs (multiplied with ATK% from gears):</td>
+                                    <td>100% + <code>{{ (BATK - 100).toLocaleString('en', {useGrouping:true}) }}%</code></td>
                                 </tr>
                                 <tr>
                                     <td>CDMG% increase: </td>
@@ -493,11 +499,11 @@
                                     <td><code>{{ -((1-defreduce)*100).toFixed(2) }}%</code></td>
                                 </tr>
                                 <tr>
-                                    <td>Auto Attack Final damage value:</td>
+                                    <td>Auto Attack final damage value:</td>
                                     <td><code>{{Math.round(f*defreduce).toLocaleString('en', {useGrouping:true})}}</code></td>
                                 </tr>
                                 <tr>
-                                    <td>Skill Final damage value:</td>
+                                    <td>Skill final damage value:</td>
                                     <td><code>{{Math.round(skillf*defreduce).toLocaleString('en', {useGrouping:true})}}</code></td>
                                 </tr>
                                 <tr>
@@ -514,19 +520,11 @@
                                 </tr>
                                 <tr>
                                     <td>Current Auto Attack damage: </td>
-                                    <td><code>{{ currentf.toLocaleString('en', {useGrouping:true}) }}</code></td>
-                                </tr>
-                                <tr>
-                                    <td>Percentage change:</td>
-                                    <td><code>{{ ((currentf - pref)/pref*100).toFixed(2) }}%</code></td>
+                                    <td><code>{{ currentf.toLocaleString('en', {useGrouping:true}) }}</code> <span v-bind:class="textColor">({{ ((currentf - pref)/pref*100).toFixed(2) }}%)</span></td>
                                 </tr>
                                 <tr>
                                     <td>Current Skill damage: </td>
-                                    <td><code>{{ currentskillf.toLocaleString('en', {useGrouping:true}) }}</code></td>
-                                </tr>
-                                <tr>
-                                    <td>Percentage change: </td>
-                                    <td><code>{{ ((currentskillf - skillf)/skillf*100).toFixed(2) }}%</code></td>
+                                    <td><code>{{ currentskillf.toLocaleString('en', {useGrouping:true}) }}</code> <span v-bind:class="skillTextColor">({{ ((currentskillf - skillf)/skillf*100).toFixed(2) }}%)</span></td>
                                 </tr>
                             </tbody>
                         </table>

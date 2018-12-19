@@ -133,9 +133,21 @@ function setVue() {
                     <div v-if="checkAvail(post.t5[1], 0) || checkAvail(post.t5[2], 0)">\
                     T5:\
                     <input type="checkbox" v-bind:id="String(51) + post.ally + post.id" v-bind:value="post.t5[1]" v-on:click="clickT5(String(51) + post.ally + post.id)">\
-                    <label class="clickLabel" v-bind:for="String(51) + post.ally + post.id">Light: <span v-if="post.t5[1][0] != 0">ATK {{ post.t5[1][0] }}%</span><span v-if="post.t5[1][1] != 0"> CDMG {{ post.t5[1][1] }}%</span><span v-if="post.t5[1][2] != 0"> Flat ATK {{ post.t5[1][2] }}</span></label>\
+                    <label class="clickLabel" v-bind:for="String(51) + post.ally + post.id">\
+                    Light: \
+                    <span v-if="post.t5[1][0] != 0">ATK {{ post.t5[1][0] }}%</span>\
+                    <span v-if="post.t5[1][1] != 0"> CDMG {{ post.t5[1][1] }}%</span>\
+                    <span v-if="post.t5[1][2] != 0"> Flat ATK {{ post.t5[1][2] }}</span>\
+                    <span v-if="!checkAvail(post.t5[1], 0)"> None</span>\
+                    </label>\
                     <input type="checkbox" v-bind:id="String(52) + post.ally + post.id" v-bind:value="post.t5[2]" v-on:click="clickT5(String(52) + post.ally + post.id)">\
-                    <label class="clickLabel" v-bind:for="String(52) + post.ally + post.id">Dark: <span v-if="post.t5[2][0] != 0">ATK {{ post.t5[2][0] }}%</span><span v-if="post.t5[2][1] != 0"> CDMG {{ post.t5[2][1] }}%</span><span v-if="post.t5[2][2] != 0"> Flat ATK {{ post.t5[2][2] }}</span></label>\
+                    <label class="clickLabel" v-bind:for="String(52) + post.ally + post.id">\
+                    Dark: \
+                    <span v-if="post.t5[2][0] != 0">ATK {{ post.t5[2][0] }}%</span>\
+                    <span v-if="post.t5[2][1] != 0"> CDMG {{ post.t5[2][1] }}%</span>\
+                    <span v-if="post.t5[2][2] != 0"> Flat ATK {{ post.t5[2][2] }}</span>\
+                    <span v-if="!checkAvail(post.t5[2], 0)"> None</span>\
+                    </label>\
                     </div>\
                     \
                     <div v-for="(skill, skillno, index) in post.data" v-bind:key="skillno + post.ally + post.id">\
@@ -408,6 +420,20 @@ function setVue() {
             }
         },
         computed: {
+            textColor: function(){
+                const x = (this.currentf - this.pref)/this.pref*100
+                return {
+                    'red': x < 0,
+                    'green': x > 0
+                }
+            },
+            skillTextColor: function(){
+                const x = (this.currentskillf - this.skillf)/this.skillf*100
+                return {
+                    'red': x < 0,
+                    'green': x > 0
+                }
+            },
             effpen: function(){
                 return this.actualStat(this.pendata, this.pen)
             },

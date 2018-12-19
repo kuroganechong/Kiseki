@@ -55,23 +55,26 @@
                 <div class="three columns">Hero<br>
                     <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                 <div class="nine columns">
-                    <select class="u-full-width" id="hero" v-model="hero" v-on:change="reset">
+                <span class="classIcon">
+                    <span v-if="cl == 1"><img
+                        src="images/20px-KnightsIcon.png" alt="Knight"></span>
+                    <span v-if="cl == 2"><img
+                        src="images/20px-WarriorsIcon.png" alt="Warrior"></span>
+                    <span v-if="cl == 3"><img
+                        src="images/20px-ArchersIcon.png" alt="Archer"></span>
+                    <span v-if="cl == 4"><img
+                        src="images/20px-AssassinsIcon.png" alt="Assassin"></span>
+                    <span v-if="cl == 5"><img
+                        src="images/20px-MechanicsIcon.png" alt="Mechanic"></span>
+                    <span v-if="cl == 6"><img
+                        src="images/20px-WizardsIcon.png" alt="Wizard"></span>
+                    <span v-if="cl == 7"><img
+                        src="images/20px-PriestsIcon.png" alt="Priest"></span>
+                </span>
+                    <select class="heroSelection" id="hero" v-model="hero" v-on:change="reset">
                         <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
                     </select>
                 </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row" id="class-container">
-            <div class="three columns">Class</div>
-            <div class="nine columns">
-                <span v-if="cl == 1">Knight</span>
-                <span v-if="cl == 2">Warrior</span>
-                <span v-if="cl == 3">Archer</span>
-                <span v-if="cl == 4">Assassin</span>
-                <span v-if="cl == 5">Mechanic</span>
-                <span v-if="cl == 6">Wizard</span>
-                <span v-if="cl == 7">Priest</span>
             </div>
         </div>
         <hr>
@@ -165,7 +168,9 @@
                 </div>
                 <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
                     buffs by
-                    skills and perks. For damage boost buffs and stats buffs that only affect that skill, please add
+                    skills and perks. Damage boost buffs and stats buffs that only affect that skill are not included.
+                    Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
+                    for full list and add
                     them in the Additional stats row.</span>
             </div>
         </div>
@@ -175,11 +180,11 @@
                 Artifact
             </div>
             <div class="three columns">
-                <label for="art_1">Atk</label>
+                <label for="art_1">ATK</label>
                 <input id="art_1" type="number" v-model="art_1">%
             </div>
             <div class="three columns">
-                <label for="art_2">CDmg</label>
+                <label for="art_2">CDMG</label>
                 <input id="art_2" type="number" v-model="art_2">%
             </div>
             <div class="three columns">
@@ -272,7 +277,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Auto Attack Final damage value:</td>
+                        <td>Auto Attack final damage value:</td>
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'result_' + f">{{f.toLocaleString('en', {useGrouping:true})}}</span>
@@ -285,7 +290,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Skill Final damage value:</td>
+                        <td>Skill final damage value:</td>
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'skillresult_' + f">{{skillf.toLocaleString('en', {useGrouping:true})}}</span>
@@ -318,7 +323,7 @@
                                 </transition></code></td>
                     </tr>
                     <tr>
-                        <td>Auto Attack Final damage value:</td>
+                        <td>Auto Attack final damage value:</td>
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'result_' + f + 'DEF'">{{Math.round(f*defreduce).toLocaleString('en', {useGrouping:true})}}</span>
@@ -326,7 +331,7 @@
                             </code></td>
                     </tr>
                     <tr>
-                        <td>Skill Final damage value:</td>
+                        <td>Skill final damage value:</td>
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'skillresult_' + f + 'DEF'">{{Math.round(skillf*defreduce).toLocaleString('en', {useGrouping:true})}}</span>
@@ -335,8 +340,8 @@
                     </tr>
                     <tr>
                         <td><strong>Suggestions</strong></td>
-                        <td>These buffs give more benefit currently (if more than one is shown, they have the same
-                                priority):
+                        <td>Currently these buffs give more benefit (if more than one is shown, they have the same
+                            priority):
                             <ul>
                                 <li v-if="penfocus.includes(0)">ATK%</li>
                                 <li v-if="penfocus.includes(1)">CDMG%</li>

@@ -191,3 +191,15 @@
     text-align: center;
     font-style: italic
   }
+  .red{
+      color: #A63A50
+  }
+  .green{
+      color: rgb(25, 199, 127) 
+  }
+  .classIcon{
+      margin:auto
+  }
+  .heroSelection{
+      width:90%
+  }
