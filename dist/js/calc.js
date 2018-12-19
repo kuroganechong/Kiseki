@@ -93,7 +93,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 </select>\
                 </div>\
                 \
-                <div v-if="checkAvail(post.t5, 0)">\
+                <div v-if="checkAvail(post.t5[1], 0) || checkAvail(post.t5[2], 0)">\
                 T5:\
                 <input type="checkbox" v-bind:id="String(51) + post.ally + post.id" v-bind:value="post.t5[1]" v-on:click="clickT5(String(51) + post.ally + post.id)">\
                 <label class="clickLabel" v-bind:for="String(51) + post.ally + post.id">Light: <span v-if="post.t5[1][0] != 0">ATK {{ post.t5[1][0] }}%</span><span v-if="post.t5[1][1] != 0"> CDMG {{ post.t5[1][1] }}%</span><span v-if="post.t5[1][2] != 0"> Flat ATK {{ post.t5[1][2] }}</span></label>\
@@ -101,14 +101,41 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 <label class="clickLabel" v-bind:for="String(52) + post.ally + post.id">Dark: <span v-if="post.t5[2][0] != 0">ATK {{ post.t5[2][0] }}%</span><span v-if="post.t5[2][1] != 0"> CDMG {{ post.t5[2][1] }}%</span><span v-if="post.t5[2][2] != 0"> Flat ATK {{ post.t5[2][2] }}</span></label>\
                 </div>\
                 \
-                <div v-for="(skill, skillno) in post.data" v-bind:key="skillno + post.ally + post.id" v-if="checkAvail(skill, 0)">\
+                <div v-for="(skill, skillno, index) in post.data" v-bind:key="skillno + post.ally + post.id">\
+                <div v-if="checkAvail(skill[1], 0) || checkAvail(skill[2], 0) || checkAvail(skill[3], 0) || checkAvail(skill[4], 0)">\
                 <label>Skill: {{ skillno.charAt(1) }}</label>\
+                </div>\
+                <div v-if="checkAvail(skill[1], 0) || checkAvail(skill[2], 0) || checkAvail(skill[3], 0)">\
                 <span><input type="checkbox" v-on:click="onClick(1 + skillno + post.ally + post.id, skill[1], post.id)" v-bind:value="skill[1]" v-bind:id="1 + skillno + post.ally + post.id" v-bind:ref="1 + skillno + post.ally + post.id">\
-                    <label class="clickLabel" v-bind:for="1 + skillno + post.ally + post.id" v-bind:id="11 + skillno + post.ally + post.id">Base skill: <span v-if="skill[1][0] != 0">ATK {{ skill[1][0] }}%</span><span v-if="skill[1][1] != 0"> CDMG {{ skill[1][1] }}%</span><span v-if="skill[1][2] != 0"> Flat ATK {{ skill[1][2] }}</span></label></span><br>\
-                <span><input type="checkbox" v-on:click="onClick(2 + skillno + post.ally + post.id, skill[2], post.id)" v-bind:value="skill[2]" v-bind:id="2 + skillno + post.ally + post.id" v-bind:ref="2 + skillno + post.ally + post.id">\
-                    <label class="clickLabel disable" v-bind:for="2 + skillno + post.ally + post.id" v-bind:id="22 + skillno + post.ally + post.id">Light perk: <span v-if="skill[2][0] != 0">ATK {{ skill[2][0] }}%</span><span v-if="skill[2][1] != 0"> CDMG {{ skill[2][1] }}%</span><span v-if="skill[2][2] != 0"> Flat ATK {{ skill[2][2] }}</span></label></span><br>\
-                <span><input type="checkbox" v-on:click="onClick(3 + skillno + post.ally + post.id, skill[3], post.id)" v-bind:value="skill[3]" v-bind:id="3 + skillno + post.ally + post.id" v-bind:ref="3 + skillno + post.ally + post.id">\
-                    <label class="clickLabel disable" v-bind:for="3 + skillno + post.ally + post.id" v-bind:id="33 + skillno + post.ally + post.id">Dark perk: <span v-if="skill[3][0] != 0">ATK {{ skill[3][0] }}%</span><span v-if="skill[3][1] != 0"> CDMG {{ skill[3][1] }}%</span><span v-if="skill[3][2] != 0"> Flat ATK {{ skill[3][2] }}</span></label></span><br>\
+                    <label class="clickLabel" v-bind:for="1 + skillno + post.ally + post.id" v-bind:id="11 + skillno + post.ally + post.id">\
+                        Base skill: \
+                        <span v-if="skill[1][0] != 0">ATK {{ skill[1][0] }}%</span>\
+                        <span v-if="skill[1][1] != 0"> CDMG {{ skill[1][1] }}%</span>\
+                        <span v-if="skill[1][2] != 0"> Flat ATK {{ skill[1][2] }}</span>\
+                        <span v-if="!checkAvail(skill[1], 0)"> None</span>\
+                    </label>\
+                </span><br>\
+                <span>\
+                <input type="checkbox" v-on:click="onClick(2 + skillno + post.ally + post.id, skill[2], post.id)" v-bind:value="skill[2]" v-bind:id="2 + skillno + post.ally + post.id" v-bind:ref="2 + skillno + post.ally + post.id">\
+                    <label class="clickLabel disable" v-bind:for="2 + skillno + post.ally + post.id" v-bind:id="22 + skillno + post.ally + post.id">\
+                        Light perk: \
+                        <span v-if="skill[2][0] != 0">ATK {{ skill[2][0] }}%</span>\
+                        <span v-if="skill[2][1] != 0"> CDMG {{ skill[2][1] }}%</span>\
+                        <span v-if="skill[2][2] != 0"> Flat ATK {{ skill[2][2] }}</span>\
+                        <span v-if="!checkAvail(skill[2], 0)"> None</span>\
+                    </label>\
+                </span><br>\
+                <span>\
+                <input type="checkbox" v-on:click="onClick(3 + skillno + post.ally + post.id, skill[3], post.id)" v-bind:value="skill[3]" v-bind:id="3 + skillno + post.ally + post.id" v-bind:ref="3 + skillno + post.ally + post.id">\
+                    <label class="clickLabel disable" v-bind:for="3 + skillno + post.ally + post.id" v-bind:id="33 + skillno + post.ally + post.id">\
+                        Dark perk: \
+                        <span v-if="skill[3][0] != 0">ATK {{ skill[3][0] }}%</span>\
+                        <span v-if="skill[3][1] != 0"> CDMG {{ skill[3][1] }}%</span>\
+                        <span v-if="skill[3][2] != 0"> Flat ATK {{ skill[3][2] }}</span>\
+                        <span v-if="!checkAvail(skill[3], 0)"> None</span>\
+                    </label>\
+                </span><br>\
+                </div>\
                 <div v-if="checkAvail(skill[4], 0)">\
                 UT: <select v-on:change="selUT(9 + skillno + post.ally + post.id, skillno)" v-bind:id="9 + skillno + post.ally + post.id">\
                 <option value="">No UT</option>\
@@ -224,40 +251,27 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 }
             },
             checkAvail: function (object, verbose) {
-                x = true // isempty
+                var x = false // isempty
                 if (verbose) {
                     console.log(object)
                 }
-                // inside each skill: 1,2,3,4
 
+                // for s1,s2,s3,t51,t52
                 if (!isNaN(object[0])) {
                     var sum = Number(object[0]) + Number(object[1]) + Number(object[2])
                     if (sum != 0) {
-                        x = false
+                        x = true
                     }
-                } else {
-                    for (const key in object) {
-                        if (object.hasOwnProperty(key)) {
-                            const element = object[key];
-                            if (!Array.isArray(element[0])) {
-                                // 1,2,3
-                                var sum = element.reduce(getSum);
-                                if (sum != 0) {
-                                    x = false
-                                }
-                            } else {
-                                //4
-                                for (let index = 0; index < element.length; index++) {
-                                    element[index].reduce(getSum);
-                                    if (sum != 0) {
-                                        x = false
-                                    }
-                                }
-                            }
+                } else { // for uw,ut
+                    for (let index = 0; index < object.length; index++) {
+                        const element = object[index];
+                        var sum = Number(element[0]) + Number(element[1]) + Number(element[2])
+                        if (sum != 0) {
+                            x = true
                         }
                     }
                 }
-                return !x
+                return x
             },
             matchName: function (id) {
                 var x = 'undefined'
@@ -312,24 +326,24 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             defshred: 0,
             pen: 0,
             pendata: {
-              MaxK: 900,
-              X1: 1000,
-              A1: 2,
-              B1: 1000,
-              X2: 450,
-              A2: 409,
-              B2: 266,
-              MinK: 0,
-              X3: -500,
-              A3: 0,
-              B3: 0,
-              X4: 0,
-              A4: 0,
-              B4: 0
+                MaxK: 900,
+                X1: 1000,
+                A1: 2,
+                B1: 1000,
+                X2: 450,
+                A2: 409,
+                B2: 266,
+                MinK: 0,
+                X3: -500,
+                A3: 0,
+                B3: 0,
+                X4: 0,
+                A4: 0,
+                B4: 0
             }
         },
         computed: {
-            effpen: function(){
+            effpen: function () {
                 return this.actualStat(this.pendata, this.pen)
             },
             cl: function () {
@@ -457,17 +471,17 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 DEF = (this.enemydef * (1 - this.defdownperc * 0.01) - this.defshred) * (1 - this.effpen / 100)
                 return (1 - 0.9817 * DEF / (Number(19360.3675) + Number(DEF)))
             },
-            percfpen: function(){
+            percfpen: function () {
                 var a = 0.9817
                 var b = 19360.3675
                 var A = this.f
-                if (A == 0){
+                if (A == 0) {
                     A = 1
                 }
                 var B = (this.enemydef * (1 - this.defdownperc * 0.01) - this.defshred)
                 var x = this.effpen / 100
-                var y = (B*x - B - b) * (B*x - B - b)
-                if (y == 0){
+                var y = (B * x - B - b) * (B * x - B - b)
+                if (y == 0) {
                     y = 1
                 }
                 return (a * b * B * A * this.rate(this.pendata, this.pen) / 100 / y) / A * 100
@@ -475,7 +489,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             penfocus: function () {
                 var der_a = this.statatk * this.Cd * (this.defreduce) * 0.01
                 var der_c = (Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce)
-                var der_p = this.percfpen * 100  * this.pref
+                var der_p = this.percfpen * 100 * this.pref
 
                 var arr = [der_a, der_c, der_p];
                 var maxIndex = [0];
@@ -485,7 +499,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                     if (arr[i] - max > 0.001) {
                         maxIndex = [i];
                         max = arr[i];
-                    } else if(Math.abs(arr[i] - max) < 0.001){
+                    } else if (Math.abs(arr[i] - max) < 0.001) {
                         maxIndex.push(i);
                     }
                 }
@@ -558,7 +572,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                     ractual = Math.floor(statType.A2) / 10000;
                     // uncapped
                 } else {
-                    ractual = 1/10;
+                    ractual = 1 / 10;
                 }
                 // return to 1 significant decimal place
                 return ractual;
