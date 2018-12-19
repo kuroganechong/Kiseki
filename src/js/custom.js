@@ -191,9 +191,15 @@ function setVue() {
                     <option v-for="(ut, star) in skill[4]" v-bind:value="ut">{{star}} star: <span v-if="ut[0] != 0">ATK {{ ut[0] }}%</span><span v-if="ut[1] != 0"> CDMG {{ ut[1] }}%</span><span v-if="ut[2] != 0"> Flat ATK {{ ut[2] }}</span></option>\
                     </select>\
                     </div>\
+                    <span class="small" v-if="post.id == 61 && skillno.charAt(1) == 4">\
+                    Note: S4 Dark only gives Flat ATK if S2 is active\
+                    </span>\
+                    <span class="small" v-if="post.id == 92 && skillno.charAt(1) == 4">\
+                    Note: UW and S4 gives Flat ATK only when S2 is active\
+                    </span>\
                     </div>\
                     </div>\
-                    </div>',
+                    </div>', // 61 is neraxis, 92 is veronica
         methods: {
             selUW: function (id) {
                 var data
@@ -417,9 +423,59 @@ function setVue() {
               X4: 0,
               A4: 0,
               B4: 0
-            }
+            },
+            lilia_buff_mana: 0,
+            lilia_gear_mana: 0,
+            lilia_ut3_stacks: 0,
+            lilia_ut3_stars: 0,
+            nyx_stacks: 0,
+            clause_def: 0,
+            clause_uw_stars: 0,
+            annette_t5d: 0,
+            frey_t5d: 0,
+            priscilla_t5d: 0,
+            priscilla_s2_ut: 0,
+            ricardo_t5d: 0,
+            mediana_s3_base: 0,
+            mediana_s3_l: 0
         },
         computed: {
+            clause_uw_fa: function(){
+                const x = this.clause_def*this.clause_uw_stars/100
+                return x
+            },
+            specialFlat: function(){
+                var medi = 0
+                if(this.mediana_s3_l){
+                    medi = 0.4
+                }
+                var x = Number(this.annette_t5d*0.05)
+                        + Number(this.frey_t5d*0.05)
+                        + Number(this.priscilla_t5d*0.03)
+                        + Number(this.ricardo_t5d*0.5)
+                if(this.priscilla_t5d > 0){
+                    x = Number(x) + (Number(this.priscilla_t5d*0.15) + Number(8215))*(Number(1.5) + Number(this.priscilla_s2_ut)/100)
+                }
+                if(this.mediana_s3_base > 0){
+                    x = Number(x) + (Number(this.mediana_s3_base*0.2) + Number(37932))*(Number(1.5) + Number(medi))
+                }
+                if(this.hero == 15){//clause
+                    x = Number(x) + Number(this.clause_uw_fa)
+                }
+                return x
+            },
+            lilia_s4_atk: function(){
+                const x = 120*(Number(1)+Number(this.lilia_gear_mana/100))*(Number(1)+Number(this.lilia_buff_mana/100))/6
+                return x
+            },
+            lilia_ut3_cdmg: function(){
+                const x = this.lilia_ut3_stars*this.lilia_ut3_stacks
+                return x
+            },
+            nyx_t5_atk: function(){
+                const x = 10*this.nyx_stacks
+                return x
+            },
             textColor: function(){
                 const x = (this.currentf - this.pref)/this.pref*100
                 return {
@@ -637,6 +693,13 @@ function setVue() {
             BATK: function () {
                 var x = 0
                 x = Number(100) + Number(this.ATK)
+                // Special heroes ATK goes here
+                if(this.hero == 57){
+                    x = Number(x) + Number(this.lilia_s4_atk)
+                }
+                if(this.hero == 33){
+                    x = Number(x) + Number(this.nyx_t5_atk)
+                }
                 return x
             },
             T: function () {
@@ -660,7 +723,7 @@ function setVue() {
             BFa: function () {
                 var x = 0
                 // sum of all flat ATK buff
-                x = Number(this.Fa) + Number(this.skillfa) + Number(this.wa3fa)
+                x = Number(this.Fa) + Number(this.skillfa) + Number(this.wa3fa) + Number(this.specialFlat)
                 return x
             },
             R2: function () {
@@ -703,6 +766,10 @@ function setVue() {
                     x = 0
                 }
                 var output = Number(200) + Number(this.Cd) + Number(this.R2) + Number(x)
+                // Special heroes CDMG goes here
+                if(this.hero == 57){
+                    output = Number(output) + Number(this.lilia_ut3_cdmg)
+                }
                 return output
             },
             R1: function () {

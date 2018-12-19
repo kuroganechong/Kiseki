@@ -28,8 +28,9 @@
     <div class="topnav" id="myTopnav">
         <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
         <a href="guild.html">Kiseki</a>
-        <a href="index.html">ATK/CDMG</a>
-        <a href="calc.html">Calculator</a>
+        <a href="index.html">Optimal DPS Calculator</a>
+        <a href="calc.html">DMG Calculator</a>
+        <a href="stat.html">Stat</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
@@ -320,7 +321,7 @@
                         skills and perks. Damage boost buffs and stats buffs that only affect that skill are not included.
                         Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
                         for full list and add
-                        them in the Additional stats row.</span>
+                        them in the Additional stats section.</span>
                 </div>
             </div>
             <hr>
@@ -342,31 +343,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="twelve columns small">
-                    Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost effects.
-                    <a href="guide.html" target="_blank">GUIDE</a>
-                </div>
-            </div>
-            <div class="row" id="scale-container">
-                <div class="three columns">
-                    <label for="scale">DMG Boost</label>
-                    <input id="scale" type="number" v-model="scale">%
-                </div>
-                <div class="three columns">
-                    <label for="addatk">Additional ATK</label>
-                    <input id="addatk" type="number" v-model="addatk">%
-                </div>
-                <div class="three columns">
-                    <label for="addcdmg">Additional CDMG</label>
-                    <input id="addcdmg" type="number" v-model="addcdmg">%
-                </div>
-                <div class="three columns">
-                    <label for="Fa">Additional Flat ATK</label>
-                    <input id="Fa" type="number" v-model="Fa">
-                </div>
-            </div>
-            <hr>
+
             <div class="row" id="heroscale-container">
                 <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
                 <div class="three columns">
@@ -397,33 +374,168 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="twelve columns small">
-                    This section is optional as it will not affect the final calculation for ATK/CDMG, however you can
-                    use
-                    this to judge whether more PEN is better by comparing the final damage.
+
+            <button class="collapsible">Additional stats</button>
+            <div class="content">
+                <div class="row">
+                    <div class="twelve columns small">
+                        Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost effects.
+                        <a href="guide.html" target="_blank">GUIDE</a>
+                    </div>
                 </div>
-            </div>
-            <div class="row" id="pen-container">
-                <div class="three columns">
-                    <label for="enemydef">Enemy DEF</label>
-                    <input id="enemydef" type="number" v-model="enemydef">
+                
+                <div v-if="hero == 57" >
+                    <div class="row">
+                        <div class="three columns">
+                                Special cases
+                        </div>
+                        <div class="nine columns">
+                            <button class="collapsible">Lilia S4 ATK%</button>
+                            <div class="content">
+                                Note: Flat mana/sec from UW does not increase her S4 buff
+                                <label for="lilia_gear_mana">Gear total mana/sec</label>
+                                <input id="lilia_gear_mana" type="number" v-model="lilia_gear_mana">%
+                                <label for="lilia_buff_mana">Mana/sec% buff</label>
+                                <input id="lilia_buff_mana" type="number" v-model="lilia_buff_mana">%
+                                <label>Additional ATK%: {{ lilia_s4_atk.toFixed(2) }}%</label>
+                            </div>
+                            <button class="collapsible">Lilia UT3 CDMG%</button>
+                            <div class="content">
+                                <label for="lilia_ut3_stacks">UT3 Stacks</label>
+                                <input id="lilia_ut3_stacks" type="number" v-model="lilia_ut3_stacks">
+                                <select class="" id="lilia_ut3_stars" v-model="lilia_ut3_stars">
+                                    <option value="0">UT3</option>
+                                    <option value="2">0 stars: CDMG 2.0% per stack </option>
+                                    <option value="2.4">1 stars: CDMG 2.4% per stack </option>
+                                    <option value="2.9">2 stars: CDMG 2.9% per stack </option>
+                                    <option value="3.5">3 stars: CDMG 3.5% per stack </option>
+                                    <option value="4.2">4 stars: CDMG 4.2% per stack </option>
+                                    <option value="5">5 stars: CDMG 5.0% per stack </option>
+                                </select>
+                                <label>Additional CDMG%: {{ lilia_ut3_cdmg.toFixed(2) }}%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="three columns">
-                    <label for="defshred">DEF Shred</label>
-                    <input id="defshred" type="number" v-model="defshred">
+                <div v-if="hero == 33" >
+                    <div class="row">
+                        <div class="three columns">
+                                Special cases
+                        </div>
+                        <div class="nine columns">
+                            <button class="collapsible">Nyx T5D ATK%</button>
+                            <div class="content">
+                                <label for="nyx_stacks">No. of Blade stacks</label>
+                                <input id="nyx_stacks" type="number" v-model="nyx_stacks">
+                                <label>Additional ATK%: {{ nyx_t5_atk.toFixed(2) }}%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="three columns">
-                    <label for="defdownperc">DEF% Debuff</label>
-                    <input id="defdownperc" type="number" v-model="defdownperc">%
+                <div v-if="hero == 15" >
+                    <div class="row">
+                        <div class="three columns">
+                                Special cases
+                        </div>
+                        <div class="nine columns">
+                            <button class="collapsible">Clause UW Flat ATK</button>
+                            <div class="content">
+                                <label for="clause_def">PDEF</label>
+                                <input id="clause_def" type="number" v-model="clause_def">
+                                <select class="" id="clause_uw_stars" v-model="clause_uw_stars">
+                                    <option value="0">UW</option>
+                                    <option value="100">0 stars: Flat ATK boost by 100% of PDEF </option>
+                                    <option value="120">1 stars: Flat ATK boost by 120% of PDEF </option>
+                                    <option value="144">2 stars: Flat ATK boost by 144% of PDEF </option>
+                                    <option value="173">3 stars: Flat ATK boost by 173% of PDEF </option>
+                                    <option value="207">4 stars: Flat ATK boost by 207% of PDEF </option>
+                                    <option value="250">5 stars: Flat ATK boost by 250% of PDEF </option>
+                                </select>
+                                <label>Additional Flat ATK: {{ clause_uw_fa.toFixed(2) }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="three columns">
-                    <label for="pen">Total PEN value</label>
-                    <input id="pen" type="number" v-model="pen">
-                    <br><span>Effective PEN: {{effpen}}</span>%
+                <div class="row" id="flat-atk-container">
+                    <div class="three columns">
+                        Flat ATK buffs depending on other characters
+                        <label>Additional Flat ATK: {{ specialFlat.toFixed(2).toLocaleString('en', {useGrouping:true}) }}</label>
+                    </div>
+                    <div class="nine columns">
+                        <label for="annette_t5d">Annette ATK (From Annette T5D)</label>
+                        <input id="annette_t5d" type="number" v-model="annette_t5d">
+                        <label for="frey_t5d">Frey ATK (From Frey T5D)</label>
+                        <input id="frey_t5d" type="number" v-model="frey_t5d">
+                        <label for="priscilla_t5d">Priscilla ATK (From Priscilla T5D & S2)</label>
+                        <input id="priscilla_t5d" type="number" v-model="priscilla_t5d">
+                        <select class="" id="priscilla_s2_ut" v-model="priscilla_s2_ut">
+                            <option value="0">UT2</option>
+                            <option value="20">0 stars: ATK Boost increase by 20% </option>
+                            <option value="24">1 stars: ATK Boost increase by 24% </option>
+                            <option value="29">2 stars: ATK Boost increase by 29% </option>
+                            <option value="35">3 stars: ATK Boost increase by 35% </option>
+                            <option value="42">4 stars: ATK Boost increase by 42% </option>
+                            <option value="50">5 stars: ATK Boost increase by 50% </option>
+                        </select>
+                        <label for="ricardo_t5d">Ricardo MDEF (From Ricardo T5D)</label>
+                        <input id="ricardo_t5d" type="number" v-model="ricardo_t5d">
+                        <label for="mediana_s3_base">Mediana ATK (From Mediana S3)</label>
+                        <input id="mediana_s3_base" type="number" v-model="mediana_s3_base">
+                        <input type="checkbox" id="mediana_s3_l" value="1" v-model="mediana_s3_l"><label class="clickLabel" for="mediana_s3_l">S3 Light: ATK Boost increase by 40%</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" id="scale-container">
+                    <div class="three columns">
+                        <label for="scale">DMG Boost</label>
+                        <input id="scale" type="number" v-model="scale">%
+                    </div>
+                    <div class="three columns">
+                        <label for="addatk">Additional ATK</label>
+                        <input id="addatk" type="number" v-model="addatk">%
+                    </div>
+                    <div class="three columns">
+                        <label for="addcdmg">Additional CDMG</label>
+                        <input id="addcdmg" type="number" v-model="addcdmg">%
+                    </div>
+                    <div class="three columns">
+                        <label for="Fa">Additional Flat ATK</label>
+                        <input id="Fa" type="number" v-model="Fa">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="twelve columns small">
+                        This section is optional as it will not affect the final calculation for ATK/CDMG, however you can
+                        use
+                        this to judge whether more PEN is better by comparing the final damage.
+                    </div>
+                </div>
+                <div class="row" id="pen-container">
+                    <div class="three columns">
+                        <label for="enemydef">Enemy DEF</label>
+                        <input id="enemydef" type="number" v-model="enemydef">
+                    </div>
+                    <div class="three columns">
+                        <label for="defshred">DEF Shred</label>
+                        <input id="defshred" type="number" v-model="defshred">
+                    </div>
+                    <div class="three columns">
+                        <label for="defdownperc">DEF% Debuff</label>
+                        <input id="defdownperc" type="number" v-model="defdownperc">%
+                    </div>
+                    <div class="three columns">
+                        <label for="pen">Total PEN value</label>
+                        <input id="pen" type="number" v-model="pen">
+                        <br><span>Effective PEN: {{effpen}}</span>%
+                    </div>
                 </div>
             </div>
             <hr>
+
             <div class="row" id="result-container">
                 <button v-on:click="alert" href="#popup1" class="current">Calculate</button>
             </div>

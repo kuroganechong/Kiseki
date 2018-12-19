@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kiseki KR-Asia</title>
+    <meta name="description" content="">
+    <meta name="author" content="sagiri">
+
+    <!-- Mobile Specific Metas
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
+        <a href="guild.html">Kiseki</a>
+        <a href="index.html">Optimal DPS Calculator</a>
+        <a href="calc.html">DMG Calculator</a>
+        <a href="stat.html">Stat</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container" id="app">
+        <div class="row">
+            <div class="twelve column">
+                <h4>King's Raid - Final value of stats after debuffs/buffs</h4>
+            </div>
+            Base value: <input type="number" v-model="base"><br>
+            Gear increase %: <input type="number" v-model="gear"><br>
+            Buff/Debuff %: <input type="number" v-model="buff"><br>
+            Flat value increase/decrease: <input type="number" v-model="flat"><br>
+            Final value: {{ final }}
+        </div>
+    </div>
+    <hr>
+
+    <!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                base: 0,
+                gear: 0,
+                buff: 0,
+                flat: 0
+            },
+            computed: {
+                final: function () {
+                    return Number(this.base*(Number(1)+Number(this.gear/100))*(Number(1)+Number(this.buff/100)))+Number(this.flat)
+                }
+            }
+        })
+        /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</body>
+
+</html>

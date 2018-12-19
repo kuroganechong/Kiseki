@@ -29,8 +29,9 @@
 <div class="topnav" id="myTopnav">
     <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
     <a href="guild.html">Kiseki</a>
-    <a href="index.html">ATK/CDMG</a>
-    <a href="calc.html">Calculator</a>
+    <a href="index.html">Optimal DPS Calculator</a>
+    <a href="calc.html">DMG Calculator</a>
+    <a href="stat.html">Stat</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
     </a>
@@ -39,6 +40,20 @@
     <div class="row">
         <div class="twelve column">
             <div id="guide" class="">
+                <div class="wrap">
+                    Legend:
+                    <ul>
+                        <li>ATK: Attack</li>
+                        <li>CDMG: Critical Damage</li>
+                        <li>PEN: Penetration</li>
+                        <li>ATK SPD: Attack Speed</li>
+                        <li>UW: Unique Weapon</li>
+                        <li>UT: Unique Treasure</li>
+                        <li>T5D: Transcendence 5 Dark Perk</li>
+                        <li>S1/2/3/4: Skill 1/2/3/4</li>
+                    </ul>
+                    <p>
+                </div>
                 <div class="wrap">
                     <p>Takes into account all ATK/CDMG/Flat ATK buffs you get from gears, skills, enchants,
                         runes,
@@ -90,7 +105,6 @@
                     </p>
                 </div>
                 <div class="wrap">
-
                     <p><strong>This calculator does not give you the values for the following buffs/effects:</strong></p>
                     <ul>
                         <li>Guild buffs</li>
@@ -104,7 +118,7 @@
                     <p>However, you can workaround these by
                         adding them
                         at
-                        the <strong>additional stats section</strong> at the bottom of the page: (you will need to
+                        the <strong>additional stats section</strong>: (you will need to
                         calculate
                         the amount to be added by yourself)<br>
                     </p>
@@ -128,47 +142,29 @@
                         the
                         calculation, add them in the <strong>additional stats section</strong> at the bottom of the
                         page.</p>
-                    <ul>
-                        <li>UW
-                            <ol>
-                                <li>Gau: ignored (HP lost percentage inconsistent)</li>
-                                <li>Clause: ignored (Flat ATK boost based on PDEF) </li>
-                            </ol>
+                    <ol>
+                        <li>Flat ATK boost depends on other character stats are separated into another section:
+                            <ul>
+                                <li>Frey T5D</li>
+                                <li>Annette T5D</li>
+                                <li>Ricardo T5D</li>
+                                <li>Mediana S3, S3 Light</li>
+                                <li>Priscilla S2, T5D</li>
+                                <li>Clause UW</li>
+                            </ul>
                         </li>
-                        <li>UT
-                            <ol>
-                                <li>Lilia: UT3 CDMG boost based on stacks ignored</li>
-                            </ol>
-                        </li>
-                        <li>Skills and perks
-                            <ol>
-                                <li>Flat ATK boost depends on other character stats are ignored:
-                                    <ul>
-                                        <li>Frey T5D</li>
-                                        <li>Annette T5D</li>
-                                        <li>Ricardo T5D</li>
-                                        <li>Mediana S3, S3 Light</li>
-                                        <li>Priscilla S2, T5D</li>
-                                    </ul>
-                                </li>
-                                <li>Stat boost depends on other effects/stats are ignored:
-                                    <ul>
-                                        <li>Lilia: S4 ATK boost based on mana/sec ignored</li>
-                                        <li>Nyx: T5 Dark ATK boost based on blade stacks ignored</li>
-                                        <li>Chase: T5 Dark, S4 resurrected bonus stats ignored</li>
-                                        <li>Neraxis: S4 Dark only gives Flat ATK if S2 is active</li>
-                                        <li>Veronica: UW and S4 gives Flat ATK only when S2 is active</li>
-                                    </ul>
-                                </li>
-                            </ol>
+                        <li>Stat boost that depends on unreliable effects:
+                            <ul>
+                                <li>Gau: UW ignored (HP lost percentage inconsistent)</li>
+                                <li>Chase: T5 Dark, S4 resurrected bonus stats ignored (HP lost percentage inconsistent)</li>
+                            </ul>
                         </li>
                         <li>Unknown, to be tested
                             <ol>
-                                <li>Zafir: S1 stacks</li>
                                 <li>Chase: S2 maximum stat boost </li>
                             </ol>
                         </li>
-                    </ul>
+                    </ol>
                 </div>
             </div>
         </div>
