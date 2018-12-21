@@ -2,7 +2,7 @@ temp = "["
 
 counter = 1
 for i in range(95):
-    filepath = 'data/English/hero/' + str(counter) + '.json'
+    filepath = 'src/data/English/hero/' + str(counter) + '.json'
     try:
         with open(filepath) as f:
             data = f.read()
@@ -11,7 +11,7 @@ for i in range(95):
     except:
         print("file "+ str(counter) + '.json do not exist')
 
-    filepath = 'data/English/hero/' + str(counter) + '_1.json'
+    filepath = 'src/data/English/hero/' + str(counter) + '_1.json'
     try:
         with open(filepath) as f:
             data = f.read()
@@ -23,5 +23,5 @@ for i in range(95):
     
 temp = temp + ']'
 
-with open("data/English/hero/output.json", "w") as output:
+with open("src/data/English/hero/output.json", "w") as output:
     output.write(temp)
