@@ -28,8 +28,8 @@
     <div class="topnav" id="myTopnav">
         <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
         <a href="guild.html">Kiseki</a>
-        <a href="index.html">Optimal DPS Calculator</a>
-        <a href="calc.html">DMG Calculator</a>
+        <a href="index.html">Gears Calculator</a>
+        <a href="calc.html">Buffs Calculator</a>
         <a href="stat.html">Stat</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
@@ -42,6 +42,7 @@
             <div class="row">
                 <div class="twelve column">
                     <h4>King's Raid - How many ATK/CDMG lines in the gear should I get?</h4>
+                    <p>Given fixed buffs, find the optimum gear ATK/CDMG ratio.</p>
                     <button id="guidebtn" onclick="window.location.href = 'guide.html'">Guide</button>
                 </div>
             </div>
@@ -103,144 +104,148 @@
                 </div>
             </div>
             <hr>
-            <div class="row" id="armor-container">
-                <div class="three columns">Armor</div>
-                <div class="three columns">
-                    <label for="armor_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="" id="armor_line" v-model="armor_line">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
+            
+            <button class="collapsible">Fill in your gear info</button>
+            <div class="content" id="parentcontent">
+                <div class="row" id="armor-container">
+                    <div class="three columns">Armor</div>
+                    <div class="three columns">
+                        <label for="armor_line">Desired No. of ATK/CDMG lines</label>
+                        <select class="" id="armor_line" v-model="armor_line">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="three columns">
+                        <label for="armor-enc">Enchant</label>
+                        ATK: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
+                        CDMG: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
+                    </div>
+                    <div class="three columns">
+                        <label for="armor_rune_1">Rune</label>
+                        <select class="u-full-width" id="armor_rune_1" v-model="armor_rune_1">
+                            <option value="-">-</option>
+                            <option value="1">11% ATK</option>
+                            <option value="2">22% CDMG</option>
+                            <option value="3">40% CDMG</option>
+                            <option value="4">30% CDMG</option>
+                            <option value="others">others</option>
+                        </select>
+                        <select class="u-full-width" id="armor_rune_2" v-model="armor_rune_2">
+                            <option value="-">-</option>
+                            <option value="1">11% ATK</option>
+                            <option value="2">22% CDMG</option>
+                            <option value="3">40% CDMG</option>
+                            <option value="4">30% CDMG</option>
+                            <option value="others">others</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="three columns">
-                    <label for="armor-enc">Enchant</label>
-                    ATK: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
-                    CDMG: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
+                <hr>
+                <div class="row" id="subarmor-container">
+                    <div class="three columns">Subarmor</div>
+                    <div class="three columns">
+                        <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
+                        <select class="" id="subarmor_line" v-model="subarmor_line">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="three columns">
+                        <label>Enchant</label>
+                        ATK: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
+                        CDMG: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
+                    </div>
+                    <div class="three columns">
+                        <label for="subarmor_rune_1">Rune</label>
+                        <select class="u-full-width" id="subarmor_rune_1" v-model="subarmor_rune_1">
+                            <option value="-">-</option>
+                            <option value="1">11% ATK</option>
+                            <option value="2">22% CDMG</option>
+                            <option value="others">others</option>
+                        </select>
+                        <select class="u-full-width" id="subarmor_rune_2" v-model="subarmor_rune_2">
+                            <option value="-">-</option>
+                            <option value="1">11% ATK</option>
+                            <option value="2">22% CDMG</option>
+                            <option value="others">others</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="three columns">
-                    <label for="armor_rune_1">Rune</label>
-                    <select class="u-full-width" id="armor_rune_1" v-model="armor_rune_1">
-                        <option value="-">-</option>
-                        <option value="1">11% ATK</option>
-                        <option value="2">22% CDMG</option>
-                        <option value="3">40% CDMG</option>
-                        <option value="4">30% CDMG</option>
-                        <option value="others">others</option>
-                    </select>
-                    <select class="u-full-width" id="armor_rune_2" v-model="armor_rune_2">
-                        <option value="-">-</option>
-                        <option value="1">11% ATK</option>
-                        <option value="2">22% CDMG</option>
-                        <option value="3">40% CDMG</option>
-                        <option value="4">30% CDMG</option>
-                        <option value="others">others</option>
-                    </select>
+                <hr>
+                <div class="row" id="accessory-container">
+                    <div class="three columns">
+                        Accessory
+                        <select class="u-full-width" id="ear" v-model="ear">
+                            <option value="1">Earring</option>
+                            <option value="2">Others</option>
+                        </select>
+                    </div>
+                    <div class="three columns">
+                        <label for="acc_line">Desired No. of ATK/CDMG lines</label>
+                        <select class="" id="acc_line" v-model="acc_line">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="three columns">
+                        <label>Enchant</label>
+                        ATK: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
+                        CDMG: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
+                    </div>
+                    <div class="three columns">
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row" id="subarmor-container">
-                <div class="three columns">Subarmor</div>
-                <div class="three columns">
-                    <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="" id="subarmor_line" v-model="subarmor_line">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
+                <hr>
+                <div class="row" id="orb-container">
+                    <div class="three columns">Orb</div>
+                    <div class="three columns">
+                        <label for="orb_line">Desired No. of ATK/CDMG lines</label>
+                        <select class="" id="orb_line" v-model="orb_line">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="three columns">
+                        <label>Enchant</label>
+                        ATK: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
+                        CDMG: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
+                    </div>
+                    <div class="three columns">
+                    </div>
                 </div>
-                <div class="three columns">
-                    <label>Enchant</label>
-                    ATK: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
-                    CDMG: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
-                </div>
-                <div class="three columns">
-                    <label for="subarmor_rune_1">Rune</label>
-                    <select class="u-full-width" id="subarmor_rune_1" v-model="subarmor_rune_1">
-                        <option value="-">-</option>
-                        <option value="1">11% ATK</option>
-                        <option value="2">22% CDMG</option>
-                        <option value="others">others</option>
-                    </select>
-                    <select class="u-full-width" id="subarmor_rune_2" v-model="subarmor_rune_2">
-                        <option value="-">-</option>
-                        <option value="1">11% ATK</option>
-                        <option value="2">22% CDMG</option>
-                        <option value="others">others</option>
-                    </select>
-                </div>
-            </div>
-            <hr>
-            <div class="row" id="accessory-container">
-                <div class="three columns">
-                    Accessory
-                    <select class="u-full-width" id="ear" v-model="ear">
-                        <option value="1">Earring</option>
-                        <option value="2">Others</option>
-                    </select>
-                </div>
-                <div class="three columns">
-                    <label for="acc_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="" id="acc_line" v-model="acc_line">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="three columns">
-                    <label>Enchant</label>
-                    ATK: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
-                    CDMG: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
-                </div>
-                <div class="three columns">
-                </div>
-            </div>
-            <hr>
-            <div class="row" id="orb-container">
-                <div class="three columns">Orb</div>
-                <div class="three columns">
-                    <label for="orb_line">Desired No. of ATK/CDMG lines</label>
-                    <select class="" id="orb_line" v-model="orb_line">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="three columns">
-                    <label>Enchant</label>
-                    ATK: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
-                    CDMG: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
-                </div>
-                <div class="three columns">
-                </div>
-            </div>
-            <hr>
-            <div class="row" id="treasure-container">
-                <div class="three columns">
-                    Treasure
-                </div>
-                <div class="three columns">
-                    <label>Slot 1</label>
-                    ATK: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
-                    CDMG: <input id="ut1_2" type="number" v-model="ut1_2">%
-                </div>
-                <div class="three columns">
-                    <label>Slot 2</label>
-                    ATK: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
-                    CDMG: <input id="ut2_2" type="number" v-model="ut2_2">%
-                </div>
-                <div class="three columns">
-                    <label>Slot 3</label>
-                    ATK: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
-                    CDMG: <input id="ut3_2" type="number" v-model="ut3_2">%
+                <hr>
+                <div class="row" id="treasure-container">
+                    <div class="three columns">
+                        Treasure
+                    </div>
+                    <div class="three columns">
+                        <label>Slot 1</label>
+                        ATK: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
+                        CDMG: <input id="ut1_2" type="number" v-model="ut1_2">%
+                    </div>
+                    <div class="three columns">
+                        <label>Slot 2</label>
+                        ATK: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
+                        CDMG: <input id="ut2_2" type="number" v-model="ut2_2">%
+                    </div>
+                    <div class="three columns">
+                        <label>Slot 3</label>
+                        ATK: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
+                        CDMG: <input id="ut3_2" type="number" v-model="ut3_2">%
+                    </div>
                 </div>
             </div>
             <hr>
@@ -334,7 +339,7 @@
                             @selectedut="onSelectUT"></hero>
                     </div>
                     <button class="collapsible">PDMG/MDMG AMP</button>
-                    <div class="content" id="parentcontent">
+                    <div class="content" id="">
                         <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
                             v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
                             @selectedutdmg="onSelectUTDMG"></hero2>

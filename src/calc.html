@@ -28,8 +28,8 @@
     <div class="topnav" id="myTopnav">
         <a href="https://github.com/kuroganechong/Kiseki"><img src="images/github.png" alt="github" style="width: 1.5em; height: auto"></a>
         <a href="guild.html">Kiseki</a>
-        <a href="index.html">Optimal DPS Calculator</a>
-        <a href="calc.html">DMG Calculator</a>
+        <a href="index.html">Gears Calculator</a>
+        <a href="calc.html">Buffs Calculator</a>
         <a href="stat.html">Stat</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
@@ -41,12 +41,9 @@
         <div class="row">
             <div class="twelve column">
                 <h4>King's Raid - DMG Calculator</h4>
-                <ol>
-                    <li>Fill in your ATK/CDMG in your stat menu</li>
-                    <li>Select any buffs applied</li>
-                    <li>Fill in optional fields if you want a more detailed calculation</li>
-                    <li>Check the result</li>
-                </ol>
+                <p>
+                    Given fixed stats, find the optimum buffs to focus on for your hero.
+                </p>
             </div>
         </div>
         <div class="sticky">
@@ -79,7 +76,8 @@
         <hr>
         <div class="row" id="stats-container">
             <div class="four columns">
-                Stats
+                Stats<br>
+                <a href="images/stats.png" target="_blank">example image</a>
             </div>
             <div class="four columns">
                 <label for="astatatktk">ATK</label>
@@ -183,7 +181,7 @@
                         @selectedut="onSelectUT"></hero>
                 </div>
                 <button class="collapsible">PDMG/MDMG AMP</button>
-                <div class="content" id="parentcontent">
+                <div class="content" id="">
                     <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
                         v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
                         @selectedutdmg="onSelectUTDMG"></hero2>
@@ -402,7 +400,7 @@
                             </code></td>
                     </tr>
                     <tr>
-                        <td><strong> DEF reduction</strong></td>
+                        <td><strong>After DEF reduction</strong></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -410,13 +408,6 @@
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'defreduce_pen_' + defreduce ">{{ -((1-defreduce)*100).toFixed(2) }}%</span>
-                                </transition></code></td>
-                    </tr>
-                    <tr>
-                        <td>Decrease in Reduction per PEN:</td>
-                        <td><code>
-                                <transition name="slide-fade" mode="out-in">
-                                    <span :key="'pen_' + percfpen">{{ (percfpen).toFixed(2) }}%</span>
                                 </transition></code></td>
                     </tr>
                     <tr>
