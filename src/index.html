@@ -276,12 +276,14 @@
                 </div>
                 <div class="nine columns">
                     <!-- common -->
+                    <label>T1 perks</label>
                     <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
                             alt="ATK up"></label>
                     <input type="checkbox" id="t1_d" v-model="perk1_d"><label class="clickLabel" for="t1_d"><img src="images/t1mon.png"
-                            alt="Monster Hunt"></label><br><br>
+                            alt="Monster Hunt"></label><br>
+                    <label>T2 perks</label>
                     <input type="checkbox" id="me2" value="me2" v-model="perk2"><label class="clickLabel" for="me2"><img src="images/me2.png"
-                            alt="Amplified Gunpower"></label><br><br>
+                            alt="Amplified Gunpower"></label><br>
                     <!-- warrior -->
                     <div v-if="cl == 2">
                         <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
@@ -331,9 +333,15 @@
                             v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                             @selectedut="onSelectUT"></hero>
                     </div>
-                    <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
-                        buffs by
-                        skills and perks. Damage boost buffs and stats buffs that only affect that skill are not included.
+                    <button class="collapsible">PDMG/MDMG AMP</button>
+                    <div class="content" id="parentcontent">
+                        <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
+                            v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
+                            @selectedutdmg="onSelectUTDMG"></hero2>
+                    </div>
+                    <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG%, Flat ATK
+                        buffs, and general DMG AMP effects by
+                        skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not included.
                         Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
                         for full list and add
                         them in the Additional stats section.</span>
@@ -444,31 +452,6 @@
                                 <label for="nyx_stacks">No. of Blade stacks</label>
                                 <input id="nyx_stacks" type="number" v-model="nyx_stacks">
                                 <label>Additional ATK%: {{ nyx_t5_atk.toFixed(2) }}%</label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div v-if="hero == 15" >
-                    <div class="row">
-                        <div class="three columns">
-                                Special cases
-                        </div>
-                        <div class="nine columns">
-                            <button class="collapsible">Clause UW Flat ATK</button>
-                            <div class="content">
-                                <label for="clause_def">PDEF</label>
-                                <input id="clause_def" type="number" v-model="clause_def">
-                                <select class="" id="clause_uw_stars" v-model="clause_uw_stars">
-                                    <option value="0">UW</option>
-                                    <option value="100">0 stars: Flat ATK boost by 100% of PDEF </option>
-                                    <option value="120">1 stars: Flat ATK boost by 120% of PDEF </option>
-                                    <option value="144">2 stars: Flat ATK boost by 144% of PDEF </option>
-                                    <option value="173">3 stars: Flat ATK boost by 173% of PDEF </option>
-                                    <option value="207">4 stars: Flat ATK boost by 207% of PDEF </option>
-                                    <option value="250">5 stars: Flat ATK boost by 250% of PDEF </option>
-                                </select>
-                                <label>Additional Flat ATK: {{ clause_uw_fa.toFixed(2) }}</label>
                             </div>
                         </div>
                     </div>

@@ -114,12 +114,25 @@
                     <transition name="slide-fade" mode="out-in">
                         <span :key="'skillfa' + skillfa">{{ (skillfa + wa3fa).toLocaleString('en', {useGrouping:true}) }}</span>
                     </transition>
+                </code>,
+                <br>
+                Total damage increase:
+                <code>
+                    <transition name="slide-fade" mode="out-in">
+                        <span :key="'skillT' + skillT">{{ (skillT) }}%</span>
+                    </transition>
                 </code>
             </div>
             <div class="nine columns">
                 <!-- common -->
-                <input type="checkbox" id="t1" value="" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
-                        alt="Atk up"></label><br><br>
+                <label>T1 perks</label>
+                <input type="checkbox" id="t1" v-model="perk1"><label class="clickLabel" for="t1"><img src="images/t1atk.jpg"
+                    alt="Atk up"></label>
+                <input type="checkbox" id="t1_d" v-model="perk1_d"><label class="clickLabel" for="t1_d"><img src="images/t1mon.png"
+                        alt="Monster Hunt"></label><br>
+                <label>T2 perks</label>
+                <input type="checkbox" id="me2" value="me2" v-model="perk2"><label class="clickLabel" for="me2"><img src="images/me2.png"
+                        alt="Amplified Gunpower"></label><br>
                 <!-- warrior -->
                 <div v-if="cl == 2">
                     <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
@@ -138,14 +151,18 @@
                     <input type="checkbox" id="as1" value="as1" v-model="perk2"><label class="clickLabel" for="as1"><img
                             src="images/as1.jpg" alt="Target Weakness"></label>
                     <input type="checkbox" id="as2" value="as2" v-model="perk2"><label class="clickLabel" for="as2"><img
-                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                            src="images/as2.jpg" alt="Opportune Strike"></label>
+                    <input type="checkbox" id="as3" value="as3" v-model="perk2"><label class="clickLabel" for="as3"><img
+                            src="images/as3.png" alt="Vital Detection"></label><br><br>
                 </div>
                 <!-- archer -->
                 <div v-if="cl == 3">
                     <input type="checkbox" id="ar1" value="ar1" v-model="perk2"><label class="clickLabel" for="ar1"><img
                             src="images/ar1.jpg" alt="Precision Shot"></label>
                     <input type="checkbox" id="ar2" value="ar2" v-model="perk2"><label class="clickLabel" for="ar2"><img
-                            src="images/as2.jpg" alt="Opportune Strike"></label><br><br>
+                            src="images/as2.jpg" alt="Opportune Strike"></label>
+                    <input type="checkbox" id="ar3" value="ar3" v-model="perk2"><label class="clickLabel" for="ar3"><img
+                            src="images/ar3.png" alt="Concentration"></label><br><br>
                 </div>
                 <!-- mechanic -->
                 <div v-if="cl == 5">
@@ -165,9 +182,15 @@
                         v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                         @selectedut="onSelectUT"></hero>
                 </div>
-                <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
-                    buffs by
-                    skills and perks. Damage boost buffs and stats buffs that only affect that skill are not included.
+                <button class="collapsible">PDMG/MDMG AMP</button>
+                <div class="content" id="parentcontent">
+                    <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
+                        v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
+                        @selectedutdmg="onSelectUTDMG"></hero2>
+                </div>
+                <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG%, Flat ATK
+                    buffs, and general DMG AMP effects by
+                    skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not included.
                     Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
                     for full list and add
                     them in the Additional stats section.</span>
@@ -245,31 +268,6 @@
                             <label for="nyx_stacks">No. of Blade stacks</label>
                             <input id="nyx_stacks" type="number" v-model="nyx_stacks">
                             <label>Additional ATK%: {{ nyx_t5_atk.toFixed(2) }}%</label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <div v-if="hero == 15" >
-                <div class="row">
-                    <div class="three columns">
-                            Special cases
-                    </div>
-                    <div class="nine columns">
-                        <button class="collapsible">Clause UW Flat ATK</button>
-                        <div class="content">
-                            <label for="clause_def">PDEF</label>
-                            <input id="clause_def" type="number" v-model="clause_def">
-                            <select class="" id="clause_uw_stars" v-model="clause_uw_stars">
-                                <option value="0">UW</option>
-                                <option value="100">0 stars: Flat ATK boost by 100% of PDEF </option>
-                                <option value="120">1 stars: Flat ATK boost by 120% of PDEF </option>
-                                <option value="144">2 stars: Flat ATK boost by 144% of PDEF </option>
-                                <option value="173">3 stars: Flat ATK boost by 173% of PDEF </option>
-                                <option value="207">4 stars: Flat ATK boost by 207% of PDEF </option>
-                                <option value="250">5 stars: Flat ATK boost by 250% of PDEF </option>
-                            </select>
-                            <label>Additional Flat ATK: {{ clause_uw_fa.toFixed(2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -396,24 +394,12 @@
                             </code></td>
                     </tr>
                     <tr>
-                        <td><strong v-if="atkfocus == 1">Currently ATK% buffs worth more than CDMG% buffs!</strong>
-                            <strong v-if="atkfocus == 0">Currently CDMG% buffs worth more than ATK% buffs!</strong></td>
-                        <td></td>
-                    </tr>
-                    <tr>
                         <td>Skill final damage value:</td>
                         <td><code>
                                 <transition name="slide-fade" mode="out-in">
                                     <span :key="'skillresult_' + f">{{skillf.toLocaleString('en', {useGrouping:true})}}</span>
                                 </transition>
                             </code></td>
-                    </tr>
-                    <tr>
-                        <td><strong v-if="skillatkfocus == 1">For skill, currently ATK% buffs worth more than CDMG%
-                                buffs!</strong>
-                            <strong v-if="skillatkfocus == 0">For skill, currently CDMG% buffs worth more than ATK%
-                                buffs!</strong></td>
-                        <td></td>
                     </tr>
                     <tr>
                         <td><strong> DEF reduction</strong></td>
@@ -454,9 +440,21 @@
                         <td>Currently these buffs give more benefit (if more than one is shown, they have the same
                             priority):
                             <ul>
-                                <li v-if="penfocus.includes(0)">ATK%</li>
-                                <li v-if="penfocus.includes(1)">CDMG%</li>
-                                <li v-if="penfocus.includes(2)">PEN%</li>
+                                <li v-if="aafocus.includes(0)">ATK%</li>
+                                <li v-if="aafocus.includes(1)">CDMG%</li>
+                                <li v-if="aafocus.includes(2)">PEN%</li>
+                                <li v-if="aafocus.includes(3)">DMG INCREASE%</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>For skill-focused hero: (Fill in the skill section in Optional Fields)
+                            <ul>
+                                <li v-if="skillfocus.includes(0)">ATK%</li>
+                                <li v-if="skillfocus.includes(1)">CDMG%</li>
+                                <li v-if="skillfocus.includes(2)">PEN%</li>
+                                <li v-if="skillfocus.includes(3)">DMG INCREASE%</li>
                             </ul>
                         </td>
                     </tr>
@@ -468,6 +466,7 @@
 
     <!-- End Document
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="js/skill-component.js"></script>
     <script src="js/calc.js"></script>
 </body>
 

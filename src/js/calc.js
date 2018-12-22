@@ -6,10 +6,6 @@ if (window.location.hash) {
     var hash = 1
 }
 
-function getSum(total, num) {
-    return Number(total) + Number(num);
-}
-
 function toggleCollapse() {
     this.classList.toggle("active");
     var content = this.nextElementSibling;
@@ -90,6 +86,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             skillatk: 0,
             skillcdmg: 0,
             skillfa: 0,
+            skilldmg: 0,
             hero: hash,
             uwtemp: {},
             uttemp: {},
@@ -132,8 +129,6 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             lilia_ut3_stacks: 0,
             lilia_ut3_stars: 0,
             nyx_stacks: 0,
-            clause_def: 0,
-            clause_uw_stars: 0,
             annette_t5d: 0,
             frey_t5d: 0,
             priscilla_t5d: 0,
@@ -143,10 +138,6 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             mediana_s3_l: 0
         },
         computed: {
-            clause_uw_fa: function(){
-                const x = this.clause_def*this.clause_uw_stars/100
-                return x
-            },
             specialFlat: function(){
                 var medi = 0
                 if(this.mediana_s3_l){
@@ -161,9 +152,6 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 }
                 if(this.mediana_s3_base > 0){
                     x = Number(x) + (Number(this.mediana_s3_base*0.2) + Number(37932))*(Number(1.5) + Number(medi))
-                }
-                if(this.hero == 15){//clause
-                    x = Number(x) + Number(this.clause_uw_fa)
                 }
                 return x
             },
@@ -232,7 +220,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 return x
             },
             skillT: function(){
-                var x = 0
+                var x = this.skilldmg
                 if(this.perk1_d){
                     x = Number(x) + Number(10)
                 }
@@ -300,34 +288,32 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale
                 return Math.round(x)
             },
-            atkfocus: function () {
-                var der_a = this.statatk * this.Cd * 0.01
-                var der_c = Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)
+            skillfocus: function () {
+                var T = (Number(this.skillbook * 0.01) + Number(this.T * 0.01))
+                var der_a = this.statatk * this.Cd * (this.defreduce) * 0.01 * T * this.skillmulti
+                var der_c = Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce) * T * this.skillmulti) + Number(this.skillbase * this.defreduce * T)
+                var der_p = this.percfpen * 100 * this.skillf
+                var der_T = Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce) * this.Cd * 0.01 * this.skillmulti) + Number(this.skillbase * this.Cd * this.defreduce * 0.01)
 
-                if (der_a - der_c > 0) {
-                    return 1
-                } else if (der_a - der_c < 0) {
-                    return 0
-                } else {
-                    return 2
+                var arr = [der_a, der_c, der_p, der_T];
+                var maxIndex = [0];
+                var max = arr[0]
+
+                for (var i = 1; i < arr.length; i++) {
+                    if (arr[i] - max > 0.001) {
+                        maxIndex = [i];
+                        max = arr[i];
+                    } else if (Math.abs(arr[i] - max) < 0.001) {
+                        maxIndex.push(i);
+                    }
                 }
+
+                return maxIndex
             },
             skillf: function () {
                 var x = 0
                 x = (Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * this.skillmulti) + Number(this.skillbase)) * this.Cd * 0.01 * (Number(this.skillbook * 0.01) + Number(this.T * 0.01))
                 return Math.round(x)
-            },
-            skillatkfocus: function () {
-                var der_a = this.statatk * this.Cd * 0.01 * this.skillmulti
-                var der_c = Number(Number(this.statatk * this.BATK * 0.01) * this.skillmulti + Number(this.BFa) * this.skillmulti) + Number(this.skillbase)
-
-                if (der_a - der_c > 0) {
-                    return 1
-                } else if (der_a - der_c < 0) {
-                    return 0
-                } else {
-                    return 2
-                }
             },
             defreduce: function () {
                 var DEF = 0
@@ -349,12 +335,13 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 }
                 return (a * b * B * A * this.rate(this.pendata, this.pen) / 100 / y) / A * 100
             },
-            penfocus: function () {
-                var der_a = this.statatk * this.Cd * (this.defreduce) * 0.01
-                var der_c = (Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce)
+            aafocus: function () {
+                var der_a = this.statatk * this.Cd * (this.defreduce) * 0.01 * this.T * 0.01 
+                var der_c = (Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce) * this.T * 0.01 
                 var der_p = this.percfpen * 100 * this.pref
+                var der_T = (Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * (this.defreduce) * this.Cd * 0.01 
 
-                var arr = [der_a, der_c, der_p];
+                var arr = [der_a, der_c, der_p, der_T];
                 var maxIndex = [0];
                 var max = arr[0]
 
@@ -371,7 +358,8 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             }
         },
         components: {
-            post: post
+            post: post,
+            post2: post2
         },
         methods: {
             // imported from MoG
@@ -456,7 +444,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 if (this.uwtemp[id] != null) {
                     uwforid = this.uwtemp[id]
                 } else {
-                    this.uwtemp[id] = [0, 0, 0]
+                    this.uwtemp[id] = [0, 0, 0, 0]
                     uwforid = this.uwtemp[id]
                 }
                 this.skillatk = this.skillatk - uwforid[0]
@@ -479,15 +467,15 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                     if (this.uttemp[id][utno] != null) {
                         utforid = this.uttemp[id][utno]
                     } else {
-                        this.uttemp[id][utno] = [0, 0, 0]
+                        this.uttemp[id][utno] = [0, 0, 0, 0]
                         utforid = this.uttemp[id][utno]
                     }
                 } else {
                     this.uttemp[id] = {
-                        "s1": [0, 0, 0],
-                        "s2": [0, 0, 0],
-                        "s3": [0, 0, 0],
-                        "s4": [0, 0, 0]
+                        "s1": [0, 0, 0, 0],
+                        "s2": [0, 0, 0, 0],
+                        "s3": [0, 0, 0, 0],
+                        "s4": [0, 0, 0, 0]
                     }
                     utforid = this.uttemp[id][utno]
                 }
@@ -498,6 +486,48 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                 this.skillcdmg = Number(this.skillcdmg) + Number(data[1])
                 this.skillfa = Number(this.skillfa) + Number(data[2])
                 this.uttemp[id][utno] = data
+            },
+            onClickChildDMG: function (data) {
+                // data is DMG
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+            },
+            onSelectDMG: function (data, id) {
+                // data is DMG
+                if (this.uwtemp[id] != null) {
+                    uwforid = this.uwtemp[id]
+                } else {
+                    this.uwtemp[id] = [0, 0, 0, 0]
+                    uwforid = this.uwtemp[id]
+                }
+                this.skilldmg = this.skilldmg - uwforid[3]
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.uwtemp[id][3] = data
+            },
+            onClickT5DMG: function (data) {
+                // data is DMG
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+            },
+            onSelectUTDMG: function (data, id, utno) {
+                // data is DMG
+                if (this.uttemp[id] != null) {
+                    if (this.uttemp[id][utno] != null) {
+                        utforid = this.uttemp[id][utno]
+                    } else {
+                        this.uttemp[id][utno] = [0, 0, 0, 0]
+                        utforid = this.uttemp[id][utno]
+                    }
+                } else {
+                    this.uttemp[id] = {
+                        "s1": [0, 0, 0, 0],
+                        "s2": [0, 0, 0, 0],
+                        "s3": [0, 0, 0, 0],
+                        "s4": [0, 0, 0, 0]
+                    }
+                    utforid = this.uttemp[id][utno]
+                }
+                this.skilldmg = this.skilldmg - utforid[3]
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.uttemp[id][utno][3] = data
             },
             calibrate: function () {
                 if (this.pref == 0) {

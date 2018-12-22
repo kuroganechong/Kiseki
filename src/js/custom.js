@@ -6,10 +6,6 @@ if (window.location.hash) {
     var hash = 1
 }
 
-function getSum(total, num) {
-    return Number(total) + Number(num);
-}
-
 function selectrune(data, mode) {
     switch (data) {
         case '1':
@@ -152,6 +148,7 @@ function setVue() {
             skillatk: 0,
             skillcdmg: 0,
             skillfa: 0,
+            skilldmg: 0,
             hero: hash,
             uwtemp: {},
             uttemp: {},
@@ -196,8 +193,6 @@ function setVue() {
             lilia_ut3_stacks: 0,
             lilia_ut3_stars: 0,
             nyx_stacks: 0,
-            clause_def: 0,
-            clause_uw_stars: 0,
             annette_t5d: 0,
             frey_t5d: 0,
             priscilla_t5d: 0,
@@ -207,10 +202,6 @@ function setVue() {
             mediana_s3_l: 0
         },
         computed: {
-            clause_uw_fa: function(){
-                const x = this.clause_def*this.clause_uw_stars/100
-                return x
-            },
             specialFlat: function(){
                 var medi = 0
                 if(this.mediana_s3_l){
@@ -225,9 +216,6 @@ function setVue() {
                 }
                 if(this.mediana_s3_base > 0){
                     x = Number(x) + (Number(this.mediana_s3_base*0.2) + Number(37932))*(Number(1.5) + Number(medi))
-                }
-                if(this.hero == 15){//clause
-                    x = Number(x) + Number(this.clause_uw_fa)
                 }
                 return x
             },
@@ -470,7 +458,7 @@ function setVue() {
                 return x
             },
             skillT: function(){
-                var x = 0
+                var x = this.skilldmg
                 if(this.perk1_d){
                     x = Number(x) + Number(10)
                 }
@@ -640,7 +628,8 @@ function setVue() {
             }
         },
         components: {
-            post: post
+            post: post,
+            post2: post2
         },
         methods: {
             // imported from MoG
@@ -722,7 +711,7 @@ function setVue() {
                 if (this.uwtemp[id] != null) {
                     uwforid = this.uwtemp[id]
                 } else {
-                    this.uwtemp[id] = [0, 0, 0]
+                    this.uwtemp[id] = [0, 0, 0, 0]
                     uwforid = this.uwtemp[id]
                 }
                 this.skillatk = this.skillatk - uwforid[0]
@@ -745,15 +734,15 @@ function setVue() {
                     if (this.uttemp[id][utno] != null) {
                         utforid = this.uttemp[id][utno]
                     } else {
-                        this.uttemp[id][utno] = [0, 0, 0]
+                        this.uttemp[id][utno] = [0, 0, 0, 0]
                         utforid = this.uttemp[id][utno]
                     }
                 } else {
                     this.uttemp[id] = {
-                        "s1": [0, 0, 0],
-                        "s2": [0, 0, 0],
-                        "s3": [0, 0, 0],
-                        "s4": [0, 0, 0]
+                        "s1": [0, 0, 0, 0],
+                        "s2": [0, 0, 0, 0],
+                        "s3": [0, 0, 0, 0],
+                        "s4": [0, 0, 0, 0]
                     }
                     utforid = this.uttemp[id][utno]
                 }
@@ -764,6 +753,48 @@ function setVue() {
                 this.skillcdmg = Number(this.skillcdmg) + Number(data[1])
                 this.skillfa = Number(this.skillfa) + Number(data[2])
                 this.uttemp[id][utno] = data
+            },
+            onClickChildDMG: function (data) {
+                // data is DMG
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+            },
+            onSelectDMG: function (data, id) {
+                // data is DMG
+                if (this.uwtemp[id] != null) {
+                    uwforid = this.uwtemp[id]
+                } else {
+                    this.uwtemp[id] = [0, 0, 0, 0]
+                    uwforid = this.uwtemp[id]
+                }
+                this.skilldmg = this.skilldmg - uwforid[3]
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.uwtemp[id][3] = data
+            },
+            onClickT5DMG: function (data) {
+                // data is DMG
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+            },
+            onSelectUTDMG: function (data, id, utno) {
+                // data is DMG
+                if (this.uttemp[id] != null) {
+                    if (this.uttemp[id][utno] != null) {
+                        utforid = this.uttemp[id][utno]
+                    } else {
+                        this.uttemp[id][utno] = [0, 0, 0, 0]
+                        utforid = this.uttemp[id][utno]
+                    }
+                } else {
+                    this.uttemp[id] = {
+                        "s1": [0, 0, 0, 0],
+                        "s2": [0, 0, 0, 0],
+                        "s3": [0, 0, 0, 0],
+                        "s4": [0, 0, 0, 0]
+                    }
+                    utforid = this.uttemp[id][utno]
+                }
+                this.skilldmg = this.skilldmg - utforid[3]
+                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.uttemp[id][utno][3] = data
             },
             calibrate: function () {
                 if (this.pref == 0) {

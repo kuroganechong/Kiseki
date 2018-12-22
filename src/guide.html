@@ -46,6 +46,8 @@
                         <li>ATK: Attack</li>
                         <li>CDMG: Critical Damage</li>
                         <li>PEN: Penetration</li>
+                        <li>DEF: Defense</li>
+                        <li>DMG AMP: Damage Amplification (PDMG/MDMG increase, PWeakness/MWeakness)</li>
                         <li>ATK SPD: Attack Speed</li>
                         <li>UW: Unique Weapon</li>
                         <li>UT: Unique Treasure</li>
@@ -86,11 +88,12 @@
                         <li>Fill in your hero's gear setup, and desired number of ATK/CDMG lines.</li>
                         <li>Select the skill/perk buffs you want to take into account of. The stats for each
                             skill are <strong>based on lvl90, maxed book effects stats</strong>, and are
-                            simplified to ATK, CDMG, Flat ATK. If you are unsure about the skill mechanics
+                            simplified to ATK, CDMG, Flat ATK. Damage increase effects are separated into another
+                            section. If you are unsure about the skill mechanics
                             please refer to the relevant
                             Mask-of-Goblin page.</li>
                         <li>Fill in the artifact stats.</li>
-                        <li>Fill in any other additional stats (guild buffs, dmg boost, ignored stats in skill
+                        <li>Fill in any other additional stats (guild buffs, self/skill dmg boost, ignored stats in skill
                             selection) in the additional stats section. Refer to <a style="cursor:pointer" onclick="toggleList()">this
                                 list</a>.</li>
                         <li>For auto attacks, in the first run, fill in the observed damage in test dummy and click
@@ -108,8 +111,7 @@
                     <p><strong>This calculator does not give you the values for the following buffs/effects:</strong></p>
                     <ul>
                         <li>Guild buffs</li>
-                        <li>Damage buff % (Increase damage by ..., boss damage etc.)</li>
-                        <li>Skill-only damage buff %</li>
+                        <li>Self/skill-only damage buff % (Increase damage by ..., boss damage etc. that only affect self/skill)</li>
                         <li>Skill-only ATK/CDMG/Flat ATK buff</li>
                         <li>Additional ATK boost based on other character stats (eg. Mediana S3)</li>
                         <li>Additional ATK boost based on other stats (PDEF, Mana/sec etc.)</li>
@@ -156,7 +158,8 @@
                         <li>Stat boost that depends on unreliable effects:
                             <ul>
                                 <li>Gau: UW ignored (HP lost percentage inconsistent)</li>
-                                <li>Chase: T5 Dark, S4 resurrected bonus stats ignored (HP lost percentage inconsistent)</li>
+                                <li>Chase: T5 Dark, S4 resurrected bonus stats ignored (HP lost percentage
+                                    inconsistent)</li>
                             </ul>
                         </li>
                         <li>Unknown, to be tested
@@ -171,7 +174,8 @@
     </div>
 </div>
 <hr>
-<div class="footer">All information linked by this site remains the property of their respective owners. Sincere thanks as without them this page would have been impossible.</div>
+<div class="footer">All information linked by this site remains the property of their respective owners. Sincere thanks
+    as without them this page would have been impossible.</div>
 <script>
     function hasClass(el, className) {
         if (el.classList)
