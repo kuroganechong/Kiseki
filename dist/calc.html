@@ -181,7 +181,7 @@
                         @selectedut="onSelectUT"></hero>
                 </div>
                 <button class="collapsible">PDMG/MDMG AMP</button>
-                <div class="content" id="">
+                <div class="content" id="parentcontent1">
                     <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
                         v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
                         @selectedutdmg="onSelectUTDMG"></hero2>
