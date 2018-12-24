@@ -317,8 +317,8 @@
                             v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                             @selectedut="onSelectUT"></hero>
                     </div>
-                    <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG%, Flat ATK
-                        buffs, and general DMG AMP effects by
+                    <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG% and Flat ATK
+                        buffs by
                         skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not
                         included.
                         Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this
@@ -503,6 +503,27 @@
                     </div>
                 </div>
             </div>
+            <button class="collapsible">Optional Fields</button>
+            <div class="content" id="parentcontent2">
+                <button class="collapsible">PDMG/MDMG AMP</button>
+                <div class="content" id="parentcontent1">
+                    <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
+                        v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
+                        @selectedutdmg="onSelectUTDMG"></hero2>
+                </div>
+                <div class="row" id="heroscale-container">
+                    <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
+                    <div class="three columns">
+                        <label for="obs">Observed auto attack damage in dummy</label>
+                        <input id="obs" type="number" v-model="obs">
+                    </div>
+                    <div class="three columns">
+                        <label for="heroscale">Auto attack scaling</label>
+                        <span id="heroscale">{{ heroscale * 100 }}%</span>
+                    </div>
+                    <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
+                </div>
+            </div>
             <hr>
 
             <div class="row" id="result-container">
@@ -550,18 +571,6 @@
                                 <tr>
                                     <td>Flat ATK boost: </td>
                                     <td><code>{{ BFa.toLocaleString('en', {useGrouping:true}) }}</code></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Optimum stat page value</strong></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>ATK: </td>
-                                    <td><code>{{ Math.round(OA*(n*b + Number(R1)/100 + Number(1))).toLocaleString('en', {useGrouping:true}) }}</code></td>
-                                </tr>
-                                <tr>
-                                    <td>CDMG: </td>
-                                    <td><code>{{ Math.round(BCd - Number(art_2) - Number(skillcdmg) - Number(perkcdmg) - Number(addcdmg) - 200 + m*a*100).toLocaleString('en', {useGrouping:true})}}%</code></td>
                                 </tr>
                                 <tr>
                                     <td>Auto attack final damage value:</td>

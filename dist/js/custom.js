@@ -62,6 +62,12 @@ function toggleCollapse() {
             parent.style.maxHeight = String(Number(parent.scrollHeight) + Number(content.scrollHeight)) + "px";
         }
     }
+    var parent = document.getElementById('parentcontent2')
+    if (content != parent) {
+        if (parent.style.maxHeight) {
+            parent.style.maxHeight = String(Number(parent.scrollHeight) + Number(content.scrollHeight)) + "px";
+        }
+    }
 }
 
 function assignCollapse() {
