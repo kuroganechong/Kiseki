@@ -51,22 +51,15 @@
                     <div class="three columns">Hero<br>
                         <span>Hero description: <a v-bind:href="'https://maskofgoblin.com/hero/' + hero" target="_blank">LINK</a></span></div>
                     <div class="nine columns">
-                    <span class="classIcon">
-                        <span v-if="cl == 1"><img
-                            src="images/20px-KnightsIcon.png" alt="Knight"></span>
-                        <span v-if="cl == 2"><img
-                            src="images/20px-WarriorsIcon.png" alt="Warrior"></span>
-                        <span v-if="cl == 3"><img
-                            src="images/20px-ArchersIcon.png" alt="Archer"></span>
-                        <span v-if="cl == 4"><img
-                            src="images/20px-AssassinsIcon.png" alt="Assassin"></span>
-                        <span v-if="cl == 5"><img
-                            src="images/20px-MechanicsIcon.png" alt="Mechanic"></span>
-                        <span v-if="cl == 6"><img
-                            src="images/20px-WizardsIcon.png" alt="Wizard"></span>
-                        <span v-if="cl == 7"><img
-                            src="images/20px-PriestsIcon.png" alt="Priest"></span>
-                    </span>
+                        <span class="classIcon">
+                            <span v-if="cl == 1"><img src="images/20px-KnightsIcon.png" alt="Knight"></span>
+                            <span v-if="cl == 2"><img src="images/20px-WarriorsIcon.png" alt="Warrior"></span>
+                            <span v-if="cl == 3"><img src="images/20px-ArchersIcon.png" alt="Archer"></span>
+                            <span v-if="cl == 4"><img src="images/20px-AssassinsIcon.png" alt="Assassin"></span>
+                            <span v-if="cl == 5"><img src="images/20px-MechanicsIcon.png" alt="Mechanic"></span>
+                            <span v-if="cl == 6"><img src="images/20px-WizardsIcon.png" alt="Wizard"></span>
+                            <span v-if="cl == 7"><img src="images/20px-PriestsIcon.png" alt="Priest"></span>
+                        </span>
                         <select class="heroSelection" id="hero" v-model="hero" v-on:change="reset">
                             <option v-for="(value, key) in heronames" v-bind:value="value">{{ key }}</option>
                         </select>
@@ -84,9 +77,33 @@
                     </select>
                 </div>
             </div>
+            <div class="row" id="line-container">
+                <div class="three columns">Desired No. of ATK/CDMG lines</div>
+                <div class="nine columns">
+                    <select class="" id="armor_line" v-model="armor_line">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                    </select>
+                </div>
+            </div>
             <div class="row" id="uw-container">
                 <div class="three columns">UW</div>
-                <div class="five columns">
+                <div class="three columns">
                     <label for="uw">Stars</label>
                     <select class="" id="uw" v-model="star">
                         <option value="0">0</option>
@@ -104,27 +121,17 @@
                 </div>
             </div>
             <hr>
-            
+
             <button class="collapsible">Fill in your gear info</button>
             <div class="content" id="">
                 <div class="row" id="armor-container">
-                    <div class="three columns">Armor</div>
-                    <div class="three columns">
-                        <label for="armor_line">Desired No. of ATK/CDMG lines</label>
-                        <select class="" id="armor_line" v-model="armor_line">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="three columns">
+                    <div class="four columns">Armor</div>
+                    <div class="four columns">
                         <label for="armor-enc">Enchant</label>
                         ATK: <input id="armor_enc_1" type="number" v-model="armor_enc_1">% <br>
                         CDMG: <input id="armor_enc_2" type="number" v-model="armor_enc_2">%
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                         <label for="armor_rune_1">Rune</label>
                         <select class="u-full-width" id="armor_rune_1" v-model="armor_rune_1">
                             <option value="-">-</option>
@@ -146,23 +153,13 @@
                 </div>
                 <hr>
                 <div class="row" id="subarmor-container">
-                    <div class="three columns">Subarmor</div>
-                    <div class="three columns">
-                        <label for="subarmor_line">Desired No. of ATK/CDMG lines</label>
-                        <select class="" id="subarmor_line" v-model="subarmor_line">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="three columns">
+                    <div class="four columns">Subarmor</div>
+                    <div class="four columns">
                         <label>Enchant</label>
                         ATK: <input id="subarmor_enc_1" type="number" v-model="subarmor_enc_1">% <br>
                         CDMG: <input id="subarmor_enc_2" type="number" v-model="subarmor_enc_2">%
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                         <label for="subarmor_rune_1">Rune</label>
                         <select class="u-full-width" id="subarmor_rune_1" v-model="subarmor_rune_1">
                             <option value="-">-</option>
@@ -180,69 +177,51 @@
                 </div>
                 <hr>
                 <div class="row" id="accessory-container">
-                    <div class="three columns">
+                    <div class="four columns">
                         Accessory
                         <select class="u-full-width" id="ear" v-model="ear">
                             <option value="1">Earring</option>
                             <option value="2">Others</option>
                         </select>
                     </div>
-                    <div class="three columns">
-                        <label for="acc_line">Desired No. of ATK/CDMG lines</label>
-                        <select class="" id="acc_line" v-model="acc_line">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="three columns">
+                    <div class="four columns">
                         <label>Enchant</label>
                         ATK: <input id="acc_enc_1" type="number" v-model="acc_enc_1">% <br>
                         CDMG: <input id="acc_enc_2" type="number" v-model="acc_enc_2">%
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                     </div>
                 </div>
                 <hr>
                 <div class="row" id="orb-container">
-                    <div class="three columns">Orb</div>
-                    <div class="three columns">
-                        <label for="orb_line">Desired No. of ATK/CDMG lines</label>
-                        <select class="" id="orb_line" v-model="orb_line">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-                    <div class="three columns">
+                    <div class="four columns">Orb</div>
+                    <div class="four columns">
                         <label>Enchant</label>
                         ATK: <input id="orb_enc_1" type="number" v-model="orb_enc_1">% <br>
                         CDMG: <input id="orb_enc_2" type="number" v-model="orb_enc_2">%
                     </div>
-                    <div class="three columns">
+                    <div class="four columns">
                     </div>
                 </div>
                 <hr>
-                <div class="row" id="treasure-container">
-                    <div class="three columns">
+                <div class="row">
+                    <div class="twelve columns">
                         Treasure
                     </div>
-                    <div class="three columns">
-                        <label>Slot 1</label>
+                </div>
+                <div class="row" id="treasure-container">
+                    <div class="four columns">
+                        <label>Slot 1 Substats</label>
                         ATK: <input id="ut1_1" type="number" v-model="ut1_1">% <br>
                         CDMG: <input id="ut1_2" type="number" v-model="ut1_2">%
                     </div>
-                    <div class="three columns">
-                        <label>Slot 2</label>
+                    <div class="four columns">
+                        <label>Slot 2 Substats</label>
                         ATK: <input id="ut2_1" type="number" v-model="ut2_1">% <br>
                         CDMG: <input id="ut2_2" type="number" v-model="ut2_2">%
                     </div>
-                    <div class="three columns">
-                        <label>Slot 3</label>
+                    <div class="four columns">
+                        <label>Slot 3 Substats</label>
                         ATK: <input id="ut3_1" type="number" v-model="ut3_1">% <br>
                         CDMG: <input id="ut3_2" type="number" v-model="ut3_2">%
                     </div>
@@ -287,8 +266,8 @@
                     <input type="checkbox" id="t1_d" v-model="perk1_d"><label class="clickLabel" for="t1_d"><img src="images/t1mon.png"
                             alt="Monster Hunt"></label><br>
                     <label>T2 perks</label>
-                    <input type="checkbox" id="me2" value="me2" v-model="perk2"><label class="clickLabel" for="me2"><img src="images/me2.png"
-                            alt="Amplified Gunpower"></label><br>
+                    <input type="checkbox" id="me2" value="me2" v-model="perk2"><label class="clickLabel" for="me2"><img
+                            src="images/me2.png" alt="Amplified Gunpower"></label><br>
                     <!-- warrior -->
                     <div v-if="cl == 2">
                         <input type="checkbox" id="wa1" value="wa1" v-model="perk2"><label class="clickLabel" for="wa1"><img
@@ -338,16 +317,12 @@
                             v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                             @selectedut="onSelectUT"></hero>
                     </div>
-                    <button class="collapsible">PDMG/MDMG AMP</button>
-                    <div class="content" id="parentcontent1">
-                        <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
-                            v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
-                            @selectedutdmg="onSelectUTDMG"></hero2>
-                    </div>
                     <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG%, Flat ATK
                         buffs, and general DMG AMP effects by
-                        skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not included.
-                        Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this page</a>
+                        skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not
+                        included.
+                        Some skills effects are not included as well. Please refer to <a href="guide.html" target="_blank">this
+                            page</a>
                         for full list and add
                         them in the Additional stats section.</span>
                 </div>
@@ -372,19 +347,6 @@
             </div>
             <hr>
 
-            <div class="row" id="heroscale-container">
-                <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
-                <div class="three columns">
-                    <label for="obs">Observed auto attack damage in dummy</label>
-                    <input id="obs" type="number" v-model="obs">
-                </div>
-                <div class="three columns">
-                    <label for="heroscale">Auto attack scaling</label>
-                    <span id="heroscale">{{ heroscale * 100 }}%</span>
-                </div>
-                <div class="three columns"><button v-on:click="calibrate">Calibrate</button></div>
-            </div>
-            <hr>
             <div class="row" id="skillscale-container">
                 <div class="three columns">Skill damage:<br><a href="https://docs.google.com/spreadsheets/d/1QfFyxwEgvIfwIpDXTPu-vD5vI75GQ6Is5NYcMFqUCyk/edit#gid=483914493"
                         target="_blank">LINK</a></div>
@@ -407,15 +369,16 @@
             <div class="content">
                 <div class="row">
                     <div class="twelve columns small">
-                        Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost effects.
+                        Fill in any additional buffs such as guild buffs, skill-only stat buff, and damage boost
+                        effects.
                         <a href="guide.html" target="_blank">GUIDE</a>
                     </div>
                 </div>
-                
-                <div v-if="hero == 57" >
+
+                <div v-if="hero == 57">
                     <div class="row">
                         <div class="three columns">
-                                Special cases
+                            Special cases
                         </div>
                         <div class="nine columns">
                             <button class="collapsible">Lilia S4 ATK%</button>
@@ -446,10 +409,10 @@
                     </div>
                     <hr>
                 </div>
-                <div v-if="hero == 33" >
+                <div v-if="hero == 33">
                     <div class="row">
                         <div class="three columns">
-                                Special cases
+                            Special cases
                         </div>
                         <div class="nine columns">
                             <button class="collapsible">Nyx T5D ATK%</button>
@@ -465,7 +428,8 @@
                 <div class="row" id="flat-atk-container">
                     <div class="three columns">
                         Flat ATK buffs depending on other characters
-                        <label>Additional Flat ATK: {{ specialFlat.toFixed(2).toLocaleString('en', {useGrouping:true}) }}</label>
+                        <label>Additional Flat ATK: {{ specialFlat.toFixed(2).toLocaleString('en', {useGrouping:true})
+                            }}</label>
                     </div>
                     <div class="nine columns">
                         <label for="annette_t5d">Annette ATK (From Annette T5D)</label>
@@ -487,7 +451,8 @@
                         <input id="ricardo_t5d" type="number" v-model="ricardo_t5d">
                         <label for="mediana_s3_base">Mediana ATK (From Mediana S3)</label>
                         <input id="mediana_s3_base" type="number" v-model="mediana_s3_base">
-                        <input type="checkbox" id="mediana_s3_l" value="1" v-model="mediana_s3_l"><label class="clickLabel" for="mediana_s3_l">S3 Light: ATK Boost increase by 40%</label>
+                        <input type="checkbox" id="mediana_s3_l" value="1" v-model="mediana_s3_l"><label class="clickLabel"
+                            for="mediana_s3_l">S3 Light: ATK Boost increase by 40%</label>
                     </div>
                 </div>
                 <hr>
@@ -512,7 +477,8 @@
                 <hr>
                 <div class="row">
                     <div class="twelve columns small">
-                        This section is optional as it will not affect the final calculation for ATK/CDMG, however you can
+                        This section is optional as it will not affect the final calculation for ATK/CDMG, however you
+                        can
                         use
                         this to judge whether more PEN is better by comparing the final damage.
                     </div>
@@ -635,11 +601,14 @@
                                 </tr>
                                 <tr>
                                     <td>Current Auto Attack damage: </td>
-                                    <td><code>{{ currentf.toLocaleString('en', {useGrouping:true}) }}</code> <span v-bind:class="textColor">({{ ((currentf - pref)/pref*100).toFixed(2) }}%)</span></td>
+                                    <td><code>{{ currentf.toLocaleString('en', {useGrouping:true}) }}</code> <span
+                                            v-bind:class="textColor">({{ ((currentf - pref)/pref*100).toFixed(2) }}%)</span></td>
                                 </tr>
                                 <tr>
                                     <td>Current Skill damage: </td>
-                                    <td><code>{{ currentskillf.toLocaleString('en', {useGrouping:true}) }}</code> <span v-bind:class="skillTextColor">({{ ((currentskillf - skillf)/skillf*100).toFixed(2) }}%)</span></td>
+                                    <td><code>{{ currentskillf.toLocaleString('en', {useGrouping:true}) }}</code> <span
+                                            v-bind:class="skillTextColor">({{ ((currentskillf -
+                                            skillf)/skillf*100).toFixed(2) }}%)</span></td>
                                 </tr>
                             </tbody>
                         </table>
