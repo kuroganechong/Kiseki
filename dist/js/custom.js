@@ -161,6 +161,7 @@ function setVue() {
             skillcdmg: 0,
             skillfa: 0,
             skilldmg: 0,
+            debuffdmg: 0,
             hero: hash,
             uwtemp: {},
             uttemp: {},
@@ -611,7 +612,7 @@ function setVue() {
             },
             pref: function () {
                 var x = 0
-                x = (Number(this.BCd * 0.01) + Number(this.a * this.m)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.n))))
+                x = (Number(this.BCd * 0.01) + Number(this.a * this.m)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.n)))) * (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             f: function () {
@@ -623,19 +624,19 @@ function setVue() {
                 var x = 0
                 var attack = Number(this.OA * this.BATK * 0.01 * ( Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.M) - this.b * this.skillm )) + Number(this.BFa)
                 var crit = Number(this.BCd * 0.01) + Number(this.a * this.skillm)
-                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01
+                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01 * (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             currentf: function () {
                 var x = 0
-                x = (Number(this.BCd * 0.01) + Number(this.a * this.currentcdmg)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.currentatk))))
+                x = (Number(this.BCd * 0.01) + Number(this.a * this.currentcdmg)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.currentatk))))* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             currentskillf: function () {
                 var x = 0
                 var attack = Number(this.OA * this.BATK * 0.01 * ( Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.currentatk) )) + Number(this.BFa)
                 var crit = Number(this.BCd * 0.01) + Number(this.a * this.currentcdmg)
-                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01
+                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             }
         },
@@ -688,13 +689,13 @@ function setVue() {
             },
             // end import
             calcf: function (m) {
-                return (Number(this.BCd * 0.01) + Number(this.a * m)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * (this.M - m)))))
+                return (Number(this.BCd * 0.01) + Number(this.a * m)) * this.T * 0.01 * (Number(this.BFa) + Number(this.OA * this.BATK * 0.01 * (Number(1) + Number(this.R1 * 0.01) + Number(this.b * (this.M - m)))))* (Number(this.debuffdmg) + Number(100)) * 0.01
             },
             calcskillf: function (skillm) {
                 var x = 0
                 var attack = Number(this.OA * this.BATK * 0.01 * ( Number(1) + Number(this.R1 * 0.01) + Number(this.b * this.M) - this.b * skillm )) + Number(this.BFa)
                 var crit = Number(this.BCd * 0.01) + Number(this.a * skillm)
-                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01
+                x = ( Number(this.skillbase) + Number(attack * this.skillmulti) ) * crit * ( Number(this.skillbook) + Number(this.T) ) * 0.01* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return x
             },
             alert: function () {
@@ -768,7 +769,7 @@ function setVue() {
             },
             onClickChildDMG: function (data) {
                 // data is DMG
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
             },
             onSelectDMG: function (data, id) {
                 // data is DMG
@@ -778,13 +779,13 @@ function setVue() {
                     this.uwtemp[id] = [0, 0, 0, 0]
                     uwforid = this.uwtemp[id]
                 }
-                this.skilldmg = this.skilldmg - uwforid[3]
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = this.debuffdmg - uwforid[3]
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
                 this.uwtemp[id][3] = data
             },
             onClickT5DMG: function (data) {
                 // data is DMG
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
             },
             onSelectUTDMG: function (data, id, utno) {
                 // data is DMG
@@ -804,8 +805,8 @@ function setVue() {
                     }
                     utforid = this.uttemp[id][utno]
                 }
-                this.skilldmg = this.skilldmg - utforid[3]
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = this.debuffdmg - utforid[3]
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
                 this.uttemp[id][utno][3] = data
             },
             calibrate: function () {

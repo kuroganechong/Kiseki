@@ -180,12 +180,6 @@
                         v-bind:hero="hero" @clicked="onClickChild" @selected="onSelect" @clickedt5="onClickT5"
                         @selectedut="onSelectUT"></hero>
                 </div>
-                <button class="collapsible">PDMG/MDMG AMP</button>
-                <div class="content" id="parentcontent1">
-                    <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
-                        v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
-                        @selectedutdmg="onSelectUTDMG"></hero2>
-                </div>
                 <span class="small">Note: This selection only includes non-skill-exclusive ATK%, CDMG%, Flat ATK
                     buffs, and general DMG AMP effects by
                     skills and perks. Self/Skill-only damage boost buffs and skill-only stats buffs are not included.
@@ -323,6 +317,13 @@
         <div>
             <button id="optional" class="collapsible">Optional Fields</button>
             <div class="content">
+                <button class="collapsible">PDMG/MDMG AMP</button>
+                <div class="content" id="parentcontent1">
+                    <hero2 v-for="post in posts" v-bind:key="String(post.ally) + 'dmg' + String(post.id)" v-bind:post="post"
+                        v-bind:hero="hero" @clickeddmg="onClickChildDMG" @selecteddmg="onSelectDMG" @clickedt5dmg="onClickT5DMG"
+                        @selectedutdmg="onSelectUTDMG"></hero2>
+                </div>
+                <hr>
                 <div class="row" id="heroscale-container">
                     <div class="three columns">Calibrate the auto attack scaling for the first run:</div>
                     <div class="three columns">

@@ -93,6 +93,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             skillcdmg: 0,
             skillfa: 0,
             skilldmg: 0,
+            debuffdmg: 0,
             hero: hash,
             uwtemp: {},
             uttemp: {},
@@ -286,12 +287,12 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             },
             pref: function () {
                 var x = 0
-                x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01))
+                x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01))* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             f: function () {
                 var x = 0
-                x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale
+                x = (Number(this.Cd * 0.01)) * this.T * 0.01 * (Number(this.BFa) + Number(this.statatk * this.BATK * 0.01)) * this.heroscale* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             skillfocus: function () {
@@ -318,7 +319,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             },
             skillf: function () {
                 var x = 0
-                x = (Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * this.skillmulti) + Number(this.skillbase)) * this.Cd * 0.01 * (Number(this.skillbook * 0.01) + Number(this.T * 0.01))
+                x = (Number((Number(this.statatk * this.BATK * 0.01) + Number(this.BFa)) * this.skillmulti) + Number(this.skillbase)) * this.Cd * 0.01 * (Number(this.skillbook * 0.01) + Number(this.T * 0.01))* (Number(this.debuffdmg) + Number(100)) * 0.01
                 return Math.round(x)
             },
             defreduce: function () {
@@ -495,7 +496,7 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
             },
             onClickChildDMG: function (data) {
                 // data is DMG
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
             },
             onSelectDMG: function (data, id) {
                 // data is DMG
@@ -505,13 +506,13 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                     this.uwtemp[id] = [0, 0, 0, 0]
                     uwforid = this.uwtemp[id]
                 }
-                this.skilldmg = this.skilldmg - uwforid[3]
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = this.debuffdmg - uwforid[3]
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
                 this.uwtemp[id][3] = data
             },
             onClickT5DMG: function (data) {
                 // data is DMG
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
             },
             onSelectUTDMG: function (data, id, utno) {
                 // data is DMG
@@ -531,8 +532,8 @@ $.getJSON("https://raw.githubusercontent.com/kuroganechong/Kiseki/master/src/dat
                     }
                     utforid = this.uttemp[id][utno]
                 }
-                this.skilldmg = this.skilldmg - utforid[3]
-                this.skilldmg = Number(this.skilldmg) + Number(data)
+                this.debuffdmg = this.debuffdmg - utforid[3]
+                this.debuffdmg = Number(this.debuffdmg) + Number(data)
                 this.uttemp[id][utno][3] = data
             },
             calibrate: function () {
